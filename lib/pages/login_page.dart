@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:supply_io/theme/app_theme.dart';
 
 import '../api/api_service.dart';
 import '../model/login_model.dart';
@@ -34,8 +35,23 @@ class _LoginPageState extends State<LoginPage> {
   Widget _uiSetup(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Theme.of(context).accentColor,
-      body: SingleChildScrollView(
+      //backgroundColor: Theme.of(context).accentColor,
+      body: Center(
+        child: Container(
+        decoration: BoxDecoration(
+        gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        stops: [
+        0.5,
+        0.9
+        ],
+        colors: [
+        AppTheme.colors.darkGradient,
+          AppTheme.colors.lightGradient
+        ],
+    )
+    ),
         child: Column(
           children: <Widget>[
             Stack(
@@ -46,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                   margin: EdgeInsets.symmetric(vertical: 85, horizontal: 20),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Theme.of(context).primaryColor,
+                    color: AppTheme.colors.white,
                     boxShadow: [
                       BoxShadow(
                           color: Theme.of(context).hintColor.withOpacity(0.2),
@@ -176,6 +192,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ],
         ),
+      ),
       ),
     );
   }
