@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../theme/app_theme.dart';
 import 'menu_item.dart';
 import 'navigation_bloc.dart';
 
@@ -68,22 +69,36 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  color: const Color(0xFF262AAA),
+                  //color: const Color(0xFF262AAA),
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        stops: [
+                          0.5,
+                          0.9
+                        ],
+                        colors: [
+                          AppTheme.colors.darkGradient,
+                          AppTheme.colors.lightGradient
+                        ],
+                      )
+                  ),
                   child: Column(
                     children: <Widget>[
                       SizedBox(
-                        height: 100,
+                        height: 70,
                       ),
                       ListTile(
                         title: Text(
                           "Prateek",
-                          style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.w800),
+                          style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300),
                         ),
                         subtitle: Text(
-                          "www.techieblossom.com",
+                          "daria-vo@rambler.ru",
                           style: TextStyle(
-                            color: Color(0xFF1BB5FD),
-                            fontSize: 18,
+                            color: AppTheme.colors.white,
+                            fontSize: 14,
                           ),
                         ),
                         leading: CircleAvatar(
@@ -103,7 +118,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                       ),
                       MenuItem(
                         icon: Icons.home,
-                        title: "Home",
+                        title: "Добавить по QE",
                         // onTap: () {
                         //   onIconPressed();
                         //   BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.HomePageClickedEvent);
@@ -111,7 +126,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                       ),
                       MenuItem(
                         icon: Icons.person,
-                        title: "My Account",
+                        title: "Использовать по QR",
                         // onTap: () {
                         //   onIconPressed();
                         //   BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.MyAccountClickedEvent);
@@ -119,15 +134,11 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                       ),
                       MenuItem(
                         icon: Icons.shopping_basket,
-                        title: "My Orders",
+                        title: "В обработке",
                         // onTap: () {
                         //   onIconPressed();
                         //   BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.MyOrdersClickedEvent);
                         // },
-                      ),
-                      MenuItem(
-                        icon: Icons.card_giftcard,
-                        title: "Wishlist", //onTap: SelectionChangedCause.tap,
                       ),
                       Divider(
                         height: 64,
@@ -138,11 +149,11 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                       ),
                       MenuItem(
                         icon: Icons.settings,
-                        title: "Settings", //onTap: null,
+                        title: "Аккаунт", //onTap: null,
                       ),
                       MenuItem(
                         icon: Icons.exit_to_app,
-                        title: "Logout", //onTap: null,
+                        title: "Выйти", //onTap: null,
                       ),
                     ],
                   ),

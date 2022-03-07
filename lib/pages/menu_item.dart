@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/app_theme.dart';
+
 class MenuItem extends StatelessWidget {
   final IconData icon;
   final String title;
@@ -12,20 +14,20 @@ class MenuItem extends StatelessWidget {
     return GestureDetector(
       //onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(10),
         child: Row(
           children: <Widget>[
             Icon(
               icon,
-              color: Colors.cyan,
-              size: 30,
+              color: AppTheme.colors.white,
+              size: 24,
             ),
             SizedBox(
-              width: 20,
+              width: 24,
             ),
             Text(
               title!,
-              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 26, color: Colors.white),
+              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 14, color: AppTheme.colors.white),
             )
           ],
         ),
