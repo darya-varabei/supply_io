@@ -1,10 +1,12 @@
 import 'package:bloc/bloc.dart';
 import '../my_accounts_page.dart';
+import '../scans/main_scanner_page.dart';
 
 enum NavigationEvents {
-  HomePageClickedEvent,
-  MyAccountClickedEvent,
-  MyOrdersClickedEvent,
+  AddOnQRClickedEvent,
+  UseOnQRClickedEvent,
+  InProductionClickedEvent,
+  UserAccountClickedEvent,
 }
 
 abstract class NavigationStates {}
@@ -18,14 +20,17 @@ class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
   @override
   Stream<NavigationStates> mapEventToState(NavigationEvents event) async* {
     switch (event) {
-      case NavigationEvents.HomePageClickedEvent:
-        //yield HomePage();
+      case NavigationEvents.AddOnQRClickedEvent:
+        yield MainPage();
         break;
-      case NavigationEvents.MyAccountClickedEvent:
+      case NavigationEvents.UserAccountClickedEvent:
         yield MyAccountsPage();
         break;
-      case NavigationEvents.MyOrdersClickedEvent:
+      case NavigationEvents.UseOnQRClickedEvent:
        // yield MyOrdersPage();
+        break;
+      case NavigationEvents.InProductionClickedEvent:
+      // yield MyOrdersPage();
         break;
     }
   }

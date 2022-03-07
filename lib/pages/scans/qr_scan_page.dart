@@ -5,6 +5,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 import '../../main.dart';
 import '../../model/supply_model.dart';
+import '../sidebar/navigation_bloc.dart';
 import 'button_widget.dart';
 import 'package:http/http.dart' as http;
 

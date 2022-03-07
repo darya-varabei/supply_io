@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supply_io/pages/scans/qr_scan_page.dart';
+import 'package:supply_io/pages/sidebar/navigation_bloc.dart';
 
 import 'button_widget.dart';
 
-class MainPage extends StatefulWidget {
+class MainPage extends StatefulWidget with NavigationStates {
  // final String title;
 
   // const MainPage({
