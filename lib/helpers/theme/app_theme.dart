@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:supply_io/theme/colors.dart';
+import 'package:supply_io/helpers/theme/colors.dart';
 
 @immutable
 class AppTheme {

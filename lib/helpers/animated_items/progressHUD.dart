@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:supply_io/theme/app_theme.dart';
+import 'package:supply_io/helpers/theme/app_theme.dart';
 
 class ProgressHUD extends StatelessWidget {
 

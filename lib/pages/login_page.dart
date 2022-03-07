@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supply_io/pages/sidebar/sidebar_layout.dart';
-import 'package:supply_io/theme/app_theme.dart';
+import 'package:supply_io/helpers/theme/app_theme.dart';
 
-import '../api/api_service.dart';
+import '../helpers/api/api_service.dart';
 import '../model/login_model.dart';
-import '../progressHUD.dart';
+import '../helpers/animated_items/progressHUD.dart';
 
 class LoginPage extends StatefulWidget {
   @override

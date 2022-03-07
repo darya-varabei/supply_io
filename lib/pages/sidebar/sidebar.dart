@@ -2,10 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:supply_io/my_flutter_app_icons.dart';
+import 'package:supply_io/helpers/my_flutter_app_icons.dart';
 
-import '../../my_flutter_app_icons.dart';
-import '../../theme/app_theme.dart';
+import '../../helpers/my_flutter_app_icons.dart';
+import '../../helpers/theme/app_theme.dart';
 import '../menu_item.dart';
 
 class SideBar extends StatefulWidget {

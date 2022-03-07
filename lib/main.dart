@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supply_io/pages/login_page.dart';
-import 'package:supply_io/theme/app_theme.dart';
+import 'package:supply_io/helpers/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
