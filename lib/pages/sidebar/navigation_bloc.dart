@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'my_accounts_page.dart';
+import '../my_accounts_page.dart';
 
 enum NavigationEvents {
   HomePageClickedEvent,
@@ -11,8 +11,6 @@ abstract class NavigationStates {}
 
 class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
   NavigationBloc(NavigationStates initialState) : super(initialState);
-
-  //NavigationBloc(NavigationStates? initialState) : super(initialState!);
 
   @override
   NavigationStates get initialState => MyAccountsPage();

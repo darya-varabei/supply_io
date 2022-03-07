@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'navigation_bloc.dart';
+import 'sidebar/navigation_bloc.dart';
 
 class MyAccountsPage extends StatelessWidget with NavigationStates {
   @override

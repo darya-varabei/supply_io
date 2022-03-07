@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:supply_io/pages/sidebar.dart';
+import 'package:supply_io/pages/sidebar/sidebar.dart';
 
-import 'my_accounts_page.dart';
+import '../my_accounts_page.dart';
 import 'navigation_bloc.dart';
 
 class SideBarLayout extends StatelessWidget {
@@ -13,7 +13,6 @@ class SideBarLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider<NavigationBloc>(
-        //create: BlocProvider.of<NavigatorBloc>(context).add(NavigatorEventPop());
         create: (context) => NavigationBloc(initialState),
         child: Stack(
           children: <Widget>[

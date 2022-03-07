@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:supply_io/my_flutter_app_icons.dart';
 
-import '../theme/app_theme.dart';
-import 'menu_item.dart';
-import 'navigation_bloc.dart';
+import '../../my_flutter_app_icons.dart';
+import '../../theme/app_theme.dart';
+import '../menu_item.dart';
 
 class SideBar extends StatefulWidget {
   @override
@@ -91,7 +91,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                       ),
                       ListTile(
                         title: Text(
-                          "Prateek",
+                          "Дарья Воробей",
                           style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300),
                         ),
                         subtitle: Text(
@@ -117,15 +117,15 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                         endIndent: 32,
                       ),
                       MenuItem(
-                        icon: Icons.home,
-                        title: "Добавить по QE",
+                        icon: MyFlutterApp.mdi_qrcode_plus,//Icons.home,
+                        title: "Добавить по QR",
                         // onTap: () {
                         //   onIconPressed();
                         //   BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.HomePageClickedEvent);
                         // }, key: null,
                       ),
                       MenuItem(
-                        icon: Icons.person,
+                        icon: MyFlutterApp.mdi_qrcode_minus,
                         title: "Использовать по QR",
                         // onTap: () {
                         //   onIconPressed();
@@ -133,7 +133,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                         // },
                       ),
                       MenuItem(
-                        icon: Icons.shopping_basket,
+                        icon: MyFlutterApp.clarity_process_on_vm_line,
                         title: "В обработке",
                         // onTap: () {
                         //   onIconPressed();
@@ -148,11 +148,11 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                         endIndent: 32,
                       ),
                       MenuItem(
-                        icon: Icons.settings,
+                        icon: MyFlutterApp.codicon_account,
                         title: "Аккаунт", //onTap: null,
                       ),
                       MenuItem(
-                        icon: Icons.exit_to_app,
+                        icon: MyFlutterApp.carbon_logout,
                         title: "Выйти", //onTap: null,
                       ),
                     ],
@@ -170,7 +170,20 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                     child: Container(
                       width: 35,
                       height: 110,
-                      color: Color(0xFF262AAA),
+        decoration: BoxDecoration(
+        gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        stops: [
+        0.5,
+        0.9
+        ],
+        colors: [
+        AppTheme.colors.darkGradient,
+        AppTheme.colors.lightGradient
+        ],
+        )
+        ),
                       alignment: Alignment.centerLeft,
                       child: AnimatedIcon(
                         progress: _animationController.view,

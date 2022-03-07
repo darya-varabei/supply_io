@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Вход в аккаунт',
         debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: "Poppins",
+        fontFamily: "Roboto",
         primaryColor: AppTheme.colors.white,
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           elevation: 0,

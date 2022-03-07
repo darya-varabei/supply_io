@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:supply_io/pages/sidebar_layout.dart';
+import 'package:supply_io/pages/sidebar/sidebar_layout.dart';
 import 'package:supply_io/theme/app_theme.dart';
 
 import '../api/api_service.dart';
@@ -36,7 +36,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget _uiSetup(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      //backgroundColor: Theme.of(context).accentColor,
       body: Center(
         child: Container(
         decoration: BoxDecoration(
