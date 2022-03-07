@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: LoginPage()//const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: LoginPage()
     );
   }
 }
