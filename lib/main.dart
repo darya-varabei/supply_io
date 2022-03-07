@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supply_io/pages/login_page.dart';
+import 'package:supply_io/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,23 +16,23 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: "Poppins",
-        primaryColor: Colors.white,
+        primaryColor: AppTheme.colors.white,
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           elevation: 0,
-          foregroundColor: Colors.white,
+          foregroundColor: AppTheme.colors.white,
         ),
-        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.redAccent),
+        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: AppTheme.colors.darkGradient),
         textTheme: TextTheme(
-          headline1: TextStyle(fontSize: 22.0, color: Colors.redAccent),
+          headline1: TextStyle(fontSize: 22.0, color: AppTheme.colors.darkGradient),
           headline2: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w700,
-            color: Colors.redAccent
+            color: AppTheme.colors.darkGradient
           ),
           bodyText1: TextStyle(
             fontSize: 24.0,
             fontWeight: FontWeight.w400,
-            color: Colors.blueAccent,
+            color: AppTheme.colors.darkGradient,
           ),
         ),
       ),

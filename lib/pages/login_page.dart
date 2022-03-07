@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:supply_io/pages/sidebar_layout.dart';
 import 'package:supply_io/theme/app_theme.dart';
 
 import '../api/api_service.dart';
@@ -76,18 +77,19 @@ class _LoginPageState extends State<LoginPage> {
                       children: <Widget>[
                         SizedBox(height: 25),
                         Text(
-                          "Login",
+                          "SupplyIO",
                           style: Theme.of(context).textTheme.headline2,
+                          //color: AppTheme.colors.darkGradient
                         ),
                         SizedBox(height: 20),
                         new TextFormField(
                           keyboardType: TextInputType.emailAddress,
                           onSaved: (input) => loginRequestModel.email = input,
                           validator: (input) => !input!.contains('@')
-                              ? "Email Id should be valid"
+                              ? "Неверный формат"
                               : null,
                           decoration: new InputDecoration(
-                            hintText: "Email Address",
+                            hintText: "Электронная почта",
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Theme.of(context)
@@ -114,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                               : null,
                           obscureText: hidePassword,
                           decoration: new InputDecoration(
-                            hintText: "Password",
+                            hintText: "Пароль",
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Theme.of(context)
@@ -163,9 +165,14 @@ class _LoginPageState extends State<LoginPage> {
 
                                   if (value.token!.isNotEmpty) {
                                     final snackBar = SnackBar(
-                                        content: Text("Login Successful"));
+                                        content: Text("Вход выполнен успешно"));
                                     scaffoldKey.currentState
                                         ?.showSnackBar(snackBar);
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                      builder: (context) => SideBarLayout(),
+                                ),
+                                    );
                                   } else {
                                     final snackBar =
                                     SnackBar(content: Text(value.error!));
@@ -177,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                             }
                           },
                           child: Text(
-                            "Login",
+                            "SupplyIO",
                             style: TextStyle(color: Colors.white),
                           ),
                           color: Theme.of(context).accentColor,

@@ -6,7 +6,7 @@ class APIService {
   Future<LoginResponseModel> login(LoginRequestModel requestModel) async {
     String url = "https://reqres.in/api/login";
 
-    final response = await http.post(Uri.dataFromString(url), body: requestModel.toJson());
+    final response = await http.post(Uri.parse(url), body: requestModel.toJson());
     if (response.statusCode == 200 || response.statusCode == 400) {
       return LoginResponseModel.fromJson(
         json.decode(response.body),
