@@ -1,11 +1,9 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-
-import '../../main.dart';
 import '../../model/supply_model.dart';
-import '../sidebar/navigation_bloc.dart';
 import 'button_widget.dart';
 import 'package:http/http.dart' as http;
 
@@ -44,9 +42,10 @@ class _QRScanPageState extends State<QRScanPage> {
             ),
           ),
           SizedBox(height: 72),
-          ButtonWidget(
-            text: 'Start QR scan',
-            onClicked: () => scanQRCode(),
+
+          RaisedButton(
+            //text: 'Start QR scan',
+            onPressed: ()  => scanQRCode(),
           ),
         ],
       ),

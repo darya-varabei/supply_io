@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supply_io/pages/scans/qr_scan_page.dart';
@@ -27,12 +28,13 @@ class _MainPageState extends State<MainPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(height: 32),
-          ButtonWidget(
-            text: 'Отсканировать QR код',
-            onClicked: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext context) => QRScanPage(),
-            )),
-          ),
+          QRScanPage(),
+          // ButtonWidget(
+          //   text: 'Отсканировать QR код',
+          //   onClicked: () => Navigator.of(context).push(MaterialPageRoute(
+          //     builder: (BuildContext context) => QRScanPage(),
+          //   )),
+          // ),
         ],
       ),
     ),
