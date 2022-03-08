@@ -4,11 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supply_io/pages/sidebar/sidebar.dart';
 
 import '../my_accounts_page.dart';
+import '../scans/main_scanner_page.dart';
 import 'navigation_bloc.dart';
 
 class SideBarLayout extends StatelessWidget {
   @override
-  NavigationStates get initialState => MyAccountsPage();
+  NavigationStates get initialState => MyApp();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

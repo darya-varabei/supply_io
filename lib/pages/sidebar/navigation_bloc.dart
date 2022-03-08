@@ -21,7 +21,7 @@ class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
   Stream<NavigationStates> mapEventToState(NavigationEvents event) async* {
     switch (event) {
       case NavigationEvents.AddOnQRClickedEvent:
-        yield MainPage();
+        yield MyApp();
         break;
       case NavigationEvents.UserAccountClickedEvent:
         yield MyAccountsPage();

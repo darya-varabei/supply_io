@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import '../../model/supply_model.dart';
-import 'button_widget.dart';
 import 'package:http/http.dart' as http;
 
 class QRScanPage extends StatefulWidget {
