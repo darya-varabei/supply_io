@@ -17,7 +17,6 @@ class _QRScanPageState extends State<QRScanPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-     // title: Text(MyApp.title),
     ),
     body: Center(
       child: Column(
@@ -43,7 +42,6 @@ class _QRScanPageState extends State<QRScanPage> {
           SizedBox(height: 72),
 
           RaisedButton(
-            //text: 'Start QR scan',
             onPressed: ()  => scanQRCode(),
           ),
         ],
