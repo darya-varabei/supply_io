@@ -36,6 +36,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _uiSetup(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: Container(
         decoration: BoxDecoration(
@@ -91,22 +92,21 @@ class _LoginPageState extends State<LoginPage> {
                             hintText: "Электронная почта",
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Theme.of(context)
-                                        .accentColor
+                                    color: AppTheme.colors.darkGradient
                                         .withOpacity(0.2))),
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Theme.of(context).accentColor)),
+                                    color: AppTheme.colors.darkGradient)),
                             prefixIcon: Icon(
                               Icons.email,
-                              color: Theme.of(context).accentColor,
+                              color: AppTheme.colors.darkGradient,
                             ),
                           ),
                         ),
                         SizedBox(height: 20),
                         new TextFormField(
                           style:
-                          TextStyle(color: Theme.of(context).accentColor),
+                          TextStyle(color: AppTheme.colors.darkGradient),
                           keyboardType: TextInputType.text,
                           onSaved: (input) =>
                           loginRequestModel.password = input,
@@ -118,15 +118,14 @@ class _LoginPageState extends State<LoginPage> {
                             hintText: "Пароль",
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Theme.of(context)
-                                        .accentColor
+                                    color: AppTheme.colors.darkGradient
                                         .withOpacity(0.2))),
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Theme.of(context).accentColor)),
+                                    color: AppTheme.colors.darkGradient)),
                             prefixIcon: Icon(
                               Icons.lock,
-                              color: Theme.of(context).accentColor,
+                              color: AppTheme.colors.darkGradient,
                             ),
                             suffixIcon: IconButton(
                               onPressed: () {
@@ -134,8 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                                   hidePassword = !hidePassword;
                                 });
                               },
-                              color: Theme.of(context)
-                                  .accentColor
+                              color: AppTheme.colors.darkGradient
                                   .withOpacity(0.4),
                               icon: Icon(hidePassword
                                   ? Icons.visibility_off
@@ -183,10 +181,10 @@ class _LoginPageState extends State<LoginPage> {
                             }
                           },
                           child: Text(
-                            "SupplyIO",
+                            "Войти",
                             style: TextStyle(color: Colors.white),
                           ),
-                          color: Theme.of(context).accentColor,
+                          color: AppTheme.colors.blue,
                           shape: StadiumBorder(),
                         ),
                         SizedBox(height: 15),

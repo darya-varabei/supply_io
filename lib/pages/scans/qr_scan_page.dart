@@ -69,6 +69,8 @@ class _QRScanPageState extends State<QRScanPage> {
       qrCode = 'Failed to get platform version.';
     }
   }
+
+
 }
 
 Future<SupplyLinkModel?> createUser(String url) async {

@@ -180,7 +180,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
         ],
         colors: [
         AppTheme.colors.darkGradient,
-        AppTheme.colors.lightGradient
+        AppTheme.colors.darkGradient
         ],
         )
         ),
@@ -188,7 +188,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                       child: AnimatedIcon(
                         progress: _animationController.view,
                         icon: AnimatedIcons.menu_close,
-                        color: Color(0xFF1BB5FD),
+                        color: AppTheme.colors.white,
                         size: 25,
                       ),
                     ),
