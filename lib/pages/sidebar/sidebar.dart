@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:supply_io/helpers/my_flutter_app_icons.dart';
@@ -7,6 +8,7 @@ import 'package:supply_io/helpers/my_flutter_app_icons.dart';
 import '../../helpers/my_flutter_app_icons.dart';
 import '../../helpers/theme/app_theme.dart';
 import '../menu_item.dart';
+import 'navigation_bloc.dart';
 
 class SideBar extends StatefulWidget {
   @override
@@ -119,26 +121,26 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                       MenuItem(
                         icon: MyFlutterApp.mdi_qrcode_plus,//Icons.home,
                         title: "Добавить по QR",
-                        // onTap: () {
-                        //   onIconPressed();
-                        //   BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.HomePageClickedEvent);
-                        // }, key: null,
+                        onTap: () {
+                          onIconPressed();
+                          BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.AddOnQRClickedEvent);
+                        }, key: null,
                       ),
                       MenuItem(
                         icon: MyFlutterApp.mdi_qrcode_minus,
                         title: "Использовать по QR",
-                        // onTap: () {
-                        //   onIconPressed();
-                        //   BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.MyAccountClickedEvent);
-                        // },
+                        onTap: () {
+                          onIconPressed();
+                          BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.UseOnQRClickedEvent);
+                        },
                       ),
                       MenuItem(
                         icon: MyFlutterApp.clarity_process_on_vm_line,
                         title: "В обработке",
-                        // onTap: () {
-                        //   onIconPressed();
-                        //   BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.MyOrdersClickedEvent);
-                        // },
+                        onTap: () {
+                          onIconPressed();
+                          BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.InProductionClickedEvent);
+                        },
                       ),
                       Divider(
                         height: 64,
@@ -149,11 +151,19 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                       ),
                       MenuItem(
                         icon: MyFlutterApp.codicon_account,
-                        title: "Аккаунт", //onTap: null,
+                        title: "Аккаунт",
+                        onTap: () {
+                          onIconPressed();
+                          BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.UserAccountClickedEvent);
+                        },
                       ),
                       MenuItem(
                         icon: MyFlutterApp.carbon_logout,
-                        title: "Выйти", //onTap: null,
+                        title: "Выйти",
+                        onTap: () {
+                          onIconPressed();
+                          BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.UserAccountClickedEvent);
+                        },
                       ),
                     ],
                   ),

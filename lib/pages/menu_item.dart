@@ -5,9 +5,9 @@ import '../helpers/theme/app_theme.dart';
 class MenuItem extends StatelessWidget {
   final IconData icon;
   final String title;
-  //final Function onTap;
+  final Function? onTap;
 
-  const MenuItem({Key? key, required this.icon, required this.title}) : super(key: key);
+  const MenuItem({Key? key, required this.icon, required this.title, required this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

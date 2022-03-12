@@ -9,7 +9,7 @@ import 'navigation_bloc.dart';
 
 class SideBarLayout extends StatelessWidget {
   @override
-  NavigationStates get initialState => MyApp();
+  NavigationStates get initialState => MyAccountsPage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

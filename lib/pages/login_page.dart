@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supply_io/pages/sidebar/sidebar_layout.dart';
@@ -6,6 +8,8 @@ import 'package:supply_io/helpers/theme/app_theme.dart';
 import '../helpers/api/api_service.dart';
 import '../model/login_model.dart';
 import '../helpers/animated_items/progressHUD.dart';
+import '../model/user_model.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,11 +17,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  UserData userData = new UserData();
+
+
   bool hidePassword = true;
   bool isApiCallProcess = false;
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   late LoginRequestModel loginRequestModel;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final snackBar = SnackBar(content: Text("Ошибка ввода"));
   @override
   void initState() {
     super.initState();
@@ -146,6 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                           padding: EdgeInsets.symmetric(
                               vertical: 20, horizontal: 80),
                           onPressed: () {
+                            //this.submit();
                             if (validateAndSave()) {
                               print(loginRequestModel.toJson());
 
@@ -161,10 +171,10 @@ class _LoginPageState extends State<LoginPage> {
                                   });
 
                                   if (value.token!.isNotEmpty) {
-                                    final snackBar = SnackBar(
+                                    final snackBar1 = SnackBar(
                                         content: Text("Вход выполнен успешно"));
                                     scaffoldKey.currentState
-                                        ?.showSnackBar(snackBar);
+                                        ?.showSnackBar(snackBar1);
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                       builder: (context) => SideBarLayout(),
@@ -208,5 +218,35 @@ class _LoginPageState extends State<LoginPage> {
       return true;
     }
     return false;
+  }
+
+  void submit() {
+    if (this._formKey.currentState!.validate()) {
+      _formKey.currentState?.save();
+      login();
+    }
+  }
+
+  void login() async {
+    final url = 'http://192.168.43.34:4000/users/authenticate';
+    await http.post(Uri.parse(url), body: {'username': userData.email, 'password': base64Encode(userData.password.codeUnits)})
+        .then((response) {
+      Map<String, dynamic> responseMap = json.decode(response.body);
+      if(response.statusCode == 200) {
+        userData.addData(responseMap);
+        Navigator.push(
+          context,
+          MaterialPageRoute( builder: (context) => SideBarLayout(),),
+        );
+      }
+      else {
+        if(responseMap.containsKey("message"))
+        scaffoldKey.currentState
+            ?.showSnackBar(snackBar);
+      }
+    }).catchError((err) {
+      scaffoldKey.currentState
+          ?.showSnackBar(snackBar);
+      });
   }
 }
