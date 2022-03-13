@@ -5,9 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
 import 'package:supply_io/pages/scans/qr_scan_page.dart';
-import 'package:supply_io/pages/sidebar/navigation_bloc.dart';
+import '../sidebar_new/navigation_drawer.dart';
 
-class MyApp extends StatelessWidget with NavigationStates {
+class MyApp extends StatelessWidget {// with NavigationStates {
   static final String title = 'QR Code Scanner';
 
   @override
@@ -32,6 +32,7 @@ class _MainPageState extends State<MainPage> {
   String qrCode = 'Unknown';
   @override
   Widget build(BuildContext context) => Scaffold(
+    drawer: const NavigationDrawer(),
     appBar: AppBar(
       backgroundColor: AppTheme.colors.darkGradient,
     ),

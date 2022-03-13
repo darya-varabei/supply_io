@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:supply_io/pages/sidebar/sidebar_layout.dart';
+import 'package:supply_io/pages/scans/main_scanner_page.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
+import 'package:supply_io/pages/sidebar_new/main_page.dart';
 
 import '../helpers/api/api_service.dart';
 import '../model/login_model.dart';
@@ -93,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(height: 20),
                         new TextFormField(
                           keyboardType: TextInputType.emailAddress,
-                          onSaved: (input) => loginRequestModel.email = input,
+                          onSaved: (input) => loginRequestModel.email = "eve.holt@reqres.in",//input,
                           validator: (input) => !input!.contains('@')
                               ? "Неверный формат"
                               : null,
@@ -118,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                           TextStyle(color: AppTheme.colors.darkGradient),
                           keyboardType: TextInputType.text,
                           onSaved: (input) =>
-                          loginRequestModel.password = input,
+                          loginRequestModel.password = "cityslika",//input,
                           validator: (input) => input!.length < 3
                               ? "Password should be more than 3 characters"
                               : null,
@@ -177,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
                                         ?.showSnackBar(snackBar1);
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
-                                      builder: (context) => SideBarLayout(),
+                                      builder: (context) => MainPage(),
                                 ),
                                     );
                                   } else {
@@ -234,10 +235,10 @@ class _LoginPageState extends State<LoginPage> {
       Map<String, dynamic> responseMap = json.decode(response.body);
       if(response.statusCode == 200) {
         userData.addData(responseMap);
-        Navigator.push(
-          context,
-          MaterialPageRoute( builder: (context) => SideBarLayout(),),
-        );
+        // Navigator.push(
+        //   context,
+          //MaterialPageRoute( builder: (context) => SideBarLayout(),),
+        // );
       }
       else {
         if(responseMap.containsKey("message"))
