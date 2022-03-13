@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supply_io/pages/scans/main_scanner_page.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
-import 'package:supply_io/pages/sidebar_new/main_page.dart';
 
 import '../helpers/api/api_service.dart';
 import '../model/login_model.dart';
