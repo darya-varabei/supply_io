@@ -7,21 +7,6 @@ import 'package:supply_io/helpers/theme/app_theme.dart';
 import 'package:supply_io/pages/scans/qr_scan_page.dart';
 import '../sidebar_new/navigation_drawer.dart';
 
-class MyApp extends StatelessWidget {
-  static final String title = 'QR Code Scanner';
-
-  @override
-  Widget build(BuildContext context) => MaterialApp(
-    debugShowCheckedModeBanner: false,
-    title: title,
-    theme: ThemeData(
-      primaryColor: Colors.red,
-      scaffoldBackgroundColor: Colors.white,
-    ),
-    home: MainPage(),
-  );
-}
-
 class MainPage extends StatefulWidget {
 
   @override
