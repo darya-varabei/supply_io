@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../helpers/theme/app_theme.dart';
 import '../scans/main_scanner_page.dart';
+import '../scans/use_scan_page.dart';
 import 'drawer_item.dart';
 
 class NavigationDrawer extends StatelessWidget {
@@ -98,6 +99,9 @@ class NavigationDrawer extends StatelessWidget {
     switch(index){
       case 0:
         Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));
+        break;
+      case 1:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => UseRollPage()));
         break;
     }
   }

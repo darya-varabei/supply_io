@@ -38,19 +38,6 @@ class _MainPageState extends State<MainPage> {
       padding: EdgeInsets.fromLTRB(20, 20, 20, 120),
         child: Text('Для регистрации рулона нажмите кнопку "Сканировать" и наведите на QR код на этикетке рулона или сертификате. В случае получения результата в виде списка рулонов, выберите необходимый по идентификатору на этикетке и продолжите работу. ',
             style: TextStyle(fontSize: 14))),
-          // TextButton(
-          //   onPressed: () => scanQRCode(),
-          //   child: Text('  Сканировать  '),
-          //     style: ButtonStyle(
-          //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          //             RoundedRectangleBorder(
-          //                 borderRadius: BorderRadius.circular(15.0),
-          //                 side: BorderSide(color: AppTheme.colors.darkGradient)
-          //             )
-          //         )
-          //     )
-          // ),
-          // const SizedBox(height: 32),
 
           FlatButton(
             padding: EdgeInsets.symmetric(
