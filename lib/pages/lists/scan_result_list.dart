@@ -15,6 +15,7 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
   late Package selectedPackage;
   Color buttonColor = AppTheme.colors.grey;
   int _selectedIndex = -1;
+
   @override
   Widget build(BuildContext context) => Scaffold(
       drawer: const NavigationDrawer(),
@@ -22,7 +23,7 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
         backgroundColor: AppTheme.colors.darkGradient,
       ),
       body: Container(
-        padding: EdgeInsets.all(40),
+        padding: EdgeInsets.fromLTRB(40, 20, 40, 40),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -35,42 +36,38 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
                     child: Row(children: <Widget>[
                       IconButton(
                         icon: const Icon(Icons.arrow_back),
-                        onPressed: () {
-                        },
+                        onPressed: () {},
                       ),
-                      SizedBox(width: 30),
-                  SizedBox(
-                    width: 190,
-                    child:
-                      Text(
-                        "Сертификат № 257165765",
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                            fontSize: 28,
-                            color: AppTheme.colors.darkGradient,
-                            fontWeight: FontWeight.w400),
+                      Spacer(),
+                      SizedBox(
+                        width: 190,
+                        child: Text(
+                          "Сертификат № 257165765",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                              fontSize: 28,
+                              color: AppTheme.colors.darkGradient,
+                              fontWeight: FontWeight.w400),
+                        ),
                       ),
-                  ),
                     ]),
                   )),
+              SizedBox(height: 20),
               Flexible(
                   flex: 6,
                   child: ListView.builder(
                       itemCount: 5,
                       itemBuilder: (context, position) {
-
                         return Card(
                           margin: const EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 2.0),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
-
                           ),
                           child: Padding(
                               padding: const EdgeInsets.all(1.0),
                               child: ListTile(
-                                onTap: () {
-                                },
+                                onTap: () {},
                                 title: Text("Кусь"),
                                 trailing: Icon(
                                   Icons.arrow_forward,
