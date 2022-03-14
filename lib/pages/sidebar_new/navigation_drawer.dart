@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../helpers/theme/app_theme.dart';
+import '../lists/production_table_widget.dart';
+import '../lists/scan_result_list.dart';
 import '../scans/main_scanner_page.dart';
 import '../scans/use_scan_page.dart';
 import 'drawer_item.dart';
@@ -103,6 +105,11 @@ class NavigationDrawer extends StatelessWidget {
       case 1:
         Navigator.push(context, MaterialPageRoute(builder: (context) => UseRollPage()));
         break;
+      case 2:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ScanResultListPage()));
+        break;
+      case 3:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductionTableWidget()));
     }
   }
 

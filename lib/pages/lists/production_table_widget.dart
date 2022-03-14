@@ -1,16 +1,18 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:supply_io/model/supply/package_model.dart';
 
 import '../../helpers/theme/app_theme.dart';
-import '../../model/supply/package_model.dart';
 import '../sidebar_new/navigation_drawer.dart';
 
-class ScanResultListPage extends StatefulWidget {
+class ProductionTableWidget extends StatefulWidget {
   @override
-  _ScanResultListPageState createState() => _ScanResultListPageState();
+  State createState() => new ProductionTableWidgetState();
 }
 
-class _ScanResultListPageState extends State<ScanResultListPage> {
+class ProductionTableWidgetState extends State<ProductionTableWidget> {
   bool isSelected = false;
   late Package selectedPackage;
   Color buttonColor = AppTheme.colors.grey;
@@ -29,28 +31,15 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
               Flexible(
                   flex: 1,
                   child: Container(
-                    width: MediaQuery.of(context).size.width - 80,
-                    height: double.infinity,
                     alignment: Alignment.centerRight,
-                    child: Row(children: <Widget>[
-                      IconButton(
-                        icon: const Icon(Icons.arrow_back),
-                        onPressed: () {
-                        },
-                      ),
-                      SizedBox(width: 30),
-                  SizedBox(
-                    width: 190,
-                    child:
+                    child: Column(children: <Widget>[
                       Text(
-                        "Сертификат № 257165765",
-                        textAlign: TextAlign.right,
+                        "В обработке",
                         style: TextStyle(
                             fontSize: 28,
                             color: AppTheme.colors.darkGradient,
                             fontWeight: FontWeight.w400),
                       ),
-                  ),
                     ]),
                   )),
               Flexible(
@@ -70,6 +59,14 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
                               padding: const EdgeInsets.all(1.0),
                               child: ListTile(
                                 onTap: () {
+                                  if (isSelected == true) {
+                                  isSelected = false;
+                                  actOnCellTap(AppTheme.colors.red);
+                                  }
+                                  else {
+                                    isSelected = true;
+                                    actOnCellTap(AppTheme.colors.grey);
+                                  }
                                 },
                                 title: Text("Кусь"),
                                 trailing: Icon(
@@ -80,6 +77,31 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
                               )),
                         );
                       })),
+              Flexible(
+                  flex: 2,
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                    child: Column(children: <Widget>[
+                      FlatButton(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 13, horizontal: 26),
+                        onPressed: () {},
+                        child: Text(
+                          "Сообщить о дефекте",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        color: buttonColor,//isSelected ? AppTheme.colors.blue : AppTheme.colors.grey,
+                        shape: StadiumBorder(),
+                      ),
+                    ]),
+                  )),
             ]),
       ));
+
+  void actOnCellTap(Color newColor) {
+    setState(() {
+      buttonColor = newColor;
+    });
+  }
 }
+

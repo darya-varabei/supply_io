@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:supply_io/pages/sidebar_new/navigation_drawer.dart';
 
-class MyAccountsPage extends StatelessWidget {//}with NavigationStates {
+class MyAccountsPage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return //Scaffold(
@@ -12,6 +13,6 @@ class MyAccountsPage extends StatelessWidget {//}with NavigationStates {
         style: TextStyle(fontWeight: FontWeight.w900, fontSize: 28),
       ),
     );
-      //  )
+    //  )
   }
 }
