@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:supply_io/pages/scans/add/package_parameters.dart';
 
 import '../../helpers/theme/app_theme.dart';
 import '../lists/production_table_widget.dart';
 import '../lists/scan_result_list.dart';
-import '../scans/main_scanner_page.dart';
+import '../scans/add/main_scanner_page.dart';
 import '../scans/use_scan_page.dart';
 import 'drawer_item.dart';
 
@@ -100,7 +101,7 @@ class NavigationDrawer extends StatelessWidget {
 
     switch(index){
       case 0:
-        Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => PackageParametersPage()));//MainPage()));
         break;
       case 1:
         Navigator.push(context, MaterialPageRoute(builder: (context) => UseRollPage()));

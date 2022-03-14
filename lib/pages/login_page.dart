@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:supply_io/pages/scans/main_scanner_page.dart';
+import 'package:supply_io/pages/scans/add/main_scanner_page.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
 
 import '../helpers/api/api_service.dart';

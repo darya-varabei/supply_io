@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
+import 'package:supply_io/pages/scans/add/package_parameters.dart';
 import 'package:supply_io/pages/scans/qr_scan_page.dart';
-import '../sidebar_new/navigation_drawer.dart';
+import '../../sidebar_new/navigation_drawer.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -69,6 +70,7 @@ class _MainPageState extends State<MainPage> {
       if (!mounted) return;
 
       setState(() {
+        PackageParametersPage();
         this.qrCode = qrCode;
         createUser(qrCode);
       });
