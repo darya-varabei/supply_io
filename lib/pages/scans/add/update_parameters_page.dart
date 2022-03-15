@@ -24,7 +24,8 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
               width: MediaQuery.of(context).size.width - 80,
               height: double.infinity,
               alignment: Alignment.centerRight,
-              child: Row(children: <Widget>[
+              child: Row(
+                  children: <Widget>[
                 IconButton(
                   icon: const Icon(Icons.arrow_back),
                   onPressed: () {},
@@ -58,5 +59,118 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                 ),
               ]),
             )),
+            Flexible(
+              flex: 1,
+              child: Container(
+                padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                child: Row(children: <Widget>[
+                  Text(
+                    "Марка стали",
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: AppTheme.colors.darkGradient,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Spacer(),
+                   TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+                        hintText: '',
+                      ),
+                    ),
+                ]),
+              ),
+            ),
+            Flexible(
+              flex: 1,
+              child: Container(
+                padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                child: Row(children: <Widget>[
+                  Text(
+                    "Масса",
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: AppTheme.colors.darkGradient,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Spacer(),
+                  TextField(
+                    keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+                        hintText: '',
+                      ),
+                    ),
+                ]),
+              ),
+            ),
+            Flexible(
+              flex: 1,
+              child: Container(
+                padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                child: Row(children: <Widget>[
+                  Text(
+                    "Толщина",
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: AppTheme.colors.darkGradient,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Spacer(),
+                  TextField(
+                    keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+                        hintText: '',
+                      ),
+                    ),
+                ]),
+              ),
+            ),
+            Flexible(
+              flex: 1,
+              child: Container(
+                padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                child: Row(children: <Widget>[
+                  Text(
+                    "Ширина",
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: AppTheme.colors.darkGradient,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Spacer(),
+                    TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+                        hintText: '',
+                      ),
+                    ),
+                ]),
+              ),
+            ),
+            Flexible(
+                flex: 2,
+                child: Container(
+                  padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                  child: Column(children: <Widget>[
+                    FlatButton(
+                      padding:
+                      EdgeInsets.symmetric(vertical: 13, horizontal: 26),
+                      onPressed: () {},
+                      child: Text(
+                        "Сохранить",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      color: AppTheme.colors.blue,//isSelected ? AppTheme.colors.blue : AppTheme.colors.grey,
+                      shape: StadiumBorder(),
+                    ),
+                  ]),
+                )),
       ])));
 }
