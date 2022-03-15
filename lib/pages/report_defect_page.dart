@@ -1,5 +1,9 @@
+
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:supply_io/pages/sidebar_new/navigation_drawer.dart';
 
 import '../helpers/theme/app_theme.dart';
@@ -10,6 +14,8 @@ class ReportdDefectPage extends StatefulWidget {
 }
 
 class _ReportdDefectPageState extends State<ReportdDefectPage> {
+  late File _image;
+
   @override
   Widget build(BuildContext context) => Scaffold(
         drawer: const NavigationDrawer(),
@@ -104,7 +110,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                     alignment: Alignment.centerLeft,
                     child: Column(children: <Widget>[
                       RaisedButton.icon(
-                        onPressed: () {},
+                        onPressed: () { getImage(); },
                         shape: RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0))),
@@ -120,8 +126,20 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                         splashColor: AppTheme.colors.blue,
                         color: AppTheme.colors.white,
                       ),
-                    ])))
+                    ]))),
+            Flexible(
+              flex: 1,
+              child: _image == null ? new Text("No image selected") : new Image.file(_image),
+            )
           ]),
         ),
       );
+
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      _image = image;
+    });
+  }
 }

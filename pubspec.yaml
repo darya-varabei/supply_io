@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.4
   http: ^0.13.4
   flutter_barcode_scanner: ^2.0.0
+  path_provider: ^0.4.1
+  image_picker: ^0.4.4
 
   # create QR Code
   barcode_widget: ^2.0.2
