@@ -6,9 +6,9 @@ import 'package:supply_io/pages/scans/add/main_scanner_page.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
 
 import '../../helpers/api/api_service.dart';
-import '../../model/login_model.dart';
+import '../../model/user/login_model.dart';
 import '../../helpers/animated_items/progressHUD.dart';
-import '../../model/user_model.dart';
+import '../../model/user/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
