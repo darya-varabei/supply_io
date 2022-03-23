@@ -72,6 +72,8 @@ class _MainPageState extends State<MainPage> {
       setState(() {
         PackageParametersPage();
         this.qrCode = qrCode;
+        print("%%%%%%%%%%%%%%%%%%%%%%%");
+        print(this.qrCode);
         createUser(qrCode);
       });
     } on PlatformException {

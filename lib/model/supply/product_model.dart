@@ -4,9 +4,17 @@ class Product {
   final int? labeling;
   final int? code;
 
-  Product(
-      this.productId,
-      this.name,
+  Product({
+      required this.productId,
+      required this.name,
       this.labeling,
-      this.code);
+      this.code});
+
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+        productId: json['productId'],
+        name: json['name'],
+        labeling: json['labeling'],
+        code: json['code']);
+  }
 }

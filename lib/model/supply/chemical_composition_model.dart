@@ -19,15 +19,15 @@ class ChemicalCompositionModel{
   final double? cev;
   final double? notes;
 
-  ChemicalCompositionModel(
-      this.chemicalCompositionId,
+  ChemicalCompositionModel({
+      required this.chemicalCompositionId,
       this.c,
       this.mn,
       this.si,
       this.s,
       this.p,
       this.cr,
-      this.ni,
+      required this.ni,
       this.cu,
       this.as,
       this.n2,
@@ -39,5 +39,30 @@ class ChemicalCompositionModel{
       this.alWuthN2,
       this.cev,
       this.notes
+}
 );
+
+  factory ChemicalCompositionModel.fromJson(Map<String, dynamic> json) {
+    return ChemicalCompositionModel(
+        chemicalCompositionId: json['chemicalCompositionId'],
+        c: json['c'],
+        mn: json['mn'],
+        si: json['si'],
+        s: json['s'],
+        p: json['p'],
+        cr: json['cr'],
+        ni: json['ni'],
+        cu: json['cu'],
+        as: json['as'],
+        n2: json['n2'],
+        al: json['al'],
+        ti: json['ti'],
+        mo: json['mo'],
+        w: json['w'],
+        v: json['v'],
+        alWuthN2: json['alWuthN2'],
+        cev: json['cev'],
+      notes: json['notes']
+    );
+  }
 }

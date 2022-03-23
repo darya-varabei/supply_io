@@ -136,10 +136,11 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
       );
 
   Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    ImagePicker picker = new ImagePicker();
+    var image = await picker.pickImage(source: ImageSource.camera);
 
     setState(() {
-      _image = image;
+      _image = image as File;
     });
   }
 }
