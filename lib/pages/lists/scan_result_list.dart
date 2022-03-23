@@ -2,12 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../helpers/theme/app_theme.dart';
+import '../../model/supply/certificate_model.dart';
 import '../../model/supply/package_model.dart';
 import '../sidebar_new/navigation_drawer.dart';
 
 class ScanResultListPage extends StatefulWidget {
+  Certificate result;
+  ScanResultListPage(this.result);
   @override
-  _ScanResultListPageState createState() => _ScanResultListPageState();
+  _ScanResultListPageState createState() => _ScanResultListPageState(result: result);
 }
 
 class _ScanResultListPageState extends State<ScanResultListPage> {
@@ -15,7 +18,8 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
   late Package selectedPackage;
   Color buttonColor = AppTheme.colors.grey;
   int _selectedIndex = -1;
-
+  Certificate result;
+  _ScanResultListPageState({required this.result});
   @override
   Widget build(BuildContext context) => Scaffold(
       drawer: const NavigationDrawer(),
@@ -42,7 +46,7 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
                       SizedBox(
                         width: 190,
                         child: Text(
-                          "Сертификат № 257165765",
+                          "Сертификат № ${result.certificateId}",
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontSize: 28,
@@ -68,7 +72,7 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
                               padding: const EdgeInsets.all(1.0),
                               child: ListTile(
                                 onTap: () {},
-                                title: Text("Кусь"),
+                                title: Text("${result.packages[position].packageId}"),
                                 trailing: Icon(
                                   Icons.arrow_forward,
                                   color: AppTheme.colors.darkGradient,

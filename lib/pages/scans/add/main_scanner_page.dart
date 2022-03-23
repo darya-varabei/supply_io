@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
+import 'package:supply_io/model/supply/certificate_model.dart';
 import 'package:supply_io/pages/scans/add/package_parameters.dart';
 import 'package:supply_io/pages/scans/qr_scan_page.dart';
+import '../../lists/scan_result_list.dart';
 import '../../sidebar_new/navigation_drawer.dart';
 
 class MainPage extends StatefulWidget {
@@ -70,11 +72,13 @@ class _MainPageState extends State<MainPage> {
       if (!mounted) return;
 
       setState(() {
-        PackageParametersPage();
         this.qrCode = qrCode;
         print("%%%%%%%%%%%%%%%%%%%%%%%");
         print(this.qrCode);
-        createUser(qrCode);
+        Future<Certificate?> future = createUser(qrCode);
+        future.then((result) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ScanResultListPage(result!)));
+        });
       });
     } on PlatformException {
       qrCode = 'Failed to get platform version.';

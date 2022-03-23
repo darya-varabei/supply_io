@@ -2,14 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../helpers/theme/app_theme.dart';
+import '../../../model/supply/certificate_model.dart';
 import '../../sidebar_new/navigation_drawer.dart';
 
 class PackageParametersPage extends StatefulWidget {
+
+  Certificate result;
+  PackageParametersPage(this.result);
   @override
-  _PackageParametersPageState createState() => _PackageParametersPageState();
+  _PackageParametersPageState createState() => _PackageParametersPageState(result: result);
 }
 
 class _PackageParametersPageState extends State<PackageParametersPage> {
+  Certificate result;
+  _PackageParametersPageState({required this.result});
   @override
   Widget build(BuildContext context) => Scaffold(
       drawer: const NavigationDrawer(),
@@ -33,7 +39,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                 SizedBox(
                   width: 190,
                   child: Text(
-                    "Сертификат № 257165765",
+                    "Сертификат № ${result.certificateId}",
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: 16,

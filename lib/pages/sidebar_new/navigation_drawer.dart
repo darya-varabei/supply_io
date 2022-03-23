@@ -101,13 +101,13 @@ class NavigationDrawer extends StatelessWidget {
 
     switch(index){
       case 0:
-        Navigator.push(context, MaterialPageRoute(builder: (context) => PackageParametersPage()));//MainPage()));
+        //Navigator.push(context, MaterialPageRoute(builder: (context) => PackageParametersPage()));//MainPage()));
         break;
       case 1:
         Navigator.push(context, MaterialPageRoute(builder: (context) => UseRollPage()));
         break;
       case 2:
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ScanResultListPage()));
+        //Navigator.push(context, MaterialPageRoute(builder: (context) => ScanResultListPage()));
         break;
       case 3:
         Navigator.push(context, MaterialPageRoute(builder: (context) => ProductionTableWidget()));
