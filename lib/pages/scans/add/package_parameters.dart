@@ -3,19 +3,22 @@ import 'package:flutter/material.dart';
 
 import '../../../helpers/theme/app_theme.dart';
 import '../../../model/supply/certificate_model.dart';
+import '../../../model/supply/package_model.dart';
 import '../../sidebar_new/navigation_drawer.dart';
 
 class PackageParametersPage extends StatefulWidget {
 
-  Certificate result;
-  PackageParametersPage(this.result);
+  Package result;
+  int certificateId;
+  PackageParametersPage(this.result, this.certificateId);
   @override
-  _PackageParametersPageState createState() => _PackageParametersPageState(result: result);
+  _PackageParametersPageState createState() => _PackageParametersPageState(result: result, certificateId: certificateId);
 }
 
 class _PackageParametersPageState extends State<PackageParametersPage> {
-  Certificate result;
-  _PackageParametersPageState({required this.result});
+  Package result;
+  int certificateId;
+  _PackageParametersPageState({required this.result, required this.certificateId});
   @override
   Widget build(BuildContext context) => Scaffold(
       drawer: const NavigationDrawer(),
@@ -39,7 +42,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                 SizedBox(
                   width: 190,
                   child: Text(
-                    "Сертификат № ${result.certificateId}",
+                    "Сертификат № ${certificateId}",
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: 16,
@@ -56,7 +59,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               alignment: Alignment.centerRight,
               child: Column(children: <Widget>[
                 Text(
-                  "56578",
+                  "${result.batch}",
                   style: TextStyle(
                       fontSize: 24,
                       color: AppTheme.colors.darkGradient,
@@ -79,7 +82,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ),
               Spacer(),
               Text(
-                "08Ю",
+                "${result.grade}",
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     fontSize: 16,
@@ -129,7 +132,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ),
               Spacer(),
               Text(
-                "1.2 мм",
+                "${result.size.thickness}",
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     fontSize: 16,
@@ -154,7 +157,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ),
               Spacer(),
               Text(
-                "1230мм",
+                "${result.size.width}",
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     fontSize: 16,
@@ -179,7 +182,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ),
               Spacer(),
               Text(
-                "4567 кг",
+                "${result.weight.gross}",
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     fontSize: 16,
@@ -204,7 +207,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ),
               Spacer(),
               Text(
-                "4466 кг",
+                "${result.weight.net}",
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     fontSize: 16,
@@ -221,7 +224,9 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               child: Column(children: <Widget>[
                 FlatButton(
                   padding: EdgeInsets.symmetric(vertical: 13, horizontal: 26),
-                  onPressed: () {},
+                  onPressed: () {
+
+                  },
                   child: Text(
                     "Внести изменения",
                     style: TextStyle(color: AppTheme.colors.blue),

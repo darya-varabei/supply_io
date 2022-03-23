@@ -1,15 +1,47 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:supply_io/pages/scans/add/package_parameters.dart';
 
 import '../../../helpers/theme/app_theme.dart';
+import '../../../model/supply/package_model.dart';
 import '../../sidebar_new/navigation_drawer.dart';
 
 class UpdateParametersPage extends StatefulWidget {
   @override
-  _UpdateParametersPageState createState() => _UpdateParametersPageState();
+  Package result;
+  int certificateId;
+  UpdateParametersPage(this.result, this.certificateId);
+  _UpdateParametersPageState createState() => _UpdateParametersPageState(result: result, certificateId: certificateId);
 }
 
 class _UpdateParametersPageState extends State<UpdateParametersPage> {
+  Package result;
+  int certificateId;
+  _UpdateParametersPageState({required this.result, required this.certificateId});
+
+  final gradeController = TextEditingController();
+  final weightController = TextEditingController();
+  final thicknessController = TextEditingController();
+  final widthController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    gradeController.dispose();
+    weightController.dispose();
+    thicknessController.dispose();
+    widthController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void onWidgetBuild() {
+    gradeController.text = result.grade!;
+    weightController.text = "${result.weight.gross!}";
+    thicknessController.text = "${result.size.thickness!}";
+    widthController.text = "${result.size.width!}";
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
       drawer: const NavigationDrawer(),
@@ -28,13 +60,15 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                   children: <Widget>[
                 IconButton(
                   icon: const Icon(Icons.arrow_back),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PackageParametersPage(result, certificateId)));
+                  },
                 ),
                 Spacer(),
                 SizedBox(
                   width: 190,
                   child: Text(
-                    "Сертификат № 257165765",
+                    "Сертификат № ${certificateId}",
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: 16,
@@ -51,7 +85,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
               alignment: Alignment.centerRight,
               child: Column(children: <Widget>[
                 Text(
-                  "56578",
+                  "${result.batch}",
                   style: TextStyle(
                       fontSize: 24,
                       color: AppTheme.colors.darkGradient,
@@ -74,6 +108,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                   ),
                   Spacer(),
                    TextField(
+                     controller: gradeController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
                         hintText: '',
@@ -97,6 +132,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                   ),
                   Spacer(),
                   TextField(
+                    controller: weightController,
                     keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
@@ -121,6 +157,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                   ),
                   Spacer(),
                   TextField(
+                    controller: thicknessController,
                     keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
@@ -145,6 +182,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                   ),
                   Spacer(),
                     TextField(
+                      controller: widthController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
