@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../helpers/theme/app_theme.dart';
 import '../../model/supply/certificate_model.dart';
 import '../../model/supply/package_model.dart';
+import '../scans/add/package_parameters.dart';
 import '../sidebar_new/navigation_drawer.dart';
 
 class ScanResultListPage extends StatefulWidget {
@@ -60,7 +61,7 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
               Flexible(
                   flex: 6,
                   child: ListView.builder(
-                      itemCount: 5,
+                      itemCount: result.packages.length,
                       itemBuilder: (context, position) {
                         return Card(
                           margin: const EdgeInsets.symmetric(
@@ -71,7 +72,9 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
                           child: Padding(
                               padding: const EdgeInsets.all(1.0),
                               child: ListTile(
-                                onTap: () {},
+                                onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                                    PackageParametersPage(result.packages[position], result.certificateId)));
+                                  },
                                 title: Text("${result.packages[position].packageId}"),
                                 trailing: Icon(
                                   Icons.arrow_forward,

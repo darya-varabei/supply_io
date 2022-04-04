@@ -6,7 +6,7 @@ import '../../model/supply_model.dart';
 import 'package:http/http.dart' as http;
 
 Future<Certificate?> createUser(String url) async {
-  final Uri apiUrl = Uri.parse("http://localhost:56488");
+  final Uri apiUrl = Uri.parse("https://192.168.1.2:44335/api/parcer");
 
   final response = await http.post(apiUrl, body: {
     "link": url

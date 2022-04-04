@@ -46,7 +46,7 @@ class _MainPageState extends State<MainPage> {
                       style: TextStyle(fontSize: 14))),
               FlatButton(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 80),
-                onPressed: () => scanQRCode(),
+                onPressed: () { scanQRCode(); },
                 child: Text(
                   "Сканировать",
                   style: TextStyle(color: Colors.white),
@@ -73,8 +73,6 @@ class _MainPageState extends State<MainPage> {
 
       setState(() {
         this.qrCode = qrCode;
-        print("%%%%%%%%%%%%%%%%%%%%%%%");
-        print(this.qrCode);
         Future<Certificate?> future = createUser(qrCode);
         future.then((result) {
           Navigator.push(context, MaterialPageRoute(builder: (context) => ScanResultListPage(result!)));

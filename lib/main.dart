@@ -1,8 +1,13 @@
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:supply_io/pages/scans/add/main_scanner_page.dart';
 import 'package:supply_io/pages/user/login_page.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
 
@@ -37,6 +42,14 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: LoginPage());
+        home: MainPage());
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }

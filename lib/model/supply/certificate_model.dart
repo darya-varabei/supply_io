@@ -9,7 +9,7 @@ class Certificate {
   final int certificateId;
   final String link;
   final String number;
-  final DateTime date;
+  final String date;
   final String author;
   final String authorAddress;
   final String? fax;

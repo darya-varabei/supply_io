@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:supply_io/pages/scans/add/update_parameters_page.dart';
 
 import '../../../helpers/theme/app_theme.dart';
 import '../../../model/supply/certificate_model.dart';
@@ -225,7 +226,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                 FlatButton(
                   padding: EdgeInsets.symmetric(vertical: 13, horizontal: 26),
                   onPressed: () {
-
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateParametersPage(result, certificateId)));
                   },
                   child: Text(
                     "Внести изменения",
