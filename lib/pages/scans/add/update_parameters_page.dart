@@ -19,28 +19,28 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
   int certificateId;
   _UpdateParametersPageState({required this.result, required this.certificateId});
 
-  final gradeController = TextEditingController();
-  final weightController = TextEditingController();
-  final thicknessController = TextEditingController();
-  final widthController = TextEditingController();
+  // final gradeController = TextEditingController();
+  // final weightController = TextEditingController();
+  // final thicknessController = TextEditingController();
+  // final widthController = TextEditingController();
 
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    gradeController.dispose();
-    weightController.dispose();
-    thicknessController.dispose();
-    widthController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // Clean up the controller when the widget is disposed.
+  //   gradeController.dispose();
+  //   weightController.dispose();
+  //   thicknessController.dispose();
+  //   widthController.dispose();
+  //   super.dispose();
+  // }
 
-  @override
-  void onWidgetBuild() {
-    gradeController.text = result.grade!;
-    weightController.text = "${result.weight.gross!}";
-    thicknessController.text = "${result.size.thickness!}";
-    widthController.text = "${result.size.width!}";
-  }
+  // @override
+  // void onWidgetBuild() {
+  //   gradeController.text = result.grade!;
+  //   weightController.text = "${result.weight.gross}";
+  //   thicknessController.text = "${result.size.thickness}";
+  //   widthController.text = "${result.size.width}";
+  // }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -107,13 +107,18 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                         fontWeight: FontWeight.w600),
                   ),
                   Spacer(),
-                   TextField(
-                     controller: gradeController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-                        hintText: '',
-                      ),
+
+                SizedBox(
+                  width: 100,
+                  child:TextField(
+
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+                      hintText: '',
                     ),
+                    onChanged: (text) {
+                      result.grade = text;
+                    },),),
                 ]),
               ),
             ),
@@ -131,14 +136,19 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                         fontWeight: FontWeight.w600),
                   ),
                   Spacer(),
+                SizedBox(
+                    width: 100,
+                    child:
                   TextField(
-                    controller: weightController,
+                    onChanged: (text) {
+                      result.weight.gross = text as double;
+                    },
                     keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
                         hintText: '',
                       ),
-                    ),
+                    ),),
                 ]),
               ),
             ),
@@ -156,14 +166,19 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                         fontWeight: FontWeight.w600),
                   ),
                   Spacer(),
+                SizedBox(
+                    width: 100,
+                    child:
                   TextField(
-                    controller: thicknessController,
+                    onChanged: (text) {
+                      result.size.thickness = text as double;
+                    },
                     keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
                         hintText: '',
                       ),
-                    ),
+                    ),),
                 ]),
               ),
             ),
@@ -181,14 +196,19 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                         fontWeight: FontWeight.w600),
                   ),
                   Spacer(),
+                SizedBox(
+                    width: 100,
+                    child:
                     TextField(
-                      controller: widthController,
+                      onChanged: (text) {
+                        result.size.width = text as int ;
+                      },
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
                         hintText: '',
                       ),
-                    ),
+                    ),),
                 ]),
               ),
             ),

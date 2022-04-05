@@ -26,7 +26,7 @@ class Certificate {
   final String? notes;
   final List<Package> packages;
 
-  Certificate({
+  Certificate( {
       required this.certificateId,
     required this.link,
     required this.number,

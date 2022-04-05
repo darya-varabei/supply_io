@@ -7,8 +7,8 @@ import 'package:supply_io/model/supply/weight_model.dart';
 
 class Package {
   final int packageId;
-  final DateTime dateAdded;
-  final DateTime dateChange;
+  final String dateAdded;
+  final String dateChange;
   final Status status;
   final String namberConsignmentPackage;
   final String heat;
@@ -16,12 +16,12 @@ class Package {
   final int? orderPosition;
   final int? numberOfClientMaterial;
   final int? serialNumber;
-  final String? grade;
+   String? grade;
   final int? category;
   final String? strenghtGroup;
   final String? profile;
   final String? barcode;
-  final Size size;
+  final XSize size;
   final int quantity;
   final String variety;
   final String gost;
@@ -39,7 +39,7 @@ class Package {
   final String? trimOfEdge;
   final String? weldability;
   final String? orderFeature;
-  final ChemicalCompositionModel chemicalComposition;
+  final ChemicalCompositionModel? chemicalComposition;
   final int? sampleLocation;
   final int? directOfTestPicses;
   final int? temporalResistance;
@@ -69,7 +69,7 @@ class Package {
   final Image? photo;
   final String? comment;
 
-  const Package({
+  Package({
       required this.packageId,
       required this.dateAdded,
       required this.dateChange,
@@ -103,7 +103,7 @@ class Package {
       this.trimOfEdge,
       this.weldability,
       this.orderFeature,
-      required this.chemicalComposition,
+      this.chemicalComposition,
       this.sampleLocation,
       this.directOfTestPicses,
       this.temporalResistance,

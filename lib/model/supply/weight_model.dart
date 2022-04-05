@@ -1,8 +1,8 @@
 class Weight {
   final int weightId;
-  final double gross;
+  double gross;
   final double? gross2;
-  final double net;
+  double net;
 
   Weight({
     required this.weightId,

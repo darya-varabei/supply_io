@@ -1,17 +1,17 @@
-class Size {
-  final int sizeId;
-  final double thickness;
-  final int width;
-  final double length;
+class XSize {
+  int sizeId;
+  double thickness;
+  int width;
+  double length;
 
-  Size({
+  XSize({
       required this.sizeId,
     required this.thickness,
     required this.width,
     required this.length});
 
-  factory Size.fromJson(Map<String, dynamic> json) {
-    return Size(
+  factory XSize.fromJson(Map<String, dynamic> json) {
+    return XSize(
         sizeId: json['sizeId'],
         thickness: json['thickness'],
         width: json['width'],

@@ -7,6 +7,11 @@ import 'package:supply_io/helpers/theme/app_theme.dart';
 import 'package:supply_io/model/supply/certificate_model.dart';
 import 'package:supply_io/pages/scans/add/package_parameters.dart';
 import 'package:supply_io/pages/scans/qr_scan_page.dart';
+import '../../../model/supply/package_model.dart';
+import '../../../model/supply/product_model.dart';
+import '../../../model/supply/size_model.dart';
+import '../../../model/supply/status_model.dart';
+import '../../../model/supply/weight_model.dart';
 import '../../lists/scan_result_list.dart';
 import '../../sidebar_new/navigation_drawer.dart';
 
@@ -46,7 +51,52 @@ class _MainPageState extends State<MainPage> {
                       style: TextStyle(fontSize: 14))),
               FlatButton(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 80),
-                onPressed: () { scanQRCode(); },
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                      ScanResultListPage(Certificate(certificateId: 1,
+                        link: "",
+                        number: "56327",
+                        date: "14.01.2022",
+                        author: "",
+                        authorAddress: "",
+                        fax: "",
+                        recipient: "",
+                        recipientCountry: "",
+                        product: Product(productId: 1,
+                        name: "ggg",
+                        labeling: 1,
+                        code: 2),
+                        shipmentShop: "",
+                        wagonNumber: "",
+                        orderNumber: "4",
+                        typeOfRollingStock: "1",
+                        typeOfPackaging: "",
+                        placeNumber: "",
+                        gosts: "",
+                        notes: "",
+                        packages: [Package(packageId: 1,
+                            dateAdded: "",
+                          dateChange: "",
+                            status:Status(statusId: 1, statusName: ''),
+                            namberConsignmentPackage: "",
+                            heat: "",
+                            batch: "",
+                          size: XSize(sizeId: 1,
+                          thickness: 0.5,
+                          width: 1230,
+                          length: 1000.0),
+                          quantity: 1,
+                          variety: "",
+                          gost: "",
+                          weight: Weight(weightId: 1,
+                          gross: 7289,
+                          gross2: 0,
+                            net: 7200
+                          ),
+                          surfaceQuality: "",
+                        )],
+                      ))));
+                  },// { scanQRCode(); },
                 child: Text(
                   "Сканировать",
                   style: TextStyle(color: Colors.white),
