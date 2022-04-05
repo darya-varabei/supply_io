@@ -43,13 +43,15 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                         IconButton(
                           icon: const Icon(Icons.arrow_back),
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PackageParametersPage(
-                                        result, certificateId)
-                                )
-                            );
+                            Navigator.pop(context);
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //
+                            //         // builder: (context) => PackageParametersPage(
+                            //         //     result, certificateId)
+                            //     )
+                            // );
                           },
                         ),
                         Spacer(),
@@ -206,7 +208,9 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                         FlatButton(
                           padding:
                               EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context, result);
+                          },
                           child: Text(
                             "Сохранить",
                             style: TextStyle(color: Colors.white),

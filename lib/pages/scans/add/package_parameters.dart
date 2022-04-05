@@ -20,6 +20,20 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
   Package result;
   int certificateId;
   _PackageParametersPageState({required this.result, required this.certificateId});
+
+  void updateInformation(Package updatedResult) {
+    setState(() => result = updatedResult);
+  }
+
+  void moveToSecondPage() async {
+    final information = await Navigator.push(
+      context,
+      CupertinoPageRoute(
+          fullscreenDialog: true, builder: (context) => UpdateParametersPage(result, certificateId)),
+    );
+    updateInformation(information);
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
       drawer: const NavigationDrawer(),
@@ -37,7 +51,9 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               child: Row(children: <Widget>[
                 IconButton(
                   icon: const Icon(Icons.arrow_back),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
                 Spacer(),
                 SizedBox(
@@ -226,7 +242,8 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                 FlatButton(
                   padding: EdgeInsets.symmetric(vertical: 13, horizontal: 26),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateParametersPage(result, certificateId)));
+                    moveToSecondPage();
+                    //Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateParametersPage(result, certificateId)));
                   },
                   child: Text(
                     "Внести изменения",
