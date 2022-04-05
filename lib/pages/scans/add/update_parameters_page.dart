@@ -10,225 +10,216 @@ class UpdateParametersPage extends StatefulWidget {
   @override
   Package result;
   int certificateId;
+
   UpdateParametersPage(this.result, this.certificateId);
-  _UpdateParametersPageState createState() => _UpdateParametersPageState(result: result, certificateId: certificateId);
+
+  _UpdateParametersPageState createState() =>
+      _UpdateParametersPageState(result: result, certificateId: certificateId);
 }
 
 class _UpdateParametersPageState extends State<UpdateParametersPage> {
   Package result;
   int certificateId;
-  _UpdateParametersPageState({required this.result, required this.certificateId});
 
-  // final gradeController = TextEditingController();
-  // final weightController = TextEditingController();
-  // final thicknessController = TextEditingController();
-  // final widthController = TextEditingController();
-
-  // @override
-  // void dispose() {
-  //   // Clean up the controller when the widget is disposed.
-  //   gradeController.dispose();
-  //   weightController.dispose();
-  //   thicknessController.dispose();
-  //   widthController.dispose();
-  //   super.dispose();
-  // }
-
-  // @override
-  // void onWidgetBuild() {
-  //   gradeController.text = result.grade!;
-  //   weightController.text = "${result.weight.gross}";
-  //   thicknessController.text = "${result.size.thickness}";
-  //   widthController.text = "${result.size.width}";
-  // }
+  _UpdateParametersPageState(
+      {required this.result, required this.certificateId});
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-      drawer: const NavigationDrawer(),
-      appBar: AppBar(
-        backgroundColor: AppTheme.colors.darkGradient,
-      ),
-      body: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Flexible(
-            flex: 1,
-            child: Container(
-              width: MediaQuery.of(context).size.width - 80,
-              height: double.infinity,
-              alignment: Alignment.centerRight,
-              child: Row(
-                  children: <Widget>[
-                IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PackageParametersPage(result, certificateId)));
-                  },
-                ),
-                Spacer(),
-                SizedBox(
-                  width: 190,
-                  child: Text(
-                    "Сертификат № ${certificateId}",
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: AppTheme.colors.darkGradient,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ),
-              ]),
-            )),
-        Flexible(
-            flex: 1,
-            child: Container(
-              padding: EdgeInsets.fromLTRB(40, 8, 40, 10),
-              alignment: Alignment.centerRight,
-              child: Column(children: <Widget>[
-                Text(
-                  "${result.batch}",
-                  style: TextStyle(
-                      fontSize: 24,
-                      color: AppTheme.colors.darkGradient,
-                      fontWeight: FontWeight.w400),
-                ),
-              ]),
-            )),
-            Flexible(
-              flex: 1,
-              child: Container(
-                padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
-                child: Row(children: <Widget>[
-                  Text(
-                    "Марка стали",
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: AppTheme.colors.darkGradient,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Spacer(),
+  Widget build(BuildContext context) {
+    return Scaffold(
+        drawer: const NavigationDrawer(),
+        appBar: AppBar(
+          backgroundColor: AppTheme.colors.darkGradient,
+        ),
+        body: Center(
+          child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: SingleChildScrollView(
+                reverse: true,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Row(children: <Widget>[
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PackageParametersPage(
+                                        result, certificateId)
+                                )
+                            );
+                          },
+                        ),
+                        Spacer(),
+                        SizedBox(
+                          width: 190,
+                          child: Text(
+                            "Сертификат №${certificateId}",
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: AppTheme.colors.darkGradient,
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                      ]),
+                      const SizedBox(height: 20.0),
+                      Text(
+                        "${result.batch}",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                            fontSize: 24,
+                            color: AppTheme.colors.darkGradient,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      const SizedBox(height: 30.0),
+                      Row(children: <Widget>[
+                        Text(
+                          "Марка стали",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: AppTheme.colors.darkGradient,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        Spacer(),
+                        SizedBox(
+                          width: 100,
+                          height: 40,
+                          child: TextFormField(
+                            initialValue: result.grade,
+                            decoration: InputDecoration(
+                                contentPadding: EdgeInsets.only(
+                                  bottom: 20,
+                                    left: 10
+                                ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                              hintText: '',
+                            ),
+                            onChanged: (text) {
+                              result.grade = text;
+                            },
+                          ),
+                        ),
+                      ]),
+                      const SizedBox(height: 20.0),
+                      Row(children: <Widget>[
+                        Text(
+                          "Масса",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: AppTheme.colors.darkGradient,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        Spacer(),
+                        SizedBox(
+                          width: 100,
+                          height: 40,
+                          child: TextFormField(
+                            initialValue: "${result.weight.gross}",
+                            onChanged: (text) {
+                              result.weight.gross = text as double;
+                            },
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(
+                                bottom: 20,
+                                  left: 10
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                              hintText: '',
+                            ),
+                          ),
+                        ),
+                      ]),
+                      const SizedBox(height: 20.0),
+                      Row(children: <Widget>[
+                        Text(
+                          "Толщина",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: AppTheme.colors.darkGradient,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        Spacer(),
+                        SizedBox(
+                          width: 100,
+                          height: 40,
+                          child: TextFormField(
+                            initialValue: "${result.size.thickness}",
+                            onChanged: (text) {
+                              result.size.thickness = text as double;
+                            },
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(
+                                bottom: 20,
+                                  left: 10
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                              hintText: '',
+                            ),
+                          ),
+                        ),
+                      ]),
+                      const SizedBox(height: 20.0),
+                      Row(children: <Widget>[
+                        Text(
+                          "Ширина",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: AppTheme.colors.darkGradient,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        Spacer(),
+                        SizedBox(
+                          width: 100,
+                          height: 40,
+                          child: TextFormField(
+                            initialValue: "${result.size.width}",
+                            onChanged: (text) {
+                              result.size.width = text as int;
+                            },
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(
+                                bottom: 20,
+                                left: 10
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                              hintText: '',
+                            ),
+                          ),
+                        ),
+                      ]),
+                      const SizedBox(height: 50.0),
+                      Column(children: <Widget>[
+                        FlatButton(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                          onPressed: () {},
+                          child: Text(
+                            "Сохранить",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          color: AppTheme.colors.blue,
+                          //isSelected ? AppTheme.colors.blue : AppTheme.colors.grey,
+                          shape: StadiumBorder(),
+                        ),
+                        const SizedBox(height: 50.0),
+                      ]),
+                    ])),
+        ),
+            ));
 
-                SizedBox(
-                  width: 100,
-                  child:TextField(
-
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-                      hintText: '',
-                    ),
-                    onChanged: (text) {
-                      result.grade = text;
-                    },),),
-                ]),
-              ),
-            ),
-            Flexible(
-              flex: 1,
-              child: Container(
-                padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
-                child: Row(children: <Widget>[
-                  Text(
-                    "Масса",
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: AppTheme.colors.darkGradient,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Spacer(),
-                SizedBox(
-                    width: 100,
-                    child:
-                  TextField(
-                    onChanged: (text) {
-                      result.weight.gross = text as double;
-                    },
-                    keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-                        hintText: '',
-                      ),
-                    ),),
-                ]),
-              ),
-            ),
-            Flexible(
-              flex: 1,
-              child: Container(
-                padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
-                child: Row(children: <Widget>[
-                  Text(
-                    "Толщина",
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: AppTheme.colors.darkGradient,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Spacer(),
-                SizedBox(
-                    width: 100,
-                    child:
-                  TextField(
-                    onChanged: (text) {
-                      result.size.thickness = text as double;
-                    },
-                    keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-                        hintText: '',
-                      ),
-                    ),),
-                ]),
-              ),
-            ),
-            Flexible(
-              flex: 1,
-              child: Container(
-                padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
-                child: Row(children: <Widget>[
-                  Text(
-                    "Ширина",
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: AppTheme.colors.darkGradient,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Spacer(),
-                SizedBox(
-                    width: 100,
-                    child:
-                    TextField(
-                      onChanged: (text) {
-                        result.size.width = text as int ;
-                      },
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-                        hintText: '',
-                      ),
-                    ),),
-                ]),
-              ),
-            ),
-            Flexible(
-                flex: 2,
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                  child: Column(children: <Widget>[
-                    FlatButton(
-                      padding:
-                      EdgeInsets.symmetric(vertical: 13, horizontal: 26),
-                      onPressed: () {},
-                      child: Text(
-                        "Сохранить",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: AppTheme.colors.blue,//isSelected ? AppTheme.colors.blue : AppTheme.colors.grey,
-                      shape: StadiumBorder(),
-                    ),
-                  ]),
-                )),
-      ])));
+  }
 }
