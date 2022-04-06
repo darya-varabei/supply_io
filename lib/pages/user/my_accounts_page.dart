@@ -1,10 +1,20 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:supply_io/pages/sidebar_new/navigation_drawer.dart';
 
 import '../../helpers/theme/app_theme.dart';
+import '../../model/user/account_model.dart';
 
 class MyAccountsPage extends StatelessWidget {
   @override
+  Account? account;
+  MyAccountsPage() {
+    Future<Account?> future = createUser("darysp");
+    future.then((result) {
+      this.account = result;
+    });
+  }
   Widget build(BuildContext context) => Scaffold(
       drawer: const NavigationDrawer(),
       appBar: AppBar(
@@ -51,7 +61,7 @@ class MyAccountsPage extends StatelessWidget {
                       ),
                       Spacer(),
                       Text(
-                        "Дарья",
+                       account!.name,// "Дарья",
                         textAlign: TextAlign.right,
                         style: TextStyle(
                             fontSize: 16,
@@ -76,7 +86,7 @@ class MyAccountsPage extends StatelessWidget {
                       ),
                       Spacer(),
                       Text(
-                        "Воробей",
+                        account!.surname,
                         textAlign: TextAlign.right,
                         style: TextStyle(
                             fontSize: 16,
@@ -101,7 +111,7 @@ class MyAccountsPage extends StatelessWidget {
                       ),
                       Spacer(),
                       Text(
-                        "daria-vo@ramber.ru",
+                        account!.email,
                         textAlign: TextAlign.right,
                         style: TextStyle(
                             fontSize: 16,
@@ -126,7 +136,7 @@ class MyAccountsPage extends StatelessWidget {
                       ),
                       Spacer(),
                       Text(
-                        "Директор",
+                        account!.position,
                         textAlign: TextAlign.right,
                         style: TextStyle(
                             fontSize: 16,
@@ -137,4 +147,20 @@ class MyAccountsPage extends StatelessWidget {
                   ),
                 ),
               ])));
+
+  Future<Account?> createUser(String username) async {
+    final Uri apiUrl = Uri.parse("https://192.168.1.2:44335/api/account");
+
+    final response = await http.post(apiUrl, body: {
+      "username": username
+    });
+
+    if(response.statusCode == 200) {
+      final String responseString = response.body;
+      print(responseString);
+      return Account.fromJson(jsonDecode(responseString));
+    } else {
+      return null;
+    }
+  }
 }
