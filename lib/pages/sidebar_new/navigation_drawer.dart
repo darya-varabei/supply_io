@@ -6,7 +6,8 @@ import '../../helpers/theme/app_theme.dart';
 import '../lists/production_table_widget.dart';
 import '../lists/scan_result_list.dart';
 import '../scans/add/main_scanner_page.dart';
-import '../scans/use_scan_page.dart';
+import '../scans/use/use_scan_page.dart';
+import '../user/my_accounts_page.dart';
 import 'drawer_item.dart';
 
 class NavigationDrawer extends StatelessWidget {
@@ -101,16 +102,16 @@ class NavigationDrawer extends StatelessWidget {
 
     switch(index){
       case 0:
-        //Navigator.push(context, MaterialPageRoute(builder: (context) => PackageParametersPage()));//MainPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));//PackageParametersPage()));//MainPage()));
         break;
       case 1:
         Navigator.push(context, MaterialPageRoute(builder: (context) => UseRollPage()));
         break;
       case 2:
-        //Navigator.push(context, MaterialPageRoute(builder: (context) => ScanResultListPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductionTableWidget()));//ScanResultListPage()));
         break;
       case 3:
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductionTableWidget()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MyAccountsPage()));//ProductionTableWidget()));
     }
   }
 

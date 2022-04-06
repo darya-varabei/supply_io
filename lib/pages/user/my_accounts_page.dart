@@ -11,9 +11,8 @@ class MyAccountsPage extends StatelessWidget {
         backgroundColor: AppTheme.colors.darkGradient,
       ),
       body: Container(
-          padding: EdgeInsets.fromLTRB(40, 20, 40, 40),
+          padding: EdgeInsets.fromLTRB(0, 10, 30, 0),
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Flexible(
                     flex: 1,
@@ -22,6 +21,8 @@ class MyAccountsPage extends StatelessWidget {
                       height: double.infinity,
                       alignment: Alignment.centerRight,
                       child: Row(children: <Widget>[
+                        Text(""),
+                        Spacer(),
                         SizedBox(
                           width: 190,
                           child: Text(
@@ -38,7 +39,7 @@ class MyAccountsPage extends StatelessWidget {
                 Flexible(
                   flex: 1,
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                    padding: EdgeInsets.fromLTRB(30, 20, 30, 10),
                     child: Row(children: <Widget>[
                       Text(
                         "Имя",
@@ -63,7 +64,7 @@ class MyAccountsPage extends StatelessWidget {
                 Flexible(
                   flex: 1,
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                    padding: EdgeInsets.fromLTRB(30, 20, 30, 10),
                     child: Row(children: <Widget>[
                       Text(
                         "Фамилия",
@@ -88,7 +89,7 @@ class MyAccountsPage extends StatelessWidget {
                 Flexible(
                   flex: 1,
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                    padding: EdgeInsets.fromLTRB(30, 20, 30, 10),
                     child: Row(children: <Widget>[
                       Text(
                         "Эл. почта",
@@ -113,7 +114,7 @@ class MyAccountsPage extends StatelessWidget {
                 Flexible(
                   flex: 1,
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                    padding: EdgeInsets.fromLTRB(30, 20, 30, 10),
                     child: Row(children: <Widget>[
                       Text(
                         "Должность",

@@ -8,15 +8,20 @@ import '../../helpers/theme/app_theme.dart';
 import '../sidebar_new/navigation_drawer.dart';
 
 class ProductionTableWidget extends StatefulWidget {
+  //Package? result;
+  ProductionTableWidget();//this.result);
   @override
-  State createState() => new ProductionTableWidgetState();
+  State createState() => new ProductionTableWidgetState();//(result: result);
 }
 
 class ProductionTableWidgetState extends State<ProductionTableWidget> {
   bool isSelected = false;
   late Package selectedPackage;
+  //Package result;
+  List<Package>? packagesInUse;
   Color buttonColor = AppTheme.colors.grey;
   int _selectedIndex = -1;
+  //ProductionTableWidgetState({required this.result});
   @override
   Widget build(BuildContext context) => Scaffold(
       drawer: const NavigationDrawer(),
@@ -45,7 +50,7 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
               Flexible(
                   flex: 6,
                   child: ListView.builder(
-                      itemCount: 5,
+                      itemCount: packagesInUse?.length,
                       itemBuilder: (context, position) {
 
                         return Card(
@@ -68,7 +73,7 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
                                     actOnCellTap(AppTheme.colors.grey);
                                   }
                                 },
-                                title: Text("Кусь"),
+                                title: Text(packagesInUse![position].batch),
                                 trailing: Icon(
                                   Icons.arrow_forward,
                                   color: AppTheme.colors.darkGradient,
