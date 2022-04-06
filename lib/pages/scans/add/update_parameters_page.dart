@@ -20,7 +20,10 @@ class UpdateParametersPage extends StatefulWidget {
 class _UpdateParametersPageState extends State<UpdateParametersPage> {
   Package result;
   int certificateId;
-
+String bufferGrade = "";
+double bufferThickness = 0.0;
+int bufferWidth = 0;
+double bufferWeight = 0.0;
   _UpdateParametersPageState(
       {required this.result, required this.certificateId});
 
@@ -102,7 +105,8 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                               hintText: '',
                             ),
                             onChanged: (text) {
-                              result.grade = text;
+                             // result.grade = text;
+                              bufferGrade = text;
                             },
                           ),
                         ),
@@ -124,7 +128,8 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                           child: TextFormField(
                             initialValue: "${result.weight.gross}",
                             onChanged: (text) {
-                              result.weight.gross = text as double;
+                             // result.weight.gross = double.parse(text);
+                              bufferWeight = double.parse(text);
                             },
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -156,7 +161,8 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                           child: TextFormField(
                             initialValue: "${result.size.thickness}",
                             onChanged: (text) {
-                              result.size.thickness = text as double;
+                             // result.size.thickness = double.parse(text);
+                              bufferThickness = double.parse(text);
                             },
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -188,7 +194,8 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                           child: TextFormField(
                             initialValue: "${result.size.width}",
                             onChanged: (text) {
-                              result.size.width = text as int;
+                              //result.size.width = int.parse(text);
+                              bufferWidth = int.parse(text);
                             },
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -209,6 +216,18 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                           padding:
                               EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                           onPressed: () {
+                            if (bufferGrade != "") {
+                            result.grade = bufferGrade;
+                            }
+                            if (bufferWeight != 0.0) {
+                            result.weight.gross = bufferWeight;
+                            }
+                            if (bufferThickness != 0.0) {
+                              result.size.thickness = bufferThickness;
+                            }
+                            if (bufferWidth != 0) {
+                              result.size.width = bufferWidth;
+                            }
                             Navigator.pop(context, result);
                           },
                           child: Text(
