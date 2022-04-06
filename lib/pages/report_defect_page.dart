@@ -7,15 +7,24 @@ import 'package:image_picker/image_picker.dart';
 import 'package:supply_io/pages/sidebar_new/navigation_drawer.dart';
 
 import '../helpers/theme/app_theme.dart';
+import '../model/defect_model.dart';
+import '../model/supply/package_model.dart';
 
 class ReportdDefectPage extends StatefulWidget {
+  Package package;
+
+  ReportdDefectPage(this.package);
   @override
-  _ReportdDefectPageState createState() => _ReportdDefectPageState();
+  _ReportdDefectPageState createState() => _ReportdDefectPageState(package: package);
 }
 
 class _ReportdDefectPageState extends State<ReportdDefectPage> {
   late File _image;
-
+  Package package;
+  String description = "";
+Defect defect = new Defect(rollId: "", description: "");
+  _ReportdDefectPageState(
+      {required this.package});
   @override
   Widget build(BuildContext context) => Scaffold(
         drawer: const NavigationDrawer(),
@@ -33,7 +42,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                   child: Row(children: <Widget>[
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () {},
+                      onPressed: () {Navigator.pop(context);},
                     ),
                     Spacer(),
                     SizedBox(
@@ -130,7 +139,28 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
             Flexible(
               flex: 1,
               child: _image == null ? new Text("No image selected") : new Image.file(_image),
-            )
+            ),
+            Flexible(
+                flex: 2,
+                child: Container(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Column(children: <Widget>[
+                    FlatButton(
+                      padding: EdgeInsets.symmetric(vertical: 13, horizontal: 54),
+                      onPressed: () {
+                        defect.description = description;
+                        defect.rollId = package.batch;
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        "Сохранить",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      color: AppTheme.colors.blue,
+                      shape: StadiumBorder(),
+                    ),
+                  ]),
+                )),
           ]),
         ),
       );

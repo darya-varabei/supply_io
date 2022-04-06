@@ -5,23 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:supply_io/model/supply/package_model.dart';
 
 import '../../helpers/theme/app_theme.dart';
+import '../report_defect_page.dart';
 import '../sidebar_new/navigation_drawer.dart';
 
 class ProductionTableWidget extends StatefulWidget {
-  //Package? result;
-  ProductionTableWidget();//this.result);
+  ProductionTableWidget();
   @override
-  State createState() => new ProductionTableWidgetState();//(result: result);
+  State createState() => new ProductionTableWidgetState();
 }
 
 class ProductionTableWidgetState extends State<ProductionTableWidget> {
   bool isSelected = false;
   late Package selectedPackage;
-  //Package result;
   List<Package>? packagesInUse;
   Color buttonColor = AppTheme.colors.grey;
   int _selectedIndex = -1;
-  //ProductionTableWidgetState({required this.result});
   @override
   Widget build(BuildContext context) => Scaffold(
       drawer: const NavigationDrawer(),
@@ -90,12 +88,15 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
                       FlatButton(
                         padding:
                             EdgeInsets.symmetric(vertical: 13, horizontal: 26),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                              ReportdDefectPage(selectedPackage)));
+                        },
                         child: Text(
                           "Сообщить о дефекте",
                           style: TextStyle(color: Colors.white),
                         ),
-                        color: buttonColor,//isSelected ? AppTheme.colors.blue : AppTheme.colors.grey,
+                        color: isSelected ? AppTheme.colors.blue : AppTheme.colors.grey,
                         shape: StadiumBorder(),
                       ),
                     ]),

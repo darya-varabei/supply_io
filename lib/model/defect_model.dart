@@ -1,7 +1,9 @@
-class Defect {
-  final String rollId;
-  final String description;
-  final String defectPhoto;
+import 'dart:ui';
 
-  Defect(this.rollId, this.description, this.defectPhoto);
+class Defect {
+  String rollId;
+  String description;
+  Image? defectPhoto;
+
+  Defect({required this.rollId, required this.description, this.defectPhoto});
 }
