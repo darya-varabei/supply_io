@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:supply_io/pages/scans/add/package_parameters.dart';
 
 import '../../helpers/theme/app_theme.dart';
+import '../../model/user/login_model.dart';
 import '../lists/production_table_widget.dart';
 import '../lists/scan_result_list.dart';
 import '../scans/add/main_scanner_page.dart';
@@ -12,7 +13,11 @@ import 'drawer_item.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
-
+  Future<String> get jwtOrEmpty async {
+    var jwt = await storage.read(key: "jwt");
+    if(jwt == null) return "";
+    return jwt;
+  }
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -102,7 +107,7 @@ class NavigationDrawer extends StatelessWidget {
 
     switch(index){
       case 0:
-        Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));//PackageParametersPage()));//MainPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage.fromBase64("222")));//PackageParametersPage()));//MainPage()));
         break;
       case 1:
         Navigator.push(context, MaterialPageRoute(builder: (context) => UseRollPage()));

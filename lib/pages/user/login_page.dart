@@ -153,44 +153,56 @@ class _LoginPageState extends State<LoginPage> {
                           FlatButton(
                             padding: EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 80),
-                            onPressed: () {
-                              //this.submit();
-                              if (validateAndSave()) {
-                                print(loginRequestModel.toJson());
+                            onPressed: () async {
+                              var jwt = await login();
+                              if (jwt != 404) {
+                                storage.write(key: "jwt", value: "${jwt}");
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) =>  MainPage.fromBase64("${jwt}")
+                                  )
+                                );
+                                } else {
+                                final snackBar =
+                                            SnackBar(content: Text("Неверный ввод"));
+                                        scaffoldKey.currentState
+                                            ?.showSnackBar(snackBar);
 
-                                setState(() {
-                                  isApiCallProcess = true;
-                                });
-
-                                APIService apiService = new APIService();
-                                apiService
-                                    .login(loginRequestModel)
-                                    .then((value) {
-                                  if (value != null) {
-                                    setState(() {
-                                      isApiCallProcess = false;
-                                    });
-
-                                    if (value.token!.isNotEmpty) {
-                                      final snackBar1 = SnackBar(
-                                          content:
-                                              Text("Вход выполнен успешно"));
-                                      scaffoldKey.currentState
-                                          ?.showSnackBar(snackBar1);
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) => MainPage(),
-                                        ),
-                                      );
-                                    } else {
-                                      final snackBar =
-                                          SnackBar(content: Text(value.error!));
-                                      scaffoldKey.currentState
-                                          ?.showSnackBar(snackBar);
-                                    }
-                                  }
-                                });
                               }
+                              //this.submit();
+                              // if (validateAndSave()) {
+                              //   print(loginRequestModel.toJson());
+                              //   setState(() {
+                              //     isApiCallProcess = true;
+                              //   });
+                              //   APIService apiService = new APIService();
+                              //   apiService
+                              //       .login(loginRequestModel)
+                              //       .then((value) {
+                              //     if (value != null) {
+                              //       setState(() {
+                              //         isApiCallProcess = false;
+                              //       });
+                              //       if (value.token!.isNotEmpty) {
+                              //         final snackBar1 = SnackBar(
+                              //             content:
+                              //                 Text("Вход выполнен успешно"));
+                              //         scaffoldKey.currentState
+                              //             ?.showSnackBar(snackBar1);
+                              //         Navigator.of(context).push(
+                              //           MaterialPageRoute(
+                              //             builder: (context) => MainPage(),
+                              //           ),
+                              //         );
+                              //       } else {
+                              //         final snackBar =
+                              //             SnackBar(content: Text(value.error!));
+                              //         scaffoldKey.currentState
+                              //             ?.showSnackBar(snackBar);
+                              //       }
+                              //     }
+                              //   });
+                              // }
                             },
                             child: Text(
                               "Войти",
@@ -229,11 +241,11 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void login() async {
-    final url = 'http://192.168.43.34:4000/users/authenticate';
+  Future<int> login() async {
+    final url = '$SERVER_IP/users/authenticate';
     await http.post(Uri.parse(url), body: {
       'username': userData.email,
-      'password': base64Encode(userData.password.codeUnits)
+      'password': userData.username//base64Encode(userData.password.codeUnits)
     }).then((response) {
       Map<String, dynamic> responseMap = json.decode(response.body);
       if (response.statusCode == 200) {
@@ -246,8 +258,10 @@ class _LoginPageState extends State<LoginPage> {
         if (responseMap.containsKey("message"))
           scaffoldKey.currentState?.showSnackBar(snackBar);
       }
+      return response.statusCode;
     }).catchError((err) {
       scaffoldKey.currentState?.showSnackBar(snackBar);
     });
+    return 404;
   }
 }

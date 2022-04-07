@@ -1,8 +1,9 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert' show json, base64, ascii;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-// const SERVER_IP = 'http://192.168.1.167:5000';
-// final storage = FlutterSecureStorage();
+const SERVER_IP = 'http://192.168.1.167:5000';
+final storage = FlutterSecureStorage();
 
 
 class LoginResponseModel {

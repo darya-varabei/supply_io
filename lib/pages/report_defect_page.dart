@@ -150,6 +150,7 @@ Defect defect = new Defect(rollId: "", description: "");
                       onPressed: () {
                         defect.description = description;
                         defect.rollId = package.batch;
+                        
                         Navigator.pop(context);
                       },
                       child: Text(
