@@ -4,6 +4,8 @@ import 'package:supply_io/model/supply/chemical_composition_model.dart';
 import 'package:supply_io/model/supply/status_model.dart';
 import 'package:supply_io/model/supply/size_model.dart';
 import 'package:supply_io/model/supply/weight_model.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' show json, base64, ascii;
 
 class Package {
   final int packageId;
@@ -198,5 +200,76 @@ class Package {
       photo: json['photo'],
       comment: json['comment'],
     );
+  }
+
+    Map<String, dynamic> toJson() {
+      Map<String, dynamic> map = {
+
+        'packageId': packageId,
+        'dateAdded': dateAdded?.trim(),
+        'dateChange': dateChange?.trim(),
+        'status': status,
+        'namberConsignmentPackage': namberConsignmentPackage?.trim(),
+        'heat': heat?.trim(),
+        'batch': batch?.trim(),
+        'orderPosition': orderPosition,
+        'numberOfClientMaterial': numberOfClientMaterial,
+        'serialNumber': serialNumber,
+        'grade': grade?.trim(),
+        'category': category,
+        'strenghtGroup': strenghtGroup?.trim(),
+        'profile': profile?.trim(),
+        'barcode': barcode?.trim(),
+        'size': size,
+        'quantity': quantity,
+        'variety': variety?.trim(),
+        'gost': gost?.trim(),
+        'weight': weight,
+        'customerItemNumber': customerItemNumber,
+        'treatment': treatment?.trim(),
+        'groupCode': groupCode,
+        'pattemCutting': pattemCutting?.trim(),
+        'surfaceQuality': surfaceQuality?.trim(),
+        'rollingAccuracy': rollingAccuracy?.trim(),
+        'categoryOfDrawing': categoryOfDrawing?.trim(),
+        'stateOfMaterial': stateOfMaterial?.trim(),
+        'roughtness': roughtness,
+        'flatness': flatness,
+        'trimOfEdge': trimOfEdge?.trim(),
+        'weldability': weldability?.trim(),
+        'orderFeature': orderFeature?.trim(),
+        'chemicalComposition': chemicalComposition,
+        'sampleLocation': sampleLocation,
+        'directOfTestPicses': directOfTestPicses,
+        'temporalResistance': temporalResistance,
+        'yieldPoint': yieldPoint,
+        'tensilePoint': tensilePoint,
+        'elongation': elongation,
+        'bend': bend,
+        'hardness': hardness,
+        'rockwell': rockwell,
+        'brinel': brinel,
+        'eriksen': eriksen,
+        'impactStrength': impactStrength,
+        'grainSize': grainSize,
+        'decarburiization': decarburiization,
+        'cementite': cementite,
+        'banding': banding,
+        'corrosion': corrosion?.trim(),
+        'testingMethod': testingMethod?.trim(),
+        'unitTemporaryResistance': unitTemporaryResistance,
+        'unitYieldStrength': unitYieldStrength,
+        'sphericalHoleDepth': sphericalHoleDepth,
+        'microBallCem': microBallCem,
+        'r90': r90,
+        'n90': n90,
+        'koafNavodorag': koafNavodorag,
+        'notes': notes,
+        'photo': photo,
+        'comment': comment?.trim(),
+      };
+
+      return map;
+   // }
   }
 }

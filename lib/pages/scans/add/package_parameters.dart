@@ -5,7 +5,9 @@ import 'package:supply_io/pages/scans/add/update_parameters_page.dart';
 import '../../../helpers/theme/app_theme.dart';
 import '../../../model/supply/certificate_model.dart';
 import '../../../model/supply/package_model.dart';
+import '../../../model/user/login_model.dart';
 import '../../sidebar_new/navigation_drawer.dart';
+import 'package:http/http.dart' as http;
 
 class PackageParametersPage extends StatefulWidget {
 
@@ -266,7 +268,19 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               child: Column(children: <Widget>[
                 FlatButton(
                   padding: EdgeInsets.symmetric(vertical: 13, horizontal: 54),
-                  onPressed: () {},
+                  onPressed: () async {
+                    var requestResult = await savePackage();
+                    if (requestResult == 200) {
+                      showMyDialog("Рулон сохранен", "Сохранение данного рулона выполнено успешно");
+                      Navigator.of(context).pop();
+                    }
+                    else if (requestResult == 404) {
+                      showMyDialog("Ошибка", "Не удается установить интернет соединение");
+                    }
+                    else {
+                      showMyDialog("Ошибка", "Не удается выполнить сохранение");
+                    }
+                  },
                   child: Text(
                     "Сохранить",
                     style: TextStyle(color: Colors.white),
@@ -277,4 +291,50 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ]),
             )),
       ])));
+
+  Future<int> savePackage() async {
+    String token = await getJwtOrEmpty();
+    final Uri apiUrl = Uri.parse(SERVER_IP);
+    final response = await http.post( apiUrl, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'access_token': token,
+    },body:
+    result.toJson()
+    );
+    return response.statusCode;
+  }
+
+  Future<String> getJwtOrEmpty() async {
+    var jwt = await storage.read(key: "jwt");
+    if(jwt == null) return "";
+    return jwt;
+  }
+
+  Future<void> showMyDialog(String title, String text) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(text),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Готова'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

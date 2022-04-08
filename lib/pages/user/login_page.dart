@@ -242,9 +242,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<int> login() async {
-    final url = '$SERVER_IP/users/authenticate';
+    final url = '$SERVER_IP/authentication/login';
     await http.post(Uri.parse(url), body: {
-      'username': userData.email,
+      'login': userData.email,
       'password': userData.username//base64Encode(userData.password.codeUnits)
     }).then((response) {
       Map<String, dynamic> responseMap = json.decode(response.body);
