@@ -154,20 +154,22 @@ class _LoginPageState extends State<LoginPage> {
                             padding: EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 80),
                             onPressed: () async {
+                              setState(() {
+                                isApiCallProcess = true;
+                              });
                               var jwt = await login();
                               if (jwt != 404) {
                                 storage.write(key: "jwt", value: "${jwt}");
                                 Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) =>  MainPage.fromBase64("${jwt}")
-                                  )
-                                );
-                                } else {
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            MainPage.fromBase64("${jwt}")));
+                              } else {
                                 final snackBar =
-                                            SnackBar(content: Text("Неверный ввод"));
-                                        scaffoldKey.currentState
-                                            ?.showSnackBar(snackBar);
-
+                                    SnackBar(content: Text("Неверный ввод"));
+                                scaffoldKey.currentState
+                                    ?.showSnackBar(snackBar);
                               }
                               //this.submit();
                               // if (validateAndSave()) {
@@ -245,7 +247,7 @@ class _LoginPageState extends State<LoginPage> {
     final url = '$SERVER_IP/authentication/login';
     await http.post(Uri.parse(url), body: {
       'login': userData.email,
-      'password': userData.username//base64Encode(userData.password.codeUnits)
+      'password': userData.username //base64Encode(userData.password.codeUnits)
     }).then((response) {
       Map<String, dynamic> responseMap = json.decode(response.body);
       if (response.statusCode == 200) {
