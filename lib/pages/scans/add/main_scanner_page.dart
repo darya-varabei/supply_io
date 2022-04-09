@@ -17,14 +17,14 @@ import '../../lists/scan_result_list.dart';
 import '../../sidebar_new/navigation_drawer.dart';
 
 class MainPage extends StatefulWidget {
-  factory MainPage.fromBase64(String jwt) => MainPage(
-      jwt,
-      json.decode(
-          ascii.decode(base64.decode(base64.normalize(jwt.split(".")[1])))));
-  final String jwt;
-  final Map<String, dynamic> payload;
+  // factory MainPage.fromBase64(String jwt) => MainPage(
+  //     jwt,
+  //     json.decode(
+  //         ascii.decode(base64.decode(base64.normalize(jwt.split(".")[1])))));
+  //final String jwt;
+  //final Map<String, dynamic> payload;
 
-  const MainPage(this.jwt, this.payload);
+  //const MainPage(this.jwt);
 
   @override
   _MainPageState createState() => _MainPageState();

@@ -19,8 +19,8 @@ class Defect {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-      'rollId': rollId?.trim(),
-      'description': description?.trim(),
+      'rollId': rollId.trim(),
+      'description': description.trim(),
       'defectPhoto': defectPhoto,
     };
 

@@ -109,7 +109,7 @@ class NavigationDrawer extends StatelessWidget {
 
     switch(index){
       case 0:
-        Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage.fromBase64("222")));//PackageParametersPage()));//MainPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));//PackageParametersPage()));//MainPage()));
         break;
       case 1:
         Navigator.push(context, MaterialPageRoute(builder: (context) => UseRollPage()));

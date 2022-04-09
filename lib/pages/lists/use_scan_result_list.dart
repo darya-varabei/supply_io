@@ -5,7 +5,9 @@ import 'package:supply_io/pages/lists/production_table_widget.dart';
 import '../../helpers/theme/app_theme.dart';
 import '../../model/supply/certificate_model.dart';
 import '../../model/supply/package_model.dart';
+import '../../model/user/login_model.dart';
 import '../sidebar_new/navigation_drawer.dart';
+import 'package:http/http.dart' as http;
 
 class UseScanResultListPage extends StatefulWidget {
   Certificate result;
@@ -72,8 +74,13 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
                           child: Padding(
                               padding: const EdgeInsets.all(1.0),
                               child: ListTile(
-                                onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                                ProductionTableWidget()));
+                                onTap: () async  {
+                                  var res = await savePackage(result.packages[position]);
+                                  if (res == 200) {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) =>
+                                            ProductionTableWidget()));
+                                  }
                                     //PackageParametersPage(result.packages[position], result.certificateId)));
                                 },
                                 title: Text("${result.packages[position].packageId}"),
@@ -87,4 +94,23 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
                       })),
             ]),
       ));
+
+  Future<int> savePackage(Package packageToUse) async {
+    String token = await getJwtOrEmpty();
+    final Uri apiUrl = Uri.parse(SERVER_IP);
+    final response = await http.post(apiUrl, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'access_token': token,
+    }, body: {
+      'id': packageToUse.batch,
+    });
+    return response.statusCode;
+  }
+
+  Future<String> getJwtOrEmpty() async {
+    var jwt = await storage.read(key: "jwt");
+    if(jwt == null) return "";
+    return jwt;
+  }
 }

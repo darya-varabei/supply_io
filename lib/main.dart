@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
                     ascii.decode(base64.decode(base64.normalize(jwt[1]))));
                 if (DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
                     .isAfter(DateTime.now())) {
-                  return MainPage(str.toString(), payload);
+                  return MainPage();//(str.toString(), payload);
                 } else {
                   return ReportdDefectPage(Package(packageId: 1,
                     dateAdded: "",

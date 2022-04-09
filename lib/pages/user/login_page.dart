@@ -160,8 +160,8 @@ class _LoginPageState extends State<LoginPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            MainPage.fromBase64("$jwt")));
+                                        builder: (context) => MainPage()));
+                                            //MainPage.fromBase64("$jwt")));
                               } else {
                                 const snackBar =
                                     SnackBar(content: Text("Неверный ввод"));

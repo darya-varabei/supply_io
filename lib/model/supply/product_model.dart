@@ -21,7 +21,7 @@ class Product {
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'productId': productId,
-      'name': name?.trim(),
+      'name': name.trim(),
       'labeling': labeling,
       'code': code,
     };
