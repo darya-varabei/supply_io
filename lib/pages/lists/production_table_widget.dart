@@ -27,7 +27,7 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
         backgroundColor: AppTheme.colors.darkGradient,
       ),
       body: Container(
-        padding: EdgeInsets.all(40),
+        padding: const EdgeInsets.all(40),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -83,21 +83,21 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
               Flexible(
                   flex: 2,
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                     child: Column(children: <Widget>[
                       FlatButton(
                         padding:
-                            EdgeInsets.symmetric(vertical: 13, horizontal: 26),
+                            const EdgeInsets.symmetric(vertical: 13, horizontal: 26),
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) =>
                               ReportdDefectPage(selectedPackage)));
                         },
-                        child: Text(
+                        child: const Text(
                           "Сообщить о дефекте",
                           style: TextStyle(color: Colors.white),
                         ),
                         color: isSelected ? AppTheme.colors.blue : AppTheme.colors.grey,
-                        shape: StadiumBorder(),
+                        shape: const StadiumBorder(),
                       ),
                     ]),
                   )),

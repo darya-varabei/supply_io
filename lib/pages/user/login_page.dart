@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supply_io/pages/scans/add/main_scanner_page.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
-
-import '../../helpers/api/api_service.dart';
 import '../../model/user/login_model.dart';
 import '../../helpers/animated_items/progressHUD.dart';
 import '../../model/user/user_model.dart';
@@ -25,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   late LoginRequestModel loginRequestModel;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final snackBar = SnackBar(content: Text("Ошибка ввода"));
+  final snackBar = const SnackBar(content: Text("Ошибка ввода"));
 
   @override
   void initState() {
@@ -52,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
               gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            stops: [0.5, 0.9],
+            stops: const [0.5, 0.9],
             colors: [
               AppTheme.colors.darkGradient,
               AppTheme.colors.lightGradient
@@ -64,15 +62,15 @@ class _LoginPageState extends State<LoginPage> {
                 children: <Widget>[
                   Container(
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-                    margin: EdgeInsets.symmetric(vertical: 85, horizontal: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                    margin: const EdgeInsets.symmetric(vertical: 85, horizontal: 20),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: AppTheme.colors.white,
                       boxShadow: [
                         BoxShadow(
                             color: Theme.of(context).hintColor.withOpacity(0.2),
-                            offset: Offset(0, 10),
+                            offset: const Offset(0, 10),
                             blurRadius: 20)
                       ],
                     ),
@@ -80,12 +78,12 @@ class _LoginPageState extends State<LoginPage> {
                       key: globalFormKey,
                       child: Column(
                         children: <Widget>[
-                          SizedBox(height: 25),
+                          const SizedBox(height: 25),
                           Text(
                             "SupplyIO",
                             style: Theme.of(context).textTheme.headline2,
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             onSaved: (input) =>
@@ -109,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           TextFormField(
                             style:
                                 TextStyle(color: AppTheme.colors.darkGradient),
@@ -158,12 +156,12 @@ class _LoginPageState extends State<LoginPage> {
                               });
                               var jwt = await login();
                               if (jwt != 404) {
-                                storage.write(key: "jwt", value: "${jwt}");
+                                storage.write(key: "jwt", value: "$jwt");
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            MainPage.fromBase64("${jwt}")));
+                                            MainPage.fromBase64("$jwt")));
                               } else {
                                 const snackBar =
                                     SnackBar(content: Text("Неверный ввод"));

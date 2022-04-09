@@ -48,7 +48,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                           Navigator.pop(context);
                         },
                       ),
-                      Spacer(),
+                      const Spacer(),
                       SizedBox(
                         width: 190,
                         child: Text(
@@ -71,8 +71,8 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                             color: AppTheme.colors.darkGradient,
                             fontWeight: FontWeight.w400),
                       ),
-                      Spacer(),
-                      Text("")
+                      const Spacer(),
+                      const Text("")
                     ]),
                     const SizedBox(height: 20.0),
                     TextFormField(
@@ -88,7 +88,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                           onPressed: () {
                             getImage();
                           },
-                          shape: RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10.0))),
                           label: Text(
@@ -103,10 +103,10 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                           splashColor: AppTheme.colors.blue,
                           color: AppTheme.colors.white,
                         ),
-                        Spacer(),
+                        const Spacer(),
                         _image == null
-                            ? new Text("")
-                            : Container(
+                            ? Text("")
+                            : SizedBox(
                                 width: 100,
                                 height: 100,
                                 child: Image.file(_image!),
@@ -115,10 +115,10 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                     ]),
                     const SizedBox(height: 20.0),
                     Container(
-                      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                       child: Column(children: <Widget>[
                         FlatButton(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               vertical: 13, horizontal: 54),
                           onPressed: () {
                             defect.description = description;
@@ -127,7 +127,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                                 Image.file(_image!) as FileImage;
                             Navigator.pop(context);
                           },
-                          child: Text(
+                          child: const Text(
                             "Сохранить",
                             style: TextStyle(color: Colors.white),
                           ),

@@ -43,7 +43,7 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
                         icon: const Icon(Icons.arrow_back),
                         onPressed: () {},
                       ),
-                      Spacer(),
+                      const Spacer(),
                       SizedBox(
                         width: 190,
                         child: Text(
@@ -57,7 +57,7 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
                       ),
                     ]),
                   )),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Flexible(
                   flex: 6,
                   child: ListView.builder(

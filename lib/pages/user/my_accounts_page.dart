@@ -9,10 +9,10 @@ import '../../model/user/account_model.dart';
 class MyAccountsPage extends StatelessWidget {
   @override
   Account? account;
-  MyAccountsPage() {
+  MyAccountsPage({Key? key}) : super(key: key) {
     Future<Account?> future = createUser("darysp");
     future.then((result) {
-      this.account = result;
+      account = result;
     });
   }
   Widget build(BuildContext context) => Scaffold(
@@ -21,7 +21,7 @@ class MyAccountsPage extends StatelessWidget {
         backgroundColor: AppTheme.colors.darkGradient,
       ),
       body: Container(
-          padding: EdgeInsets.fromLTRB(0, 10, 30, 0),
+          padding: const EdgeInsets.fromLTRB(0, 10, 30, 0),
           child: Column(
               children: <Widget>[
                 Flexible(
@@ -31,8 +31,8 @@ class MyAccountsPage extends StatelessWidget {
                       height: double.infinity,
                       alignment: Alignment.centerRight,
                       child: Row(children: <Widget>[
-                        Text(""),
-                        Spacer(),
+                        const Text(""),
+                        const Spacer(),
                         SizedBox(
                           width: 190,
                           child: Text(
@@ -49,7 +49,7 @@ class MyAccountsPage extends StatelessWidget {
                 Flexible(
                   flex: 1,
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(30, 20, 30, 10),
+                    padding: const EdgeInsets.fromLTRB(30, 20, 30, 10),
                     child: Row(children: <Widget>[
                       Text(
                         "Имя",
@@ -59,7 +59,7 @@ class MyAccountsPage extends StatelessWidget {
                             color: AppTheme.colors.darkGradient,
                             fontWeight: FontWeight.w600),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Text(
                        account!.name,// "Дарья",
                         textAlign: TextAlign.right,
@@ -74,7 +74,7 @@ class MyAccountsPage extends StatelessWidget {
                 Flexible(
                   flex: 1,
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(30, 20, 30, 10),
+                    padding: const EdgeInsets.fromLTRB(30, 20, 30, 10),
                     child: Row(children: <Widget>[
                       Text(
                         "Фамилия",
@@ -84,7 +84,7 @@ class MyAccountsPage extends StatelessWidget {
                             color: AppTheme.colors.darkGradient,
                             fontWeight: FontWeight.w600),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Text(
                         account!.surname,
                         textAlign: TextAlign.right,
@@ -99,7 +99,7 @@ class MyAccountsPage extends StatelessWidget {
                 Flexible(
                   flex: 1,
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(30, 20, 30, 10),
+                    padding: const EdgeInsets.fromLTRB(30, 20, 30, 10),
                     child: Row(children: <Widget>[
                       Text(
                         "Эл. почта",
@@ -109,7 +109,7 @@ class MyAccountsPage extends StatelessWidget {
                             color: AppTheme.colors.darkGradient,
                             fontWeight: FontWeight.w600),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Text(
                         account!.email,
                         textAlign: TextAlign.right,
@@ -124,7 +124,7 @@ class MyAccountsPage extends StatelessWidget {
                 Flexible(
                   flex: 1,
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(30, 20, 30, 10),
+                    padding: const EdgeInsets.fromLTRB(30, 20, 30, 10),
                     child: Row(children: <Widget>[
                       Text(
                         "Должность",
@@ -134,7 +134,7 @@ class MyAccountsPage extends StatelessWidget {
                             color: AppTheme.colors.darkGradient,
                             fontWeight: FontWeight.w600),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Text(
                         account!.position,
                         textAlign: TextAlign.right,

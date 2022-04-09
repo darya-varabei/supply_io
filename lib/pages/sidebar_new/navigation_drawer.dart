@@ -30,7 +30,7 @@ class NavigationDrawer extends StatelessWidget {
         gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        stops: [
+        stops: const [
         0.5,
         0.9
         ],
@@ -38,7 +38,6 @@ class NavigationDrawer extends StatelessWidget {
         AppTheme.colors.darkGradient,
         AppTheme.colors.lightGradient
         ],
-
     ),
         ),
         child: Padding(
@@ -48,7 +47,7 @@ class NavigationDrawer extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  stops: [
+                  stops: const [
                     0.5,
                     0.9
                   ],

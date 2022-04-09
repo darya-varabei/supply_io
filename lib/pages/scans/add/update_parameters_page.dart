@@ -71,9 +71,9 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                     color: AppTheme.colors.darkGradient,
                     fontWeight: FontWeight.w600),
               ),
-              Spacer(),
+              const Spacer(),
                   Text(
-                    "${result.batch}",
+                    result.batch,
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: 24,
@@ -97,7 +97,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                       child: TextFormField(
                         initialValue: result.grade,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(bottom: 20, left: 10),
+                          contentPadding: const EdgeInsets.only(bottom: 20, left: 10),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0)),
                           hintText: '',
@@ -118,7 +118,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                           color: AppTheme.colors.darkGradient,
                           fontWeight: FontWeight.w600),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     SizedBox(
                       width: 100,
                       height: 40,
@@ -129,7 +129,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                         },
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(bottom: 20, left: 10),
+                          contentPadding: const EdgeInsets.only(bottom: 20, left: 10),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0)),
                           hintText: '',
@@ -147,7 +147,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                           color: AppTheme.colors.darkGradient,
                           fontWeight: FontWeight.w600),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     SizedBox(
                       width: 100,
                       height: 40,
@@ -176,7 +176,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                           color: AppTheme.colors.darkGradient,
                           fontWeight: FontWeight.w600),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     SizedBox(
                       width: 100,
                       height: 40,
@@ -187,7 +187,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                         },
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(bottom: 20, left: 10),
+                          contentPadding: const EdgeInsets.only(bottom: 20, left: 10),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0)),
                           hintText: '',
@@ -199,7 +199,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                   Column(children: <Widget>[
                     FlatButton(
                       padding:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                          const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                       onPressed: () {
                         if (bufferGrade != "") {
                           result.grade = bufferGrade;
@@ -215,7 +215,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                         }
                         Navigator.pop(context, result);
                       },
-                      child: Text(
+                      child: const Text(
                         "Сохранить",
                         style: TextStyle(color: Colors.white),
                       ),

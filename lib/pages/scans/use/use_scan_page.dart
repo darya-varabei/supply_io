@@ -45,11 +45,11 @@ class _UseRollPageState extends State<UseRollPage> {
                       ))),
               Container(
                   padding: EdgeInsets.fromLTRB(20, 20, 20, 120),
-                  child: Text(
+                  child: const Text(
                       'Для регистрации обработки рулона отсканируйте QR код на упаковке. В случае получения результата в виде списка рулонов, выберите необходимый по идентификатору на этикетке и продолжите работу. После регистрации рулон переместится в список на вкладке "В обработке"',
                       style: TextStyle(fontSize: 14))),
               FlatButton(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 80),
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 80),
                 onPressed:() {
               Navigator.push(context, MaterialPageRoute(builder: (context) =>
               UseScanResultListPage(Certificate(certificateId: 1,
@@ -97,14 +97,14 @@ class _UseRollPageState extends State<UseRollPage> {
               )],
               ))));
               }, //=> scanQRCode(),
-                child: Text(
+                child: const Text(
                   "Сканировать",
                   style: TextStyle(color: Colors.white),
                 ),
                 color: AppTheme.colors.blue,
-                shape: StadiumBorder(),
+                shape: const StadiumBorder(),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
             ],
           ),
         ),
