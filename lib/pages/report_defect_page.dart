@@ -9,6 +9,8 @@ import 'package:gallery_saver/gallery_saver.dart';
 import '../helpers/theme/app_theme.dart';
 import '../model/defect_model.dart';
 import '../model/supply/package_model.dart';
+import '../model/user/login_model.dart';
+import 'package:http/http.dart' as http;
 
 class ReportdDefectPage extends StatefulWidget {
   Package package;
@@ -126,7 +128,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                               onPressed: () {
                                 defect.description = description;
                                 defect.rollId = package.batch;
-defect.defectPhoto = Image.file(_image!) as Image;
+defect.defectPhoto = Image.file(_image!) as FileImage;
                                 Navigator.pop(context);
                               },
                               child: Text(
@@ -151,5 +153,24 @@ defect.defectPhoto = Image.file(_image!) as Image;
       _image = File(pickerFile!.path);
     });
    // Navigator.pop(context);
+  }
+
+  Future<String> getJwtOrEmpty() async {
+    var jwt = await storage.read(key: "jwt");
+    if(jwt == null) return "";
+    return jwt;
+  }
+
+  Future<int> saveDefect() async {
+    String token = await getJwtOrEmpty();
+    final Uri apiUrl = Uri.parse(SERVER_IP);
+    final response = await http.post( apiUrl, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'access_token': token,
+    },body:
+    defect.toJson()
+    );
+    return response.statusCode;
   }
 }
