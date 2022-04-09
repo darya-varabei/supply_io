@@ -32,6 +32,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   String qrCode = 'Unknown';
   bool isApiCallProcess = false;
+  late Certificate result;
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +131,8 @@ class _MainPageState extends State<MainPage> {
                                       surfaceQuality: "",
                                     )
                                   ],
+
+                                    //this.result
                                 )
                                 )
                         )
@@ -150,7 +153,7 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
-    Future<void> scanQRCode() async {
+    Future<Certificate?> scanQRCode() async {
       try {
         final qrCode = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666',
@@ -159,16 +162,18 @@ class _MainPageState extends State<MainPage> {
           ScanMode.QR,
         );
 
-        if (!mounted) return;
+        if (!mounted) return null;
 
         setState(() {
           this.qrCode = qrCode;
           Future<Certificate?> future = createUser(qrCode);
           future.then((result) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ScanResultListPage(result!)));
+            this.result = result!;
+            return result;
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => ScanResultListPage(result!)));
           });
         });
       } on PlatformException {
