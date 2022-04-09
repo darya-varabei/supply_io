@@ -5,6 +5,8 @@ import 'package:supply_io/model/supply/package_model.dart';
 import 'package:supply_io/model/supply/product_model.dart';
 import 'package:http/http.dart' as http;
 
+import '../user/login_model.dart';
+
 class Certificate {
   final int certificateId;
   final String link;
@@ -71,12 +73,21 @@ class Certificate {
     );
   }
 
+  Future<String> getJwtOrEmpty() async {
+    var jwt = await storage.read(key: "jwt");
+    if(jwt == null) return "";
+    return jwt;
+  }
+
   Future<Certificate> createAlbum(String link) async {
+    String token = await getJwtOrEmpty();
     final response = await http.post(
       Uri.parse('https://jsonplaceholder.typicode.com/albums'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'access_token': token,
+        },
       body: jsonEncode(<String, String>{
         'link': link,
       }),

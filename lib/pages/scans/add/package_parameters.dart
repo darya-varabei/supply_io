@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:supply_io/pages/scans/add/update_parameters_page.dart';
 
 import '../../../helpers/theme/app_theme.dart';
-import '../../../model/supply/certificate_model.dart';
 import '../../../model/supply/package_model.dart';
 import '../../../model/user/login_model.dart';
 import '../../sidebar_new/navigation_drawer.dart';
@@ -74,11 +73,11 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
         Flexible(
             flex: 1,
             child: Container(
-              padding: EdgeInsets.fromLTRB(40, 8, 40, 10),
+              padding: const EdgeInsets.fromLTRB(40, 8, 40, 10),
               alignment: Alignment.centerRight,
               child: Column(children: <Widget>[
                 Text(
-                  "${result.batch}",
+                  result.batch,
                   style: TextStyle(
                       fontSize: 24,
                       color: AppTheme.colors.darkGradient,
@@ -89,7 +88,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
         Flexible(
           flex: 1,
           child: Container(
-            padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+            padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
             child: Row(children: <Widget>[
               Text(
                 "Марка стали",
@@ -99,7 +98,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                     color: AppTheme.colors.darkGradient,
                     fontWeight: FontWeight.w600),
               ),
-              Spacer(),
+              const Spacer(),
               Text(
                 "${result.grade}",
                 textAlign: TextAlign.right,
@@ -114,7 +113,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
         Flexible(
           flex: 1,
           child: Container(
-            padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+            padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
             child: Row(children: <Widget>[
               Text(
                 "Производитель",
@@ -124,7 +123,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                     color: AppTheme.colors.darkGradient,
                     fontWeight: FontWeight.w600),
               ),
-              Spacer(),
+              const Spacer(),
               Text(
                 "Северсталь",
                 textAlign: TextAlign.right,
@@ -139,7 +138,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
         Flexible(
           flex: 1,
           child: Container(
-            padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+            padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
             child: Row(children: <Widget>[
               Text(
                 "Толщина",
@@ -149,7 +148,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                     color: AppTheme.colors.darkGradient,
                     fontWeight: FontWeight.w600),
               ),
-              Spacer(),
+              const Spacer(),
               Text(
                 "${result.size.thickness}",
                 textAlign: TextAlign.right,
@@ -164,7 +163,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
         Flexible(
           flex: 1,
           child: Container(
-            padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+            padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
             child: Row(children: <Widget>[
               Text(
                 "Ширина",
@@ -174,7 +173,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                     color: AppTheme.colors.darkGradient,
                     fontWeight: FontWeight.w600),
               ),
-              Spacer(),
+              const Spacer(),
               Text(
                 "${result.size.width}",
                 textAlign: TextAlign.right,
@@ -189,7 +188,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
         Flexible(
           flex: 1,
           child: Container(
-            padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+            padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
             child: Row(children: <Widget>[
               Text(
                 "Масса(брутто)",
@@ -199,7 +198,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                     color: AppTheme.colors.darkGradient,
                     fontWeight: FontWeight.w600),
               ),
-              Spacer(),
+              const Spacer(),
               Text(
                 "${result.weight.gross}",
                 textAlign: TextAlign.right,
@@ -214,7 +213,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
         Flexible(
           flex: 1,
           child: Container(
-            padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+            padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
             child: Row(children: <Widget>[
               Text(
                 "Масса(нетто)",
@@ -224,7 +223,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                     color: AppTheme.colors.darkGradient,
                     fontWeight: FontWeight.w600),
               ),
-              Spacer(),
+              const Spacer(),
               Text(
                 "${result.weight.net}",
                 textAlign: TextAlign.right,
@@ -239,10 +238,10 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
         Flexible(
             flex: 2,
             child: Container(
-              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
               child: Column(children: <Widget>[
                 FlatButton(
-                  padding: EdgeInsets.symmetric(vertical: 13, horizontal: 26),
+                  padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 26),
                   onPressed: () {
                     moveToSecondPage();
                     //Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateParametersPage(result, certificateId)));
@@ -264,10 +263,10 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
         Flexible(
             flex: 2,
             child: Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: Column(children: <Widget>[
                 FlatButton(
-                  padding: EdgeInsets.symmetric(vertical: 13, horizontal: 54),
+                  padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 54),
                   onPressed: () async {
                     var requestResult = await savePackage();
                     if (requestResult == 200) {
@@ -281,12 +280,12 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                       showMyDialog("Ошибка", "Не удается выполнить сохранение");
                     }
                   },
-                  child: Text(
+                  child: const Text(
                     "Сохранить",
                     style: TextStyle(color: Colors.white),
                   ),
                   color: AppTheme.colors.blue,
-                  shape: StadiumBorder(),
+                  shape: const StadiumBorder(),
                 ),
               ]),
             )),

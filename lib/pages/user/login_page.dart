@@ -84,10 +84,9 @@ class _LoginPageState extends State<LoginPage> {
                           Text(
                             "SupplyIO",
                             style: Theme.of(context).textTheme.headline2,
-                            //color: AppTheme.colors.darkGradient
                           ),
                           SizedBox(height: 20),
-                          new TextFormField(
+                          TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             onSaved: (input) =>
                                 loginRequestModel.email = "eve.holt@reqres.in",
@@ -95,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                             validator: (input) => !input!.contains('@')
                                 ? "Неверный формат"
                                 : null,
-                            decoration: new InputDecoration(
+                            decoration: InputDecoration(
                               hintText: "Электронная почта",
                               enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
@@ -111,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           SizedBox(height: 20),
-                          new TextFormField(
+                          TextFormField(
                             style:
                                 TextStyle(color: AppTheme.colors.darkGradient),
                             keyboardType: TextInputType.text,
@@ -122,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ? "Password should be more than 3 characters"
                                 : null,
                             obscureText: hidePassword,
-                            decoration: new InputDecoration(
+                            decoration: InputDecoration(
                               hintText: "Пароль",
                               enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
@@ -151,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           SizedBox(height: 30),
                           FlatButton(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 80),
                             onPressed: () async {
                               setState(() {
@@ -166,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                                         builder: (context) =>
                                             MainPage.fromBase64("${jwt}")));
                               } else {
-                                final snackBar =
+                                const snackBar =
                                     SnackBar(content: Text("Неверный ввод"));
                                 scaffoldKey.currentState
                                     ?.showSnackBar(snackBar);
@@ -206,14 +205,14 @@ class _LoginPageState extends State<LoginPage> {
                               //   });
                               // }
                             },
-                            child: Text(
+                            child: const Text(
                               "Войти",
                               style: TextStyle(color: Colors.white),
                             ),
                             color: AppTheme.colors.blue,
-                            shape: StadiumBorder(),
+                            shape: const StadiumBorder(),
                           ),
-                          SizedBox(height: 15),
+                          const SizedBox(height: 15),
                         ],
                       ),
                     ),

@@ -9,11 +9,9 @@ import '../../model/supply/status_model.dart';
 import '../../model/supply/weight_model.dart';
 import '../../model/user/login_model.dart';
 import '../lists/production_table_widget.dart';
-import '../lists/scan_result_list.dart';
 import '../report_defect_page.dart';
 import '../scans/add/main_scanner_page.dart';
 import '../scans/use/use_scan_page.dart';
-import '../user/my_accounts_page.dart';
 import 'drawer_item.dart';
 
 class NavigationDrawer extends StatelessWidget {

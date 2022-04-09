@@ -11,7 +11,6 @@ import '../../../model/supply/product_model.dart';
 import '../../../model/supply/size_model.dart';
 import '../../../model/supply/status_model.dart';
 import '../../../model/supply/weight_model.dart';
-import '../../lists/scan_result_list.dart';
 import '../../lists/use_scan_result_list.dart';
 import '../../sidebar_new/navigation_drawer.dart';
 

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:supply_io/pages/scans/add/package_parameters.dart';
 
 import '../../../helpers/theme/app_theme.dart';
 import '../../../model/supply/package_model.dart';
@@ -47,21 +46,13 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                       icon: const Icon(Icons.arrow_back),
                       onPressed: () {
                         Navigator.pop(context);
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //
-                        //         // builder: (context) => PackageParametersPage(
-                        //         //     result, certificateId)
-                        //     )
-                        // );
                       },
                     ),
                     Spacer(),
                     SizedBox(
                       width: 190,
                       child: Text(
-                        "Сертификат №${certificateId}",
+                        "Сертификат №$certificateId",
                         textAlign: TextAlign.right,
                         style: TextStyle(
                             fontSize: 16,
