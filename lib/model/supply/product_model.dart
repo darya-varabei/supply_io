@@ -5,10 +5,10 @@ class Product {
   final int? code;
 
   Product({
-      required this.productId,
-      required this.name,
-      this.labeling,
-      this.code});
+    required this.productId,
+    required this.name,
+    this.labeling,
+    this.code});
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
@@ -16,5 +16,15 @@ class Product {
         name: json['name'],
         labeling: json['labeling'],
         code: json['code']);
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'productId': productId,
+      'name': name?.trim(),
+      'labeling': labeling,
+      'code': code,
+    };
+    return map;
   }
 }

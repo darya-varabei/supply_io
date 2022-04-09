@@ -18,4 +18,14 @@ class Weight {
         gross2: json['gross2'],
         net: json['net']);
   }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'weightId': weightId,
+      'gross': gross,
+      'gross2': gross2,
+      'net': net,
+    };
+    return map;
+  }
 }

@@ -14,7 +14,6 @@ class ProgressHUD extends StatelessWidget {
     required this.child,
     required this.inAsyncCall,
     this.opacity = 0.3,
-    //this.color = AppTheme.colors.blue,
     this.valueColor,
   }) : super(key: key);
 

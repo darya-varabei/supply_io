@@ -11,4 +11,12 @@ class Status {
         statusId: json['statusId'],
         statusName: json['statusName']);
   }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'statusId': statusId,
+      'statusName': statusName,
+    };
+    return map;
+  }
 }

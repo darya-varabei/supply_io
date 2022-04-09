@@ -65,4 +65,30 @@ class ChemicalCompositionModel{
       notes: json['notes']
     );
   }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'chemicalCompositionId': chemicalCompositionId,
+      'c': c,
+      'mn': mn,
+      'si': si,
+      's': s,
+      'p': p,
+      'cr': cr,
+      'ni': ni,
+      'cu': cu,
+      'as': as,
+      'n2': n2,
+      'al': al,
+      'ti': ti,
+      'mo': mo,
+      'w': w,
+      'v': v,
+      'alWuthN2': alWuthN2,
+      'cev': cev,
+      'notes': notes,
+    };
+
+    return map;
+  }
 }

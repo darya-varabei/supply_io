@@ -18,7 +18,7 @@ class Package {
   final int? orderPosition;
   final int? numberOfClientMaterial;
   final int? serialNumber;
-   String? grade;
+  String? grade;
   final int? category;
   final String? strenghtGroup;
   final String? profile;
@@ -208,7 +208,7 @@ class Package {
         'packageId': packageId,
         'dateAdded': dateAdded.trim(),
         'dateChange': dateChange.trim(),
-        'status': status,
+        'status': status.toJson(),
         'namberConsignmentPackage': namberConsignmentPackage.trim(),
         'heat': heat.trim(),
         'batch': batch.trim(),
@@ -220,11 +220,11 @@ class Package {
         'strenghtGroup': strenghtGroup?.trim(),
         'profile': profile?.trim(),
         'barcode': barcode?.trim(),
-        'size': size,
+        'size': size.toJson(),
         'quantity': quantity,
         'variety': variety.trim(),
         'gost': gost.trim(),
-        'weight': weight,
+        'weight': weight.toJson(),
         'customerItemNumber': customerItemNumber,
         'treatment': treatment?.trim(),
         'groupCode': groupCode,
@@ -238,7 +238,7 @@ class Package {
         'trimOfEdge': trimOfEdge?.trim(),
         'weldability': weldability?.trim(),
         'orderFeature': orderFeature?.trim(),
-        'chemicalComposition': chemicalComposition,
+        'chemicalComposition': chemicalComposition?.toJson(),
         'sampleLocation': sampleLocation,
         'directOfTestPicses': directOfTestPicses,
         'temporalResistance': temporalResistance,
@@ -268,8 +268,6 @@ class Package {
         'photo': photo,
         'comment': comment?.trim(),
       };
-
       return map;
-   // }
   }
 }
