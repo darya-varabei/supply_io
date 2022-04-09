@@ -3,7 +3,7 @@ import 'dart:ui';
 class Defect {
   String rollId;
   String description;
-  Image? defectPhoto;
+  Image defectPhoto;
 
-  Defect({required this.rollId, required this.description, this.defectPhoto});
+  Defect({required this.rollId, required this.description, required this.defectPhoto});
 }

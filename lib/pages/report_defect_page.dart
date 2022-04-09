@@ -1,10 +1,11 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supply_io/pages/sidebar_new/navigation_drawer.dart';
-
+import 'package:gallery_saver/gallery_saver.dart';
 import '../helpers/theme/app_theme.dart';
 import '../model/defect_model.dart';
 import '../model/supply/package_model.dart';
@@ -20,10 +21,10 @@ class ReportdDefectPage extends StatefulWidget {
 }
 
 class _ReportdDefectPageState extends State<ReportdDefectPage> {
-  late File? _image = null;
+  File? _image = null;
   Package package;
   String description = "";
-  Defect defect = new Defect(rollId: "", description: "");
+  late Defect defect;
 
   _ReportdDefectPageState({required this.package});
 
@@ -39,7 +40,6 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
               child: SingleChildScrollView(
                   reverse: true,
                   child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Row(children: <Widget>[
                           IconButton(
@@ -55,28 +55,36 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                               "Упаковка №${package.batch}",
                               textAlign: TextAlign.right,
                               style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 20,
                                   color: AppTheme.colors.darkGradient,
                                   fontWeight: FontWeight.w400),
                             ),
                           ),
                         ]),
-                        const SizedBox(height: 20.0),
-                        Text(
+                        const SizedBox(height: 40.0),
+            Row(children: <Widget>[
+              Text(
                           "Описание дефекта",
                           textAlign: TextAlign.left,
                           style: TextStyle(
                               fontSize: 16,
                               color: AppTheme.colors.darkGradient,
-                              fontWeight: FontWeight.w600),
+                              fontWeight: FontWeight.w400),
                         ),
+                        Spacer(),
+                        Text("")
+              ]
+            ),
                         const SizedBox(height: 20.0),
                         TextFormField(
+                          textInputAction: TextInputAction.go,
                           minLines: 6,
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
                         ),
+                        const SizedBox(height: 20.0),
                         Column(children: <Widget>[
+                          Row(children: <Widget>[
                           RaisedButton.icon(
                             onPressed: () {
                               getImage();
@@ -96,10 +104,19 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                             splashColor: AppTheme.colors.blue,
                             color: AppTheme.colors.white,
                           ),
-                          _image == null
-                              ? new Text("No image selected")
-                              : new Image.file(_image!),
-                        ]),
+                          Spacer(),
+                         _image == null
+                             ? new Text("")
+                             : Container(
+                           width: 100,
+                           height: 100,
+                           child: Image.file(_image!),
+                         ),
+                        ]
+                          ),
+                        ]
+                        ),
+                        const SizedBox(height: 20.0),
                         Container(
                           padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                           child: Column(children: <Widget>[
@@ -109,7 +126,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                               onPressed: () {
                                 defect.description = description;
                                 defect.rollId = package.batch;
-
+defect.defectPhoto = Image.file(_image!) as Image;
                                 Navigator.pop(context);
                               },
                               child: Text(
@@ -120,17 +137,19 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                               shape: StadiumBorder(),
                             ),
                           ]),
-                        )
+                        ),
+                        const SizedBox(height: 50.0),
                       ]))),
         ),
       );
 
   Future getImage() async {
-    ImagePicker picker = new ImagePicker();
-    var image = await picker.pickImage(source: ImageSource.camera);
-
+    XFile? pickerFile = await ImagePicker()
+        .pickImage(source: ImageSource.camera, maxHeight: 1080, maxWidth: 1080);
     setState(() {
-      _image = image as File;
+      GallerySaver.saveImage(pickerFile!.path, albumName: "albumName");
+      _image = File(pickerFile!.path);
     });
+   // Navigator.pop(context);
   }
 }
