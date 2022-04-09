@@ -25,7 +25,6 @@ class MainPage extends StatefulWidget {
   //final Map<String, dynamic> payload;
 
   //const MainPage(this.jwt);
-
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -42,10 +41,11 @@ class _MainPageState extends State<MainPage> {
       opacity: 0.3,
     );
   }
-
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget _uiSetup(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       drawer: const NavigationDrawer(),
       appBar: AppBar(
         backgroundColor: AppTheme.colors.darkGradient,
@@ -73,59 +73,68 @@ class _MainPageState extends State<MainPage> {
             FlatButton(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 80),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ScanResultListPage(Certificate(
-                              certificateId: 1,
-                              link: "",
-                              number: "56327",
-                              date: "14.01.2022",
-                              author: "",
-                              authorAddress: "",
-                              fax: "",
-                              recipient: "",
-                              recipientCountry: "",
-                              product: Product(
-                                  productId: 1,
-                                  name: "ggg",
-                                  labeling: 1,
-                                  code: 2),
-                              shipmentShop: "",
-                              wagonNumber: "",
-                              orderNumber: "4",
-                              typeOfRollingStock: "1",
-                              typeOfPackaging: "",
-                              placeNumber: "",
-                              gosts: "",
-                              notes: "",
-                              packages: [
-                                Package(
-                                  packageId: 1,
-                                  dateAdded: "",
-                                  dateChange: "",
-                                  status: Status(statusId: 1, statusName: ''),
-                                  namberConsignmentPackage: "",
-                                  heat: "",
-                                  batch: "46755",
-                                  size: XSize(
-                                      sizeId: 1,
-                                      thickness: 0.5,
-                                      width: 1230,
-                                      length: 1000.0),
-                                  quantity: 1,
-                                  variety: "",
-                                  gost: "",
-                                  grade: "08Ю",
-                                  weight: Weight(
-                                      weightId: 1,
-                                      gross: 7289,
-                                      gross2: 0,
-                                      net: 7200),
-                                  surfaceQuality: "",
+                const CircularProgressIndicator();
+                scanQRCode()
+                    .whenComplete(() =>
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ScanResultListPage(Certificate(
+                                  certificateId: 1,
+                                  link: "",
+                                  number: "56327",
+                                  date: "14.01.2022",
+                                  author: "",
+                                  authorAddress: "",
+                                  fax: "",
+                                  recipient: "",
+                                  recipientCountry: "",
+                                  product: Product(
+                                      productId: 1,
+                                      name: "ggg",
+                                      labeling: 1,
+                                      code: 2),
+                                  shipmentShop: "",
+                                  wagonNumber: "",
+                                  orderNumber: "4",
+                                  typeOfRollingStock: "1",
+                                  typeOfPackaging: "",
+                                  placeNumber: "",
+                                  gosts: "",
+                                  notes: "",
+                                  packages: [
+                                    Package(
+                                      packageId: 1,
+                                      dateAdded: "",
+                                      dateChange: "",
+                                      status: Status(
+                                          statusId: 1, statusName: ''),
+                                      namberConsignmentPackage: "",
+                                      heat: "",
+                                      batch: "46755",
+                                      size: XSize(
+                                          sizeId: 1,
+                                          thickness: 0.5,
+                                          width: 1230,
+                                          length: 1000.0),
+                                      quantity: 1,
+                                      variety: "",
+                                      gost: "",
+                                      grade: "08Ю",
+                                      weight: Weight(
+                                          weightId: 1,
+                                          gross: 7289,
+                                          gross2: 0,
+                                          net: 7200),
+                                      surfaceQuality: "",
+                                    )
+                                  ],
                                 )
-                              ],
-                            ))));
+                                )
+                        )
+                    )
+                );
               },
               // { scanQRCode(); },
               child: const Text(
@@ -140,7 +149,7 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     );
-
+  }
     Future<void> scanQRCode() async {
       try {
         final qrCode = await FlutterBarcodeScanner.scanBarcode(
@@ -166,5 +175,4 @@ class _MainPageState extends State<MainPage> {
         qrCode = 'Failed to get platform version.';
       }
     }
-  }
 }
