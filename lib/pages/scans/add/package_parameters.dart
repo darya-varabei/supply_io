@@ -279,6 +279,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                     else {
                       showMyDialog("Ошибка", "Не удается выполнить сохранение");
                     }
+                    Navigator.of(context).pop();
                   },
                   child: const Text(
                     "Сохранить",
