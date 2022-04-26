@@ -9,76 +9,76 @@ import 'dart:convert' show json, base64, ascii;
 
 class Package {
   final int packageId;
-  final String dateAdded;
-  final String dateChange;
-  final Status status;
-  final String namberConsignmentPackage;
-  final String heat;
-  final String batch;
+  final String? dateAdded;
+  final String? dateChange;
+  final Status? status;
+  final String? namberConsignmentPackage;
+  final String? heat;
+  final String? batch;
   final int? orderPosition;
-  final int? numberOfClientMaterial;
-  final int? serialNumber;
+  final String? numberOfClientMaterial;
+  final String? serialNumber;
   String? grade;
-  final int? category;
+  final String? category;
   final String? strenghtGroup;
   final String? profile;
   final String? barcode;
-  final XSize size;
-  final int quantity;
-  final String variety;
-  final String gost;
+  final XSize? size;
+  final int? quantity;
+  final String? variety;
+  final String? gost;
   final Weight weight;
   final int? customerItemNumber;
   final String? treatment;
   final int? groupCode;
   final String? pattemCutting;
-  final String surfaceQuality;
+  final String? surfaceQuality;
   final String? rollingAccuracy;
   final String? categoryOfDrawing;
   final String? stateOfMaterial;
-  final int? roughtness;
-  final int? flatness;
+  final String? roughtness;
+  final String? flatness;
   final String? trimOfEdge;
   final String? weldability;
   final String? orderFeature;
   final ChemicalCompositionModel? chemicalComposition;
-  final int? sampleLocation;
-  final int? directOfTestPicses;
+  final String? sampleLocation;
+  final String? directOfTestPicses;
   final int? temporalResistance;
-  final int? yieldPoint;
-  final int? tensilePoint;
+  final String? yieldPoint;
+  final String? tensilePoint;
   final int? elongation;
-  final int? bend;
-  final int? hardness;
-  final int? rockwell;
-  final int? brinel;
-  final int? eriksen;
+  final String? bend;
+  final String? hardness;
+  final String? rockwell;
+  final String? brinel;
+  final String? eriksen;
   final int? impactStrength;
-  final int? grainSize;
-  final int? decarburiization;
-  final int? cementite;
-  final int? banding;
+  final String? grainSize;
+  final String? decarburiization;
+  final String? cementite;
+  final String? banding;
   final String? corrosion;
   final String? testingMethod;
-  final int? unitTemporaryResistance;
-  final int? unitYieldStrength;
+  final String? unitTemporaryResistance;
+  final String? unitYieldStrength;
   final double? sphericalHoleDepth;
   final int? microBallCem;
   final int? r90;
   final int? n90;
   final int? koafNavodorag;
-  final int? notes;
+  final String? notes;
   final Image? photo;
   final String? comment;
 
   Package({
       required this.packageId,
-      required this.dateAdded,
-      required this.dateChange,
+      this.dateAdded,
+      this.dateChange,
       required this.status,
-      required this.namberConsignmentPackage,
-      required this.heat,
-      required this.batch,
+      this.namberConsignmentPackage,
+      this.heat,
+      this.batch,
       this.orderPosition,
       this.numberOfClientMaterial,
       this.serialNumber,
@@ -88,15 +88,15 @@ class Package {
       this.profile,
       this.barcode,
       required this.size,
-      required this.quantity,
-      required this.variety,
-      required this.gost,
+      this.quantity,
+      this.variety,
+      this.gost,
       required this.weight,
       this.customerItemNumber,
       this.treatment,
       this.groupCode,
       this.pattemCutting,
-      required this.surfaceQuality,
+      this.surfaceQuality,
       this.rollingAccuracy,
       this.categoryOfDrawing,
       this.stateOfMaterial,
@@ -140,7 +140,7 @@ class Package {
       packageId: json['packageId'],
       dateAdded: json['dateAdded'],
       dateChange: json['dateChange'],
-      status: json['status'],
+      status: Status(statusId: 1, statusName: "Имеется"),//Status.fromJson(json['status']),
       namberConsignmentPackage: json['namberConsignmentPackage'],
       heat: json['heat'],
       batch: json['batch'],
@@ -152,11 +152,11 @@ class Package {
       strenghtGroup: json['strenghtGroup'],
       profile: json['profile'],
       barcode: json['barcode'],
-      size: json['size'],
+      size: XSize.fromJson(json['size']),
       quantity: json['quantity'],
       variety: json['variety'],
       gost: json['gost'],
-      weight: json['weight'],
+      weight: Weight.fromJson(json['weight']),
       customerItemNumber: json['customerItemNumber'],
       treatment: json['treatment'],
       groupCode: json['groupCode'],
@@ -170,7 +170,7 @@ class Package {
       trimOfEdge: json['trimOfEdge'],
       weldability: json['weldability'],
       orderFeature: json['orderFeature'],
-      chemicalComposition: json['chemicalComposition'],
+      chemicalComposition: ChemicalCompositionModel.fromJson(json['chemicalComposition']),
       sampleLocation: json['sampleLocation'],
       directOfTestPicses: json['directOfTestPicses'],
       temporalResistance: json['temporalResistance'],
@@ -206,12 +206,12 @@ class Package {
       Map<String, dynamic> map = {
 
         'packageId': packageId,
-        'dateAdded': dateAdded.trim(),
-        'dateChange': dateChange.trim(),
-        'status': status.toJson(),
-        'namberConsignmentPackage': namberConsignmentPackage.trim(),
-        'heat': heat.trim(),
-        'batch': batch.trim(),
+        'dateAdded': dateAdded,
+        'dateChange': dateChange,
+        'status': status?.toJson(),
+        'namberConsignmentPackage': namberConsignmentPackage,
+        'heat': heat,
+        'batch': batch,
         'orderPosition': orderPosition,
         'numberOfClientMaterial': numberOfClientMaterial,
         'serialNumber': serialNumber,
@@ -220,16 +220,16 @@ class Package {
         'strenghtGroup': strenghtGroup?.trim(),
         'profile': profile?.trim(),
         'barcode': barcode?.trim(),
-        'size': size.toJson(),
-        'quantity': quantity,
-        'variety': variety.trim(),
-        'gost': gost.trim(),
+        'size': size?.toJson(),
+        //'quantity': quantity,
+        'variety': variety,
+        'gost': gost,
         'weight': weight.toJson(),
         'customerItemNumber': customerItemNumber,
         'treatment': treatment?.trim(),
         'groupCode': groupCode,
         'pattemCutting': pattemCutting?.trim(),
-        'surfaceQuality': surfaceQuality.trim(),
+        'surfaceQuality': surfaceQuality,
         'rollingAccuracy': rollingAccuracy?.trim(),
         'categoryOfDrawing': categoryOfDrawing?.trim(),
         'stateOfMaterial': stateOfMaterial?.trim(),

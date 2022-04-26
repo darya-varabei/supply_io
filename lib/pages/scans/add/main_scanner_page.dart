@@ -8,11 +8,6 @@ import 'package:supply_io/helpers/theme/app_theme.dart';
 import 'package:supply_io/model/supply/certificate_model.dart';
 import 'package:supply_io/pages/scans/qr_scan_page.dart';
 import '../../../helpers/animated_items/progressHUD.dart';
-import '../../../model/supply/package_model.dart';
-import '../../../model/supply/product_model.dart';
-import '../../../model/supply/size_model.dart';
-import '../../../model/supply/status_model.dart';
-import '../../../model/supply/weight_model.dart';
 import '../../lists/scan_result_list.dart';
 import '../../sidebar_new/navigation_drawer.dart';
 
@@ -42,8 +37,9 @@ class _MainPageState extends State<MainPage> {
       opacity: 0.3,
     );
   }
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  @override
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   Widget _uiSetup(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
@@ -75,14 +71,13 @@ class _MainPageState extends State<MainPage> {
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 80),
               onPressed: () {
                 const CircularProgressIndicator();
-                scanQRCode()
-                    .whenComplete(() =>
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ScanResultListPage(Certificate(
-                                  certificateId: 1,
+                scanQRCode().then((value) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ScanResultListPage(value!) //Certificate(
+                          /* certificateId: 1,
                                   link: "",
                                   number: "56327",
                                   date: "14.01.2022",
@@ -129,16 +124,19 @@ class _MainPageState extends State<MainPage> {
                                           gross2: 0,
                                           net: 7200),
                                       surfaceQuality: "",
-                                    )
+                                    )*
                                   ],
+                                  //this.result
+                                )*/
+                          ));
+                });
 
-                                    //this.result
-                                )
-                                )
-                        )
-                    )
-                );
+                //  );
               },
+              //  ),
+              // ])
+              // )//);
+              // }
               // { scanQRCode(); },
               child: const Text(
                 "Сканировать",
@@ -153,31 +151,31 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
-    Future<Certificate?> scanQRCode() async {
-      try {
-        final qrCode = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666',
-          'Cancel',
-          true,
-          ScanMode.QR,
-        );
 
-        if (!mounted) return null;
+  Future<Certificate?> scanQRCode() async {
+    late Future<Certificate?> result;
+    try {
+      final qrCode = await FlutterBarcodeScanner.scanBarcode(
+        '#ff6666',
+        'Cancel',
+        true,
+        ScanMode.QR,
+      );
 
-        setState(() {
-          this.qrCode = qrCode;
-          Future<Certificate?> future = createUser(qrCode);
-          future.then((result) {
-            this.result = result!;
-            return result;
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => ScanResultListPage(result!)));
-          });
-        });
-      } on PlatformException {
-        qrCode = 'Failed to get platform version.';
-      }
+      if (!mounted) return null;
+
+      setState(() {
+        this.qrCode = qrCode;
+
+        result = createUser(qrCode);
+        // future.then((result) {
+        //   this.result = result!;
+        //   return result;
+        //});
+      });
+      return result;
+    } on PlatformException {
+      qrCode = 'Failed to get platform version.';
     }
+  }
 }

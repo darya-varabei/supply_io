@@ -22,13 +22,13 @@ class ProgressHUD extends StatelessWidget {
     List<Widget> widgetList = new List<Widget>.empty(growable: true);
     widgetList.add(child);
     if (inAsyncCall) {
-      final modal = new Stack(
+      final modal = Stack(
         children: [
-          new Opacity(
+          Opacity(
             opacity: opacity,
             child: ModalBarrier(dismissible: false, color: color),
           ),
-          new Center(
+          Center(
               child: new CircularProgressIndicator()
           ),
         ],

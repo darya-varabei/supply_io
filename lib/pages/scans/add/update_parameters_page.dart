@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../helpers/theme/app_theme.dart';
@@ -8,17 +7,18 @@ import '../../sidebar_new/navigation_drawer.dart';
 class UpdateParametersPage extends StatefulWidget {
   @override
   Package result;
-  int certificateId;
+  String certificateId;
 
-  UpdateParametersPage(this.result, this.certificateId);
+  UpdateParametersPage(this.result, this.certificateId, {Key? key}) : super(key: key);
 
+  @override
   _UpdateParametersPageState createState() =>
       _UpdateParametersPageState(result: result, certificateId: certificateId);
 }
 
 class _UpdateParametersPageState extends State<UpdateParametersPage> {
   Package result;
-  int certificateId;
+  String certificateId;
   String bufferGrade = "";
   double bufferThickness = 0.0;
   int bufferWidth = 0;
@@ -73,7 +73,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
               ),
               const Spacer(),
                   Text(
-                    result.batch,
+                    result.batch!,
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: 24,
@@ -90,7 +90,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                           color: AppTheme.colors.darkGradient,
                           fontWeight: FontWeight.w600),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     SizedBox(
                       width: 100,
                       height: 40,
@@ -152,13 +152,13 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                       width: 100,
                       height: 40,
                       child: TextFormField(
-                        initialValue: "${result.size.thickness}",
+                        initialValue: "${result.size?.thickness}",
                         onChanged: (text) {
                           bufferThickness = double.parse(text);
                         },
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(bottom: 20, left: 10),
+                          contentPadding: const EdgeInsets.only(bottom: 20, left: 10),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0)),
                           hintText: '',
@@ -181,7 +181,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                       width: 100,
                       height: 40,
                       child: TextFormField(
-                        initialValue: "${result.size.width}",
+                        initialValue: "${result.size?.width}",
                         onChanged: (text) {
                           bufferWidth = int.parse(text);
                         },
@@ -208,10 +208,10 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                           result.weight.gross = bufferWeight;
                         }
                         if (bufferThickness != 0.0) {
-                          result.size.thickness = bufferThickness;
+                          result.size?.thickness = bufferThickness;
                         }
                         if (bufferWidth != 0) {
-                          result.size.width = bufferWidth;
+                          result.size?.width = bufferWidth;
                         }
                         Navigator.pop(context, result);
                       },
@@ -220,7 +220,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                         style: TextStyle(color: Colors.white),
                       ),
                       color: AppTheme.colors.blue,
-                      shape: StadiumBorder(),
+                      shape: const StadiumBorder(),
                     ),
                     const SizedBox(height: 50.0),
                   ]),

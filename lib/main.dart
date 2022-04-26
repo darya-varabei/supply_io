@@ -2,15 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:supply_io/pages/report_defect_page.dart';
 import 'package:supply_io/pages/scans/add/main_scanner_page.dart';
 import 'package:supply_io/pages/user/login_page.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
 
-import 'model/supply/package_model.dart';
-import 'model/supply/size_model.dart';
-import 'model/supply/status_model.dart';
-import 'model/supply/weight_model.dart';
 import 'model/user/login_model.dart';
 
 void main() {
@@ -58,88 +53,58 @@ class MyApp extends StatelessWidget {
       home: FutureBuilder(
           future: jwtOrEmpty,
           builder: (context, snapshot) {
-            if (!snapshot.hasData) return CircularProgressIndicator();
+            if (!snapshot.hasData) return const CircularProgressIndicator();
             if (snapshot.data != "") {
               var str = snapshot.data;
               var jwt = str.toString().split(".");
 
-              if (jwt.length != 3) {
-                return ReportdDefectPage(Package(packageId: 1,
-                  dateAdded: "",
-                  dateChange: "",
-                  status: Status(statusId: 1, statusName: ''),
-                  namberConsignmentPackage: "",
-                  heat: "",
-                  batch: "46755",
-                  size: XSize(sizeId: 1,
-                      thickness: 0.5,
-                      width: 1230,
-                      length: 1000.0),
-                  quantity: 1,
-                  variety: "",
-                  gost: "",
-                  grade: "08Ю",
-                  weight: Weight(weightId: 1,
-                      gross: 7289,
-                      gross2: 0,
-                      net: 7200
-                  ),
-                  surfaceQuality: "",
-                ));//LoginPage();
+              if (jwt.length == 0) {
+                return  LoginPage();
               } else {
                 var payload = json.decode(
                     ascii.decode(base64.decode(base64.normalize(jwt[1]))));
                 if (DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
                     .isAfter(DateTime.now())) {
-                  return MainPage();//(str.toString(), payload);
+                  return LoginPage();//MainPage(); //(str.toString(), payload);
                 } else {
-                  return ReportdDefectPage(Package(packageId: 1,
+                  return /*ReportdDefectPage(Package(
+                    packageId: 1,
                     dateAdded: "",
                     dateChange: "",
                     status: Status(statusId: 1, statusName: ''),
                     namberConsignmentPackage: "",
                     heat: "",
                     batch: "46755",
-                    size: XSize(sizeId: 1,
-                        thickness: 0.5,
-                        width: 1230,
-                        length: 1000.0),
+                    size: XSize(
+                        sizeId: 1, thickness: 0.5, width: 1230, length: 1000.0),
                     quantity: 1,
                     variety: "",
                     gost: "",
                     grade: "08Ю",
-                    weight: Weight(weightId: 1,
-                        gross: 7289,
-                        gross2: 0,
-                        net: 7200
-                    ),
+                    weight:
+                        Weight(weightId: 1, gross: 7289, gross2: 0, net: 7200),
                     surfaceQuality: "",
-                  ));//LoginPage();
+                  ));*/ LoginPage();
                 }
               }
             } else {
-              return ReportdDefectPage(Package(packageId: 1,
+              return /*ReportdDefectPage(Package(
+                packageId: 1,
                 dateAdded: "",
                 dateChange: "",
                 status: Status(statusId: 1, statusName: ''),
                 namberConsignmentPackage: "",
                 heat: "",
                 batch: "46755",
-                size: XSize(sizeId: 1,
-                    thickness: 0.5,
-                    width: 1230,
-                    length: 1000.0),
+                size: XSize(
+                    sizeId: 1, thickness: 0.5, width: 1230, length: 1000.0),
                 quantity: 1,
                 variety: "",
                 gost: "",
                 grade: "08Ю",
-                weight: Weight(weightId: 1,
-                    gross: 7289,
-                    gross2: 0,
-                    net: 7200
-                ),
+                weight: Weight(weightId: 1, gross: 7289, gross2: 0, net: 7200),
                 surfaceQuality: "",
-              ));//LoginPage();
+              ));*/ LoginPage();
             }
           }),
     );

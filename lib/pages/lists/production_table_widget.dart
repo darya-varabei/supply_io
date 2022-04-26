@@ -1,28 +1,27 @@
 import 'dart:convert';
-import 'dart:ffi';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supply_io/model/supply/package_model.dart';
 import 'package:http/http.dart' as http;
 import '../../helpers/theme/app_theme.dart';
+import '../../model/supply/package_in_use_model.dart';
+import '../../model/user/login_model.dart';
 import '../report_defect_page.dart';
 import '../sidebar_new/navigation_drawer.dart';
 
 class ProductionTableWidget extends StatefulWidget {
-  ProductionTableWidget();
+  const ProductionTableWidget();
 
   @override
-  State createState() => new ProductionTableWidgetState();
+  State createState() => ProductionTableWidgetState();
 }
 
 class ProductionTableWidgetState extends State<ProductionTableWidget> {
   bool isSelected = false;
-  late Package selectedPackage;
+  late PackageInUseModel selectedPackage;
   Color buttonColor = AppTheme.colors.grey;
-  int _selectedIndex = -1;
 
-  late Future<List<Package>> futureData;
+  late Future<List<PackageInUseModel>> futureData;
 
   @override
   void initState() {
@@ -57,11 +56,11 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
                   )),
               Flexible(
                   flex: 6,
-                  child: FutureBuilder<List<Package>?>(
+                  child: FutureBuilder<List<PackageInUseModel>?>(
                       future: futureData,
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          List<Package>? data = snapshot.data;
+                          List<PackageInUseModel>? data = snapshot.data;
                           return ListView.builder(
                               itemCount: data?.length,
                               itemBuilder: (context, position) {
@@ -77,13 +76,14 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
                                         onTap: () {
                                           if (isSelected == true) {
                                             isSelected = false;
+                                            selectedPackage = data![position];
                                             actOnCellTap(AppTheme.colors.red);
                                           } else {
                                             isSelected = true;
                                             actOnCellTap(AppTheme.colors.grey);
                                           }
                                         },
-                                        title: Text(data![position].batch),
+                                        title: Text(data![position].grade!),
                                         trailing: Icon(
                                           Icons.arrow_forward,
                                           color: AppTheme.colors.darkGradient,
@@ -134,20 +134,31 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
     });
   }
 
-  Future<List<Package>> getPackagesInUse() async {
-    final Uri apiUrl = Uri.parse("https://192.168.1.2:44335/api/");
+  Future<List<PackageInUseModel>> getPackagesInUse() async {
+    final Uri apiUrl = Uri.parse("https://192.168.100.11:44335/api/parcer/package?status=В%20обработке");
+    String token = await getJwtOrEmpty();
+    final response = await http.get(apiUrl, headers: {
+      'access_token': token,
+    });
 
-    final response = await http.get(apiUrl);
-
-    if (response.statusCode == 200) {
+    if (response.statusCode < 400) {
       final String responseString = response.body;
       print(responseString);
-      var packageList = jsonDecode(responseString)['packages'] as List;
-      List<Package> listDecoded =
-          packageList.map((tagJson) => Package.fromJson(tagJson)).toList();
+      var packageList = jsonDecode(responseString);//['packages'] as List;
+print(packageList);
+      List<PackageInUseModel> listDecoded = [PackageInUseModel(supplyDate: "", grade: "08ПС", numberOfCertificate: "44567", width: "1240", thickness: "1.2", height: "23.4", mill: null, coatingClass: null, sort: null, supplier: "НЛМК",elongation: null, price: null,  comment: null, status: "Имеется" ),PackageInUseModel(supplyDate: "", grade: "08ПС", numberOfCertificate: "44567", width: "1240", thickness: "1.2", height: "23.4", mill: null, coatingClass: null, sort: null, supplier: "НЛМК",elongation: null, price: null,  comment: null, status: "Имеется" )];
+
+      //List<PackageInUseModel> listDecoded =
+         // packageList.map((tagJson) => PackageInUseModel.fromJson(tagJson)).toList();
       return listDecoded;
     } else {
       return List.empty();
     }
+  }
+
+  Future<String> getJwtOrEmpty() async {
+    var jwt = await storage.read(key: "jwt");
+    if (jwt == null) return "";
+    return jwt;
   }
 }

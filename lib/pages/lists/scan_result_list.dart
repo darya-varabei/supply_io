@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../helpers/theme/app_theme.dart';
@@ -9,9 +8,12 @@ import '../sidebar_new/navigation_drawer.dart';
 
 class ScanResultListPage extends StatefulWidget {
   Certificate result;
-  ScanResultListPage(this.result);
+
+  ScanResultListPage(this.result, {Key? key}) : super(key: key);
+
   @override
-  _ScanResultListPageState createState() => _ScanResultListPageState(result: result);
+  _ScanResultListPageState createState() =>
+      _ScanResultListPageState(result: result);
 }
 
 class _ScanResultListPageState extends State<ScanResultListPage> {
@@ -20,7 +22,9 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
   Color buttonColor = AppTheme.colors.grey;
   int _selectedIndex = -1;
   Certificate result;
+
   _ScanResultListPageState({required this.result});
+
   @override
   Widget build(BuildContext context) => Scaffold(
       drawer: const NavigationDrawer(),
@@ -28,7 +32,7 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
         backgroundColor: AppTheme.colors.darkGradient,
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(40, 20, 40, 40),
+        padding: const EdgeInsets.fromLTRB(40, 20, 40, 40),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -41,13 +45,15 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
                     child: Row(children: <Widget>[
                       IconButton(
                         icon: const Icon(Icons.arrow_back),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
                       ),
                       const Spacer(),
                       SizedBox(
                         width: 190,
                         child: Text(
-                          "Сертификат № ${result.certificateId}",
+                          "Сертификат № ${result.number}",
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontSize: 28,
@@ -72,10 +78,17 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
                           child: Padding(
                               padding: const EdgeInsets.all(1.0),
                               child: ListTile(
-                                onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                                    PackageParametersPage(result.packages[position], result.certificateId)));
-                                  },
-                                title: Text("${result.packages[position].packageId}"),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              PackageParametersPage(
+                                                  result.packages[position],
+                                                  result.number!)));
+                                },
+                                title: Text(
+                                    "${result.packages[position].batch}"),
                                 trailing: Icon(
                                   Icons.arrow_forward,
                                   color: AppTheme.colors.darkGradient,

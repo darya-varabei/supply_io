@@ -7,7 +7,6 @@ import '../../helpers/theme/app_theme.dart';
 import '../../model/user/account_model.dart';
 
 class MyAccountsPage extends StatelessWidget {
-  @override
   Account? account;
   MyAccountsPage({Key? key}) : super(key: key) {
     Future<Account?> future = createUser("darysp");
@@ -15,6 +14,7 @@ class MyAccountsPage extends StatelessWidget {
       account = result;
     });
   }
+  @override
   Widget build(BuildContext context) => Scaffold(
       drawer: const NavigationDrawer(),
       appBar: AppBar(

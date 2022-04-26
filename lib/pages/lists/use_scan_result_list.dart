@@ -11,9 +11,12 @@ import 'package:http/http.dart' as http;
 
 class UseScanResultListPage extends StatefulWidget {
   Certificate result;
-  UseScanResultListPage(this.result);
+
+  UseScanResultListPage(this.result, {Key? key}) : super(key: key);
+
   @override
-  _UseScanResultListPageState createState() => _UseScanResultListPageState(result: result);
+  _UseScanResultListPageState createState() =>
+      _UseScanResultListPageState(result: result);
 }
 
 class _UseScanResultListPageState extends State<UseScanResultListPage> {
@@ -22,7 +25,9 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
   Color buttonColor = AppTheme.colors.grey;
   int _selectedIndex = -1;
   Certificate result;
+
   _UseScanResultListPageState({required this.result});
+
   @override
   Widget build(BuildContext context) => Scaffold(
       drawer: const NavigationDrawer(),
@@ -30,7 +35,7 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
         backgroundColor: AppTheme.colors.darkGradient,
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(40, 20, 40, 40),
+        padding: const EdgeInsets.fromLTRB(40, 20, 40, 40),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -45,7 +50,7 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
                         icon: const Icon(Icons.arrow_back),
                         onPressed: () {},
                       ),
-                      Spacer(),
+                      const Spacer(),
                       SizedBox(
                         width: 190,
                         child: Text(
@@ -59,7 +64,7 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
                       ),
                     ]),
                   )),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Flexible(
                   flex: 6,
                   child: ListView.builder(
@@ -74,16 +79,19 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
                           child: Padding(
                               padding: const EdgeInsets.all(1.0),
                               child: ListTile(
-                                onTap: () async  {
-                                  var res = await savePackage(result.packages[position]);
+                                onTap: () async {
+                                  var res = await savePackage(
+                                      result.packages[position]);
                                   if (res == 200) {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) =>
-                                            ProductionTableWidget()));
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const ProductionTableWidget()));
                                   }
-                                    //PackageParametersPage(result.packages[position], result.certificateId)));
                                 },
-                                title: Text("${result.packages[position].packageId}"),
+                                title: Text(
+                                    "${result.packages[position].packageId}"),
                                 trailing: Icon(
                                   Icons.arrow_forward,
                                   color: AppTheme.colors.darkGradient,
@@ -99,18 +107,17 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
     String token = await getJwtOrEmpty();
     final Uri apiUrl = Uri.parse(SERVER_IP);
     final response = await http.post(apiUrl, headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
       'access_token': token,
     }, body: {
       'id': packageToUse.batch,
+      'status': packageToUse.status?.statusName
     });
     return response.statusCode;
   }
 
   Future<String> getJwtOrEmpty() async {
     var jwt = await storage.read(key: "jwt");
-    if(jwt == null) return "";
+    if (jwt == null) return "";
     return jwt;
   }
 }

@@ -1,14 +1,14 @@
 class Weight {
-  final int weightId;
-  double gross;
+  final int? weightId;
+  double? gross;
   final double? gross2;
-  double net;
+  double? net;
 
   Weight({
-    required this.weightId,
-    required this.gross,
-    required this.gross2,
-    required this.net
+    this.weightId,
+    this.gross,
+    this.gross2,
+    this.net
   });
 
   factory Weight.fromJson(Map<String, dynamic> json) {

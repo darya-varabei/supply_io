@@ -9,18 +9,22 @@ import '../../sidebar_new/navigation_drawer.dart';
 import 'package:http/http.dart' as http;
 
 class PackageParametersPage extends StatefulWidget {
-
   Package result;
-  int certificateId;
-  PackageParametersPage(this.result, this.certificateId);
+  String certificateId;
+
+  PackageParametersPage(this.result, this.certificateId, {Key? key}) : super(key: key);
+
   @override
-  _PackageParametersPageState createState() => _PackageParametersPageState(result: result, certificateId: certificateId);
+  _PackageParametersPageState createState() =>
+      _PackageParametersPageState(result: result, certificateId: certificateId);
 }
 
 class _PackageParametersPageState extends State<PackageParametersPage> {
   Package result;
-  int certificateId;
-  _PackageParametersPageState({required this.result, required this.certificateId});
+  String certificateId;
+
+  _PackageParametersPageState(
+      {required this.result, required this.certificateId});
 
   void updateInformation(Package updatedResult) {
     setState(() => result = updatedResult);
@@ -30,7 +34,8 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
     final information = await Navigator.push(
       context,
       CupertinoPageRoute(
-          fullscreenDialog: true, builder: (context) => UpdateParametersPage(result, certificateId)),
+          fullscreenDialog: true,
+          builder: (context) => UpdateParametersPage(result, certificateId)),
     );
     updateInformation(information);
   }
@@ -56,11 +61,11 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                     Navigator.pop(context);
                   },
                 ),
-                Spacer(),
+                const Spacer(),
                 SizedBox(
                   width: 190,
                   child: Text(
-                    "Сертификат № ${certificateId}",
+                    "Сертификат № $certificateId",
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: 16,
@@ -77,7 +82,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               alignment: Alignment.centerRight,
               child: Column(children: <Widget>[
                 Text(
-                  result.batch,
+                  result.batch!,
                   style: TextStyle(
                       fontSize: 24,
                       color: AppTheme.colors.darkGradient,
@@ -125,7 +130,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ),
               const Spacer(),
               Text(
-                "Северсталь",
+                result.batch!,
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     fontSize: 16,
@@ -150,7 +155,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ),
               const Spacer(),
               Text(
-                "${result.size.thickness}",
+                "${result.size?.thickness}",
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     fontSize: 16,
@@ -175,7 +180,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ),
               const Spacer(),
               Text(
-                "${result.size.width}",
+                "${result.size?.width}",
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     fontSize: 16,
@@ -241,7 +246,8 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
               child: Column(children: <Widget>[
                 FlatButton(
-                  padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 26),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 13, horizontal: 26),
                   onPressed: () {
                     moveToSecondPage();
                     //Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateParametersPage(result, certificateId)));
@@ -266,18 +272,21 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: Column(children: <Widget>[
                 FlatButton(
-                  padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 54),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 13, horizontal: 54),
                   onPressed: () async {
                     var requestResult = await savePackage();
-                    if (requestResult == 200) {
-                      showMyDialog("Рулон сохранен", "Сохранение данного рулона выполнено успешно");
+                    if (requestResult < 400) {
+                      showMyDialog("Рулон сохранен",
+                          "Сохранение данного рулона выполнено успешно");
                       Navigator.of(context).pop();
-                    }
-                    else if (requestResult == 404) {
-                      showMyDialog("Ошибка", "Не удается установить интернет соединение");
-                    }
-                    else {
+                    } else if (requestResult == 404) {
+                      showMyDialog("Ошибка",
+                          "Не удается установить интернет соединение");
+                      Navigator.of(context).pop();
+                    } else {
                       showMyDialog("Ошибка", "Не удается выполнить сохранение");
+                      Navigator.of(context).pop();
                     }
                     Navigator.of(context).pop();
                   },
@@ -293,21 +302,26 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
       ])));
 
   Future<int> savePackage() async {
-    String token = await getJwtOrEmpty();
-    final Uri apiUrl = Uri.parse(SERVER_IP);
-    final response = await http.post( apiUrl, headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'access_token': token,
-    },body:
-    result.toJson()
-    );
+    var tokenBase = await storage.read(key: "jwt");
+    String token = "";
+    if (tokenBase != null) {
+      token = tokenBase;
+    } else {
+      return 0;
+    }
+    final Uri apiUrl = Uri.parse('https://192.168.100.11:44335/api/parcer/package');
+    print(result.toJson());
+    final response = await http.post(apiUrl,
+        headers: {
+          'access_token': token,
+        },
+        body: result.toJson());
     return response.statusCode;
   }
 
   Future<String> getJwtOrEmpty() async {
     var jwt = await storage.read(key: "jwt");
-    if(jwt == null) return "";
+    if (jwt == null) return "";
     return jwt;
   }
 
@@ -327,7 +341,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Готова'),
+              child: const Text('Готово'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

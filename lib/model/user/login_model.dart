@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' show json, base64, ascii;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-const SERVER_IP = 'http://192.168.1.167:5000';
+const SERVER_IP = 'http://192.168.100.11:44335';
 final storage = FlutterSecureStorage();
 
 
@@ -23,18 +23,18 @@ class LoginResponseModel {
 }
 
 class LoginRequestModel {
-  String? email;
-  String? password;
+  String email;
+  String password;
 
   LoginRequestModel({
-    this.email,
-    this.password,
+    required this.email,
+    required this.password,
   });
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-      'email': email?.trim(),
-      'password': password?.trim(),
+      'email': email.trim(),
+      'password': password.trim(),
     };
 
     return map;

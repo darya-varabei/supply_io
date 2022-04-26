@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,14 +6,15 @@ import 'package:image_picker/image_picker.dart';
 import 'package:supply_io/pages/sidebar_new/navigation_drawer.dart';
 import '../helpers/theme/app_theme.dart';
 import '../model/defect_model.dart';
+import '../model/supply/package_in_use_model.dart';
 import '../model/supply/package_model.dart';
 import '../model/user/login_model.dart';
 import 'package:http/http.dart' as http;
 
 class ReportdDefectPage extends StatefulWidget {
-  Package package;
+  PackageInUseModel package;
 
-  ReportdDefectPage(this.package);
+  ReportdDefectPage(this.package, {Key? key}) : super(key: key);
 
   @override
   _ReportdDefectPageState createState() =>
@@ -23,7 +23,7 @@ class ReportdDefectPage extends StatefulWidget {
 
 class _ReportdDefectPageState extends State<ReportdDefectPage> {
   File? _image = null;
-  Package package;
+  PackageInUseModel package;
   String description = "";
   late Defect defect;
 
@@ -52,7 +52,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                       SizedBox(
                         width: 190,
                         child: Text(
-                          "Упаковка №${package.batch}",
+                          "Упаковка №${package.numberOfCertificate}",
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontSize: 20,
@@ -105,7 +105,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                         ),
                         const Spacer(),
                         _image == null
-                            ? Text("")
+                            ? const Text("")
                             : SizedBox(
                                 width: 100,
                                 height: 100,
@@ -122,7 +122,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                               vertical: 13, horizontal: 54),
                           onPressed: () {
                             defect.description = description;
-                            defect.rollId = package.batch;
+                            defect.rollId = package.numberOfCertificate!;
                             defect.defectPhoto =
                                 Image.file(_image!) as FileImage;
                             Navigator.pop(context);
@@ -132,7 +132,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                             style: TextStyle(color: Colors.white),
                           ),
                           color: AppTheme.colors.blue,
-                          shape: StadiumBorder(),
+                          shape: const StadiumBorder(),
                         ),
                       ]),
                     ),

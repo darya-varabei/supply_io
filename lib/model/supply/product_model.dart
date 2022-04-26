@@ -1,12 +1,12 @@
 class Product {
-  final int productId;
-  final String name;
+  final int? productId;
+  final String? name;
   final int? labeling;
   final int? code;
 
   Product({
-    required this.productId,
-    required this.name,
+    this.productId,
+    this.name,
     this.labeling,
     this.code});
 
@@ -21,7 +21,7 @@ class Product {
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'productId': productId,
-      'name': name.trim(),
+      'name': name,
       'labeling': labeling,
       'code': code,
     };

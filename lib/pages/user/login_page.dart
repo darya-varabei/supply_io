@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supply_io/pages/scans/add/main_scanner_page.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
@@ -15,8 +14,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
-  UserData userData = new UserData();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  UserData userData = UserData();
 
   bool hidePassword = true;
   bool isApiCallProcess = false;
@@ -28,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    loginRequestModel = new LoginRequestModel();
+    loginRequestModel = LoginRequestModel(password: '', email: '');
   }
 
   @override
@@ -62,8 +61,10 @@ class _LoginPageState extends State<LoginPage> {
                 children: <Widget>[
                   Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-                    margin: const EdgeInsets.symmetric(vertical: 85, horizontal: 20),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 30, horizontal: 20),
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 85, horizontal: 20),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: AppTheme.colors.white,
@@ -87,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             onSaved: (input) =>
-                                loginRequestModel.email = "eve.holt@reqres.in",
+                                loginRequestModel.email = input!,
                             //input,
                             validator: (input) => !input!.contains('@')
                                 ? "Неверный формат"
@@ -113,10 +114,10 @@ class _LoginPageState extends State<LoginPage> {
                                 TextStyle(color: AppTheme.colors.darkGradient),
                             keyboardType: TextInputType.text,
                             onSaved: (input) =>
-                                loginRequestModel.password = "cityslika",
+                                loginRequestModel.password = input!,
                             //input,
                             validator: (input) => input!.length < 3
-                                ? "Password should be more than 3 characters"
+                                ? "Пароль должен иметь более 8 символов"
                                 : null,
                             obscureText: hidePassword,
                             decoration: InputDecoration(
@@ -146,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 30),
+                          const SizedBox(height: 30),
                           FlatButton(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 80),
@@ -156,12 +157,12 @@ class _LoginPageState extends State<LoginPage> {
                               });
                               var jwt = await login();
                               if (jwt != 404) {
-                                storage.write(key: "jwt", value: "$jwt");
+                                //storage.write(key: "jwt", value: "$jwt");
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => MainPage()));
-                                            //MainPage.fromBase64("$jwt")));
+                                //MainPage.fromBase64("$jwt")));
                               } else {
                                 const snackBar =
                                     SnackBar(content: Text("Неверный ввод"));
@@ -234,33 +235,41 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void submit() {
-    if (this._formKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate()) {
       _formKey.currentState?.save();
       login();
     }
   }
 
   Future<int> login() async {
-    final url = '$SERVER_IP/authentication/login';
-    await http.post(Uri.parse(url), body: {
-      'login': userData.email,
-      'password': userData.username //base64Encode(userData.password.codeUnits)
-    }).then((response) {
-      Map<String, dynamic> responseMap = json.decode(response.body);
-      if (response.statusCode == 200) {
+    final Uri apiUrl = Uri.parse('https://192.168.100.11:44335/api/authentication/login');
+    Map data = {
+      "login": "admin",
+      "password": "admin"
+    };
+    var body = json.encode(data);
+    final response1 = await http.post(apiUrl, headers: <String, String>{
+    'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+    'login': 'admin',
+    'password': 'admin'
+    }));//then((response) {
+      Map<String, dynamic> responseMap = json.decode(response1.body);
+      if (response1.statusCode < 300) {
         userData.addData(responseMap);
-        // Navigator.push(
-        //   context,
-        //MaterialPageRoute( builder: (context) => SideBarLayout(),),
-        // );
+        storage.write(key: "jwt", value: userData.accessToken);
       } else {
-        if (responseMap.containsKey("message"))
+        if (responseMap.containsKey("message")) {
           scaffoldKey.currentState?.showSnackBar(snackBar);
+        }
       }
-      return response.statusCode;
-    }).catchError((err) {
-      scaffoldKey.currentState?.showSnackBar(snackBar);
-    });
-    return 404;
+      return response1.statusCode;
+
+    if (response1.statusCode < 301) {
+      return response1.statusCode;
+    } else {
+      throw Exception('Failed to create album.');
+    }
   }
 }
