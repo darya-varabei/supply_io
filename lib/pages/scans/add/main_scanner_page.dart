@@ -12,14 +12,6 @@ import '../../lists/scan_result_list.dart';
 import '../../sidebar_new/navigation_drawer.dart';
 
 class MainPage extends StatefulWidget {
-  // factory MainPage.fromBase64(String jwt) => MainPage(
-  //     jwt,
-  //     json.decode(
-  //         ascii.decode(base64.decode(base64.normalize(jwt.split(".")[1])))));
-  //final String jwt;
-  //final Map<String, dynamic> payload;
-
-  //const MainPage(this.jwt);
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -75,69 +67,11 @@ class _MainPageState extends State<MainPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              ScanResultListPage(value!) //Certificate(
-                          /* certificateId: 1,
-                                  link: "",
-                                  number: "56327",
-                                  date: "14.01.2022",
-                                  author: "",
-                                  authorAddress: "",
-                                  fax: "",
-                                  recipient: "",
-                                  recipientCountry: "",
-                                  product: Product(
-                                      productId: 1,
-                                      name: "ggg",
-                                      labeling: 1,
-                                      code: 2),
-                                  shipmentShop: "",
-                                  wagonNumber: "",
-                                  orderNumber: "4",
-                                  typeOfRollingStock: "1",
-                                  typeOfPackaging: "",
-                                  placeNumber: "",
-                                  gosts: "",
-                                  notes: "",
-                                  packages: [
-                                    Package(
-                                      packageId: 1,
-                                      dateAdded: "",
-                                      dateChange: "",
-                                      status: Status(
-                                          statusId: 1, statusName: ''),
-                                      namberConsignmentPackage: "",
-                                      heat: "",
-                                      batch: "46755",
-                                      size: XSize(
-                                          sizeId: 1,
-                                          thickness: 0.5,
-                                          width: 1230,
-                                          length: 1000.0),
-                                      quantity: 1,
-                                      variety: "",
-                                      gost: "",
-                                      grade: "08Ю",
-                                      weight: Weight(
-                                          weightId: 1,
-                                          gross: 7289,
-                                          gross2: 0,
-                                          net: 7200),
-                                      surfaceQuality: "",
-                                    )*
-                                  ],
-                                  //this.result
-                                )*/
-                          ));
+                          builder: (context) => ScanResultListPage(value!)));
                 });
 
                 //  );
               },
-              //  ),
-              // ])
-              // )//);
-              // }
-              // { scanQRCode(); },
               child: const Text(
                 "Сканировать",
                 style: TextStyle(color: Colors.white),
@@ -168,10 +102,6 @@ class _MainPageState extends State<MainPage> {
         this.qrCode = qrCode;
 
         result = createUser(qrCode);
-        // future.then((result) {
-        //   this.result = result!;
-        //   return result;
-        //});
       });
       return result;
     } on PlatformException {

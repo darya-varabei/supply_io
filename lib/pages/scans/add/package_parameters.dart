@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supply_io/pages/scans/add/update_parameters_page.dart';
@@ -11,20 +13,22 @@ import 'package:http/http.dart' as http;
 class PackageParametersPage extends StatefulWidget {
   Package result;
   String certificateId;
+  int certificateNumber;
 
-  PackageParametersPage(this.result, this.certificateId, {Key? key}) : super(key: key);
+  PackageParametersPage(this.result, this.certificateId, this.certificateNumber, {Key? key}) : super(key: key);
 
   @override
   _PackageParametersPageState createState() =>
-      _PackageParametersPageState(result: result, certificateId: certificateId);
+      _PackageParametersPageState(result: result, certificateId: certificateId, certificateNumber: certificateNumber);
 }
 
 class _PackageParametersPageState extends State<PackageParametersPage> {
   Package result;
   String certificateId;
+  int certificateNumber;
 
   _PackageParametersPageState(
-      {required this.result, required this.certificateId});
+      {required this.result, required this.certificateId, required this.certificateNumber});
 
   void updateInformation(Package updatedResult) {
     setState(() => result = updatedResult);
@@ -277,8 +281,6 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                   onPressed: () async {
                     var requestResult = await savePackage();
                     if (requestResult < 400) {
-                      showMyDialog("Рулон сохранен",
-                          "Сохранение данного рулона выполнено успешно");
                       Navigator.of(context).pop();
                     } else if (requestResult == 404) {
                       showMyDialog("Ошибка",
@@ -302,21 +304,21 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
       ])));
 
   Future<int> savePackage() async {
-    var tokenBase = await storage.read(key: "jwt");
-    String token = "";
-    if (tokenBase != null) {
-      token = tokenBase;
-    } else {
-      return 0;
-    }
-    final Uri apiUrl = Uri.parse('https://192.168.100.11:44335/api/parcer/package');
-    print(result.toJson());
+     String token = "";
+    final Uri apiUrl = Uri.parse('https://192.168.100.11:44335/api/parcer/package/${certificateNumber}');
+    String body = json.encode(result.toJson());
     final response = await http.post(apiUrl,
         headers: {
-          'access_token': token,
+          "Content-Type": "application/json",
         },
-        body: result.toJson());
+    body: json.encode(result.toJson()));
     return response.statusCode;
+  }
+
+  /// Print Long String
+  void printLongString(String text) {
+    final RegExp pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
+    pattern.allMatches(text).forEach((RegExpMatch match) =>   print(match.group(0)));
   }
 
   Future<String> getJwtOrEmpty() async {

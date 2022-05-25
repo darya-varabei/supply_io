@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +25,24 @@ class ReportdDefectPage extends StatefulWidget {
 
 class _ReportdDefectPageState extends State<ReportdDefectPage> {
   File? _image = null;
-  PackageInUseModel package;
+  PackageInUseModel package = PackageInUseModel(
+      supplyDate: "",
+      grade: "08ПС",
+      numberOfCertificate: "44567",
+      width: "1240",
+      thickness: "1.2",
+      height: "23.4",
+      mill: null,
+      coatingClass: null,
+      sort: null,
+      supplier: "НЛМК",
+      elongation: null,
+      price: null,
+      comment: null,
+      status: "Имеется");
   String description = "";
-  late Defect defect;
+  Defect defect = Defect(rollId: "", description: "", defectPhoto: null);
+  TextEditingController messageController = TextEditingController();
 
   _ReportdDefectPageState({required this.package});
 
@@ -78,6 +95,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                     TextFormField(
                       textInputAction: TextInputAction.go,
                       minLines: 6,
+                      controller: messageController,
                       keyboardType: TextInputType.multiline,
                       maxLines: null,
                     ),
@@ -121,10 +139,9 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 13, horizontal: 54),
                           onPressed: () {
-                            defect.description = description;
-                            defect.rollId = package.numberOfCertificate!;
-                            defect.defectPhoto =
-                                Image.file(_image!) as FileImage;
+                            defect.description = messageController.text;
+                            defect.rollId = package.batch!;
+                            saveDefect();
                             Navigator.pop(context);
                           },
                           child: const Text(
@@ -157,14 +174,19 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
 
   Future<int> saveDefect() async {
     String token = await getJwtOrEmpty();
-    final Uri apiUrl = Uri.parse(SERVER_IP);
-    final response = await http.post(apiUrl,
+    final Uri apiUrl =
+        Uri.parse('https://192.168.100.11:44335/api/parcer/package/defect');
+    if (_image != null) {
+      List<int> imageBytes = _image!.readAsBytesSync();
+      String base64Image = base64Encode(imageBytes);
+      defect.defectPhoto = Uint8List.fromList(imageBytes);
+    }
+
+    final response = await http.put(apiUrl,
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'access_token': token,
+          "Content-Type": "application/json",
         },
-        body: defect.toJson());
+        body: json.encode(defect.toJson()));
     return response.statusCode;
   }
 }

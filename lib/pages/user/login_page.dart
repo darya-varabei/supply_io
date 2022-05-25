@@ -243,18 +243,13 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<int> login() async {
     final Uri apiUrl = Uri.parse('https://192.168.100.11:44335/api/authentication/login');
-    Map data = {
-      "login": "admin",
-      "password": "admin"
-    };
-    var body = json.encode(data);
     final response1 = await http.post(apiUrl, headers: <String, String>{
     'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, String>{
-    'login': 'admin',
-    'password': 'admin'
-    }));//then((response) {
+    'login': loginRequestModel.email,
+    'password': loginRequestModel.password
+    }));
       Map<String, dynamic> responseMap = json.decode(response1.body);
       if (response1.statusCode < 300) {
         userData.addData(responseMap);
@@ -265,11 +260,5 @@ class _LoginPageState extends State<LoginPage> {
         }
       }
       return response1.statusCode;
-
-    if (response1.statusCode < 301) {
-      return response1.statusCode;
-    } else {
-      throw Exception('Failed to create album.');
-    }
   }
 }

@@ -7,13 +7,13 @@ import '../../helpers/theme/app_theme.dart';
 import '../../model/user/account_model.dart';
 
 class MyAccountsPage extends StatelessWidget {
-  Account? account;
-  MyAccountsPage({Key? key}) : super(key: key) {
-    Future<Account?> future = createUser("darysp");
-    future.then((result) {
-      account = result;
-    });
-  }
+  Account? account = Account(username: "darysp", name: "Дарья", surname: "Воробей", email: "daria-vo@rambler.ru", position: "Директор");
+  // MyAccountsPage({Key? key}) : super(key: key) {
+  //   Future<Account?> future = createUser("darysp");
+  //   future.then((result) {
+  //     account = result;
+  //   });
+  // }
   @override
   Widget build(BuildContext context) => Scaffold(
       drawer: const NavigationDrawer(),
@@ -149,7 +149,7 @@ class MyAccountsPage extends StatelessWidget {
               ])));
 
   Future<Account?> createUser(String username) async {
-    final Uri apiUrl = Uri.parse("https://192.168.1.2:44335/api/account/${username}");
+    final Uri apiUrl = Uri.parse("https://192.168.100.11:44335/api/account/${username}");
 
     final response = await http.get(apiUrl);
 

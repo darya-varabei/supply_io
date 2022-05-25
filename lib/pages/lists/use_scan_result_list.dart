@@ -87,11 +87,11 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const ProductionTableWidget()));
+                                                 const ProductionTableWidget()));
                                   }
                                 },
                                 title: Text(
-                                    "${result.packages[position].packageId}"),
+                                    "${result.packages[position].batch}"),
                                 trailing: Icon(
                                   Icons.arrow_forward,
                                   color: AppTheme.colors.darkGradient,

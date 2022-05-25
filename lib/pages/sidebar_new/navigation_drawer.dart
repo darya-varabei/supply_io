@@ -140,27 +140,7 @@ class NavigationDrawer extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => /*ReportdDefectPage(Package(
-                      packageId: 1,
-                      dateAdded: "",
-                      dateChange: "",
-                      status: Status(statusId: 1, statusName: ''),
-                      namberConsignmentPackage: "",
-                      heat: "",
-                      batch: "46755",
-                      size: XSize(
-                          sizeId: 1,
-                          thickness: 0.5,
-                          width: 1230,
-                          length: 1000.0),
-                      quantity: 1,
-                      variety: "",
-                      gost: "",
-                      grade: "08Ю",
-                      weight: Weight(
-                          weightId: 1, gross: 7289, gross2: 0, net: 7200),
-                      surfaceQuality: "",
-                    ))));*/ MyAccountsPage()));//ProductionTableWidget()));
+                builder: (context) =>  MyAccountsPage()));
     }
   }
 

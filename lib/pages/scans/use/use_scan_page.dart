@@ -18,6 +18,7 @@ class UseRollPage extends StatefulWidget {
 class _UseRollPageState extends State<UseRollPage> {
   String qrCode = 'Unknown';
   late Certificate result;
+
   @override
   Widget build(BuildContext context) => Scaffold(
         drawer: const NavigationDrawer(),
@@ -54,8 +55,7 @@ class _UseRollPageState extends State<UseRollPage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                UseScanResultListPage(value!)
-                        ));
+                                UseScanResultListPage(value!)));
                   });
                 },
                 child: const Text(
@@ -72,6 +72,7 @@ class _UseRollPageState extends State<UseRollPage> {
       );
 
   Future<Certificate?> scanQRCode() async {
+    late Future<Certificate?> future;
     try {
       final qrCode = await FlutterBarcodeScanner.scanBarcode(
         '#ff6666',
@@ -84,12 +85,10 @@ class _UseRollPageState extends State<UseRollPage> {
 
       setState(() {
         this.qrCode = qrCode;
-        Future<Certificate?> future = sendUse(qrCode);
-        future.then((result) {
-          this.result = result!;
-          return result;
-        });
+        future = sendUse(qrCode);
       });
+
+      return future;
     } on PlatformException {
       qrCode = 'Failed to get platform version.';
     }

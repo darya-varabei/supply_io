@@ -1,11 +1,13 @@
+import 'dart:typed_data';
 import 'dart:ui';
-
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Defect {
   String rollId;
   String description;
-  FileImage defectPhoto;
+  Uint8List? defectPhoto;
 
   Defect({required this.rollId, required this.description, required this.defectPhoto});
 
@@ -19,9 +21,9 @@ class Defect {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-      'rollId': rollId.trim(),
-      'description': description.trim(),
-      'defectPhoto': defectPhoto,
+      'batch': rollId.trim(),
+      'comment': description.trim(),
+      'photo': defectPhoto,
     };
 
     return map;
