@@ -149,7 +149,7 @@ class MyAccountsPage extends StatelessWidget {
               ])));
 
   Future<Account?> createUser(String username) async {
-    final Uri apiUrl = Uri.parse("https://192.168.100.11:44335/api/account/${username}");
+    final Uri apiUrl = Uri.parse("https://192.168.8.138:44335/api/account/${username}");
 
     final response = await http.get(apiUrl);
 

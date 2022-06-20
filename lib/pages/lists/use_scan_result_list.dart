@@ -81,14 +81,18 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
                               child: ListTile(
                                 onTap: () async {
                                   var res = await savePackage(
-                                      result.packages[position]);
-                                  if (res == 200) {
+                                      result.packages[position]).then((value) {
+                                    // if (value != null) {
+                                    //   setState(() {
+                                    //     isApiCallProcess = false;
+                                    //   });
+                                    // }
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                 const ProductionTableWidget()));
-                                  }
+                                            const ProductionTableWidget()));
+                                  });
                                 },
                                 title: Text(
                                     "${result.packages[position].batch}"),
@@ -105,13 +109,8 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
 
   Future<int> savePackage(Package packageToUse) async {
     String token = await getJwtOrEmpty();
-    final Uri apiUrl = Uri.parse(SERVER_IP);
-    final response = await http.post(apiUrl, headers: {
-      'access_token': token,
-    }, body: {
-      'id': packageToUse.batch,
-      'status': packageToUse.status?.statusName
-    });
+    final Uri apiUrl = Uri.parse("https://192.168.8.138:44335/api/parcer/package?batch=${packageToUse.batch}&status=2");
+    final response = await http.put(apiUrl);
     return response.statusCode;
   }
 

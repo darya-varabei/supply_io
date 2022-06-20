@@ -62,31 +62,46 @@ class NavigationDrawer extends StatelessWidget {
                     height: 40,
                   ),
                   DrawerItem(
-                    name: 'Добавить по QR',
+                    name: 'Добавить по QR на упаковке',
                     icon: Icons.photo_camera,
                     onPressed: () => onItemPressed(context, index: 0),
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  DrawerItem(
+                    name: 'Сохранить сертификат по QR',
+                    icon: Icons.photo_camera,
+                    onPressed: () => onItemPressed(context, index: 1),
                   ),
                   const SizedBox(
                     height: 30,
                   ),
                   DrawerItem(
-                      name: 'Использовать по QR',
+                      name: 'Отправить в обработку',
                       icon: Icons.photo_filter,
-                      onPressed: () => onItemPressed(context, index: 1)),
+                      onPressed: () => onItemPressed(context, index: 2)),
                   const SizedBox(
                     height: 30,
                   ),
                   DrawerItem(
                       name: 'В обработке',
                       icon: Icons.list,
-                      onPressed: () => onItemPressed(context, index: 2)),
+                      onPressed: () => onItemPressed(context, index: 3)),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  DrawerItem(
+                      name: 'Сертификаты в ожидании',
+                      icon: Icons.list,
+                      onPressed: () => onItemPressed(context, index: 4)),
                   const SizedBox(
                     height: 30,
                   ),
                   DrawerItem(
                       name: 'Аккаунт',
                       icon: Icons.person,
-                      onPressed: () => onItemPressed(context, index: 3)),
+                      onPressed: () => onItemPressed(context, index: 5)),
                   const SizedBox(
                     height: 30,
                   ),
@@ -101,7 +116,7 @@ class NavigationDrawer extends StatelessWidget {
                   DrawerItem(
                       name: 'Выйти',
                       icon: Icons.settings,
-                      onPressed: () => onItemPressed(context, index: 4)),
+                      onPressed: () => onItemPressed(context, index: 6)),
                   const SizedBox(
                     height: 30,
                   ),
@@ -123,20 +138,34 @@ class NavigationDrawer extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    MainPage()));
+                    MainPage(ScanOptions.package)));
         break;
       case 1:
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => UseRollPage()));
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    MainPage(ScanOptions.certificate)));
         break;
       case 2:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => UseRollPage()));
+        break;
+      case 3:
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
                     ProductionTableWidget()));
         break;
-      case 3:
+      case 4:
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    ProductionTableWidget()));
+        break;
+      case 5:
         Navigator.push(
             context,
             MaterialPageRoute(

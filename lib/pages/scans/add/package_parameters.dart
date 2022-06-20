@@ -14,21 +14,22 @@ class PackageParametersPage extends StatefulWidget {
   Package result;
   String certificateId;
   int certificateNumber;
+  String author;
 
-  PackageParametersPage(this.result, this.certificateId, this.certificateNumber, {Key? key}) : super(key: key);
+  PackageParametersPage(this.result, this.certificateId, this.certificateNumber, this.author, {Key? key}) : super(key: key);
 
   @override
   _PackageParametersPageState createState() =>
-      _PackageParametersPageState(result: result, certificateId: certificateId, certificateNumber: certificateNumber);
+      _PackageParametersPageState(result: result, certificateId: certificateId, certificateNumber: certificateNumber, author: author);
 }
 
 class _PackageParametersPageState extends State<PackageParametersPage> {
   Package result;
   String certificateId;
   int certificateNumber;
-
+  String author;
   _PackageParametersPageState(
-      {required this.result, required this.certificateId, required this.certificateNumber});
+      {required this.result, required this.certificateId, required this.certificateNumber, required this.author});
 
   void updateInformation(Package updatedResult) {
     setState(() => result = updatedResult);
@@ -134,7 +135,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ),
               const Spacer(),
               Text(
-                result.batch!,
+                author,
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     fontSize: 16,
@@ -254,7 +255,6 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                       const EdgeInsets.symmetric(vertical: 13, horizontal: 26),
                   onPressed: () {
                     moveToSecondPage();
-                    //Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateParametersPage(result, certificateId)));
                   },
                   child: Text(
                     "Внести изменения",
@@ -305,7 +305,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
 
   Future<int> savePackage() async {
      String token = "";
-    final Uri apiUrl = Uri.parse('https://192.168.100.11:44335/api/parcer/package/${certificateNumber}');
+    final Uri apiUrl = Uri.parse('https://192.168.8.138:44335/api/parcer/package/${certificateNumber}');
     String body = json.encode(result.toJson());
     final response = await http.post(apiUrl,
         headers: {
@@ -330,7 +330,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
   Future<void> showMyDialog(String title, String text) async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(title),

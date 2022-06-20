@@ -22,7 +22,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
   String bufferGrade = "";
   double bufferThickness = 0.0;
   int bufferWidth = 0;
-  double bufferWeight = 0.0;
+  int bufferWeight = 0;
 
   _UpdateParametersPageState(
       {required this.result, required this.certificateId});
@@ -125,7 +125,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                       child: TextFormField(
                         initialValue: "${result.weight.gross}",
                         onChanged: (text) {
-                          bufferWeight = double.parse(text);
+                          bufferWeight = int.parse(text);
                         },
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(

@@ -161,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => MainPage()));
+                                        builder: (context) => MainPage(ScanOptions.package)));
                                 //MainPage.fromBase64("$jwt")));
                               } else {
                                 const snackBar =
@@ -242,7 +242,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<int> login() async {
-    final Uri apiUrl = Uri.parse('https://192.168.100.11:44335/api/authentication/login');
+    final Uri apiUrl = Uri.parse('https://192.168.8.138:44335/api/authentication/login');
     final response1 = await http.post(apiUrl, headers: <String, String>{
     'Content-Type': 'application/json; charset=UTF-8',
     },

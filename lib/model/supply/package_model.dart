@@ -68,7 +68,7 @@ class Package {
   final int? n90;
   final int? koafNavodorag;
   final String? notes;
-  final Image? photo;
+  final String? photo;
   final String? comment;
 
   Package({

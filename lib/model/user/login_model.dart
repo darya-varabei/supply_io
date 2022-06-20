@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' show json, base64, ascii;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-const SERVER_IP = 'http://192.168.100.11:44335';
+const SERVER_IP = 'http://192.168.8.138:44335';
 final storage = FlutterSecureStorage();
 
 
@@ -39,17 +39,4 @@ class LoginRequestModel {
 
     return map;
   }
-
-  // Future<String?> attemptLogIn(String username, String password) async {
-  //   var res = await http.post(
-  //       "$SERVER_IP/login",
-  //       body: {
-  //         "username": username,
-  //         "password": password
-  //       }
-  //   );
-  //   if(res.statusCode == 200) return res.body;
-  //   return null;
-  // }
-
 }

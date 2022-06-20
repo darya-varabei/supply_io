@@ -175,7 +175,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
   Future<int> saveDefect() async {
     String token = await getJwtOrEmpty();
     final Uri apiUrl =
-        Uri.parse('https://192.168.100.11:44335/api/parcer/package/defect');
+        Uri.parse('https://192.168.8.138:44335/api/parcer/package/defect');
     if (_image != null) {
       List<int> imageBytes = _image!.readAsBytesSync();
       String base64Image = base64Encode(imageBytes);

@@ -6,20 +6,34 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
 import 'package:supply_io/model/supply/certificate_model.dart';
+import 'package:supply_io/pages/lists/certificates_in_wait.dart';
 import 'package:supply_io/pages/scans/qr_scan_page.dart';
 import '../../../helpers/animated_items/progressHUD.dart';
+import '../../../helpers/literals.dart';
 import '../../lists/scan_result_list.dart';
 import '../../sidebar_new/navigation_drawer.dart';
 
+enum ScanOptions {
+  certificate,
+  package,
+  undefined
+}
+
 class MainPage extends StatefulWidget {
   @override
-  _MainPageState createState() => _MainPageState();
+  ScanOptions scanOption = ScanOptions.undefined;
+  MainPage(this.scanOption);
+  @override
+  _MainPageState createState() => _MainPageState(scanOption: scanOption);
 }
 
 class _MainPageState extends State<MainPage> {
   String qrCode = 'Unknown';
   bool isApiCallProcess = false;
   late Certificate result;
+  ScanOptions scanOption = ScanOptions.undefined;
+
+  _MainPageState({required this.scanOption});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +62,7 @@ class _MainPageState extends State<MainPage> {
                 child: Container(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                     child: Text(
-                      'Добавление рулона',
+                      scanOption == ScanOptions.package ? Literals.scanQRTitle : Literals.scanCertificateTitle,
                       style: TextStyle(
                           fontSize: 24,
                           color: AppTheme.colors.darkGradient,
@@ -56,21 +70,42 @@ class _MainPageState extends State<MainPage> {
                     ))),
             Container(
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 120),
-                child: const Text(
-                    'Для регистрации рулона нажмите кнопку "Сканировать" и наведите на QR код на этикетке рулона или сертификате. В случае получения результата в виде списка рулонов, выберите необходимый по идентификатору на этикетке и продолжите работу. ',
+                child: Text(
+                    scanOption == ScanOptions.package ? Literals.scanQRStory : Literals.scanCertificateStory,
                     style: TextStyle(fontSize: 14))),
             FlatButton(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 80),
               onPressed: () {
                 const CircularProgressIndicator();
                 scanQRCode().then((value) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ScanResultListPage(value!)));
+    // if (value != null) {
+    //   setState(() {
+    //     isApiCallProcess = false;
+    //   });
+    // }
+                  if (scanOption == ScanOptions.package) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ScanResultListPage(value!)));
+                  } else {
+                    return showDialog(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                        title: Text("Сертификат сохранен успешно"),
+                        content: Text("Для сохранения рулонов из сертификата перейдите на вкладку 'Сертификаты в ожидании'"),
+                        actions: <Widget>[
+                          FlatButton(
+                            onPressed: () {
+                              Navigator.of(ctx).pop();
+                            },
+                            child: Text("ОК"),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
                 });
-
-                //  );
               },
               child: const Text(
                 "Сканировать",
@@ -100,8 +135,11 @@ class _MainPageState extends State<MainPage> {
 
       setState(() {
         this.qrCode = qrCode;
-
-        result = createUser(qrCode);
+        if (scanOption == ScanOptions.package) {
+          result = createByPackage(qrCode);
+        } else {
+          result = createByCertificate(qrCode);
+        }
       });
       return result;
     } on PlatformException {
