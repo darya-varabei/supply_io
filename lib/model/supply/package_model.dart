@@ -68,7 +68,7 @@ class Package {
   final int? n90;
   final int? koafNavodorag;
   final String? notes;
-  final String? photo;
+  //final List<List<>>? photo;
   final String? comment;
 
   Package({
@@ -132,7 +132,7 @@ class Package {
       this.n90,
       this.koafNavodorag,
       this.notes,
-      this.photo,
+      //this.photo,
       this.comment});
 
   factory Package.fromJson(Map<String, dynamic> json) {
@@ -191,13 +191,13 @@ class Package {
       testingMethod: json['testingMethod'],
       unitTemporaryResistance: json['unitTemporaryResistance'],
       unitYieldStrength: json['unitYieldStrength'],
-      sphericalHoleDepth: json['sphericalHoleDepth'],
+      sphericalHoleDepth: json['sphericalHoleDepth'].toDouble(),
       microBallCem: json['microBallCem'],
       r90: json['r90'],
       n90: json['n90'],
       koafNavodorag: json['koafNavodorag'],
       notes: json['notes'],
-      photo: json['photo'],
+      //photo: json['photo'],
       comment: json['comment'],
     );
   }
@@ -265,7 +265,7 @@ class Package {
         'n90': n90,
         'koafNavodorag': koafNavodorag,
         'notes': notes,
-        'photo': photo,
+        //'photo': photo,
         'comment': comment,
       };
       return map;

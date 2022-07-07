@@ -5,6 +5,7 @@ import 'package:supply_io/pages/sidebar_new/navigation_drawer.dart';
 
 import '../../helpers/theme/app_theme.dart';
 import '../../model/user/account_model.dart';
+import '../../model/user/login_model.dart';
 
 class MyAccountsPage extends StatelessWidget {
   Account? account = Account(username: "darysp", name: "Дарья", surname: "Воробей", email: "daria-vo@rambler.ru", position: "Директор");
@@ -148,17 +149,17 @@ class MyAccountsPage extends StatelessWidget {
                 ),
               ])));
 
-  Future<Account?> createUser(String username) async {
-    final Uri apiUrl = Uri.parse("https://192.168.8.138:44335/api/account/${username}");
-
-    final response = await http.get(apiUrl);
-
-    if(response.statusCode == 200) {
-      final String responseString = response.body;
-      print(responseString);
-      return Account.fromJson(jsonDecode(responseString));
-    } else {
-      return null;
-    }
-  }
+  // Future<Account?> createUser(String username) async {
+  //   final Uri apiUrl = Uri.parse("${SERVER_IP}/api/account/${username}");
+  //
+  //   final response = await http.get(apiUrl);
+  //
+  //   if(response.statusCode == 200) {
+  //     final String responseString = response.body;
+  //     print(responseString);
+  //     return Account.fromJson(jsonDecode(responseString));
+  //   } else {
+  //     return null;
+  //   }
+  // }
 }

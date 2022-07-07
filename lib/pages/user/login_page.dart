@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:supply_io/helpers/literals.dart';
 import 'package:supply_io/pages/scans/add/main_scanner_page.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
+import 'package:supply_io/service/service.dart';
 import '../../model/user/login_model.dart';
 import '../../helpers/animated_items/progressHUD.dart';
 import '../../model/user/user_model.dart';
@@ -87,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                           const SizedBox(height: 20),
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
-                            onSaved: (input) =>
+                            onChanged: (input) =>
                                 loginRequestModel.email = input!,
                             //input,
                             validator: (input) => !input!.contains('@')
@@ -113,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                             style:
                                 TextStyle(color: AppTheme.colors.darkGradient),
                             keyboardType: TextInputType.text,
-                            onSaved: (input) =>
+                            onChanged: (input) =>
                                 loginRequestModel.password = input!,
                             //input,
                             validator: (input) => input!.length < 3
@@ -156,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                                 isApiCallProcess = true;
                               });
                               var jwt = await login();
-                              if (jwt != 404) {
+                              if (jwt < 400) {
                                 //storage.write(key: "jwt", value: "$jwt");
                                 Navigator.push(
                                     context,
@@ -242,7 +244,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<int> login() async {
-    final Uri apiUrl = Uri.parse('https://192.168.8.138:44335/api/authentication/login');
+    final Uri apiUrl = Uri.parse('${Endpoint.baseUrl}${Endpoint.login}');
     final response1 = await http.post(apiUrl, headers: <String, String>{
     'Content-Type': 'application/json; charset=UTF-8',
     },

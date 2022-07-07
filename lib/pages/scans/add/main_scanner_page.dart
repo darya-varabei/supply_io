@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,10 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
 import 'package:supply_io/model/supply/certificate_model.dart';
-import 'package:supply_io/pages/lists/certificates_in_wait.dart';
-import 'package:supply_io/pages/scans/qr_scan_page.dart';
 import '../../../helpers/animated_items/progressHUD.dart';
 import '../../../helpers/literals.dart';
+import '../../../service/service.dart';
 import '../../lists/scan_result_list.dart';
 import '../../sidebar_new/navigation_drawer.dart';
 
@@ -72,7 +70,7 @@ class _MainPageState extends State<MainPage> {
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 120),
                 child: Text(
                     scanOption == ScanOptions.package ? Literals.scanQRStory : Literals.scanCertificateStory,
-                    style: TextStyle(fontSize: 14))),
+                    style: const TextStyle(fontSize: 14))),
             FlatButton(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 80),
               onPressed: () {
@@ -83,26 +81,49 @@ class _MainPageState extends State<MainPage> {
     //     isApiCallProcess = false;
     //   });
     // }
-                  if (scanOption == ScanOptions.package) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ScanResultListPage(value!)));
+                  if (value != null) {
+                    if (scanOption == ScanOptions.package) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ScanResultListPage(value!)));
+                    } else {
+                      return showDialog(
+                        context: context,
+                        builder: (ctx) =>
+                            AlertDialog(
+                              title: const Text("Сертификат сохранен успешно"),
+                              content: const Text(
+                                  "Для сохранения рулонов из сертификата перейдите на вкладку 'Сертификаты в ожидании'"),
+                              actions: <Widget>[
+                                FlatButton(
+                                  onPressed: () {
+                                    Navigator.of(ctx).pop();
+                                  },
+                                  child: const Text("ОК"),
+                                ),
+                              ],
+                            ),
+                      );
+                    }
                   } else {
                     return showDialog(
                       context: context,
-                      builder: (ctx) => AlertDialog(
-                        title: Text("Сертификат сохранен успешно"),
-                        content: Text("Для сохранения рулонов из сертификата перейдите на вкладку 'Сертификаты в ожидании'"),
-                        actions: <Widget>[
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.of(ctx).pop();
-                            },
-                            child: Text("ОК"),
+                      builder: (ctx) =>
+                          AlertDialog(
+                            title: const Text("Ошибка сохранение"),
+                            content: const Text(
+                                "Проверьте корректность сканируемого QR кода"),
+                            actions: <Widget>[
+                              FlatButton(
+                                onPressed: () {
+                                  Navigator.of(ctx).pop();
+                                },
+                                child: const Text("ОК"),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
                     );
                   }
                 });
@@ -136,9 +157,9 @@ class _MainPageState extends State<MainPage> {
       setState(() {
         this.qrCode = qrCode;
         if (scanOption == ScanOptions.package) {
-          result = createByPackage(qrCode);
+          result = Service.createByPackage(qrCode);
         } else {
-          result = createByCertificate(qrCode);
+          result = Service.createByCertificate(qrCode);
         }
       });
       return result;

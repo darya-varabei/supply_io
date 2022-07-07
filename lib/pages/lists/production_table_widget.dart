@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:supply_io/model/supply/package_model.dart';
 import 'package:http/http.dart' as http;
 import '../../helpers/theme/app_theme.dart';
 import '../../model/supply/package_in_use_model.dart';
@@ -161,7 +160,7 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
   }
 
   Future<List<PackageInUseModel>> getPackagesInUse() async {
-    final Uri apiUrl = Uri.parse("https://192.168.8.138:44335/api/parcer/package?status=В%20обработке");
+    final Uri apiUrl = Uri.parse("${SERVER_IP}/api/parcer/package?status=В%20обработке");
     String token = await getJwtOrEmpty();
     final response = await http.get(apiUrl, headers: {
       'access_token': token,

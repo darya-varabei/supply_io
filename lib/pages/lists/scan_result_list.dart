@@ -87,7 +87,7 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
                                                   result.packages[position],
                                                   result.number!,
                                                   result.certificateId,
-                                              result.author!)));
+                                              result.author!, ParameterState.add)));
                                 },
                                 title: Text(
                                     "${result.packages[position].batch}"),

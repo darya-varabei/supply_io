@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:supply_io/pages/lists/certificates_in_wait.dart';
 
 import '../../helpers/theme/app_theme.dart';
 import '../../model/user/login_model.dart';
@@ -49,7 +50,7 @@ class NavigationDrawer extends StatelessWidget {
               )),
               child: Column(
                 children: [
-                  headerWidget(),
+                  //headerWidget(),
                   const SizedBox(
                     height: 40,
                   ),
@@ -163,7 +164,7 @@ class NavigationDrawer extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    ProductionTableWidget()));
+                    CertificatesInWaitListPage()));
         break;
       case 5:
         Navigator.push(
@@ -188,12 +189,12 @@ class NavigationDrawer extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Дарья Воробей',
+            Text('',
                 style: TextStyle(fontSize: 14, color: AppTheme.colors.white)),
             SizedBox(
               height: 10,
             ),
-            Text('daria-vo@rambler.ru',
+            Text('',
                 style: TextStyle(fontSize: 14, color: AppTheme.colors.white))
           ],
         )

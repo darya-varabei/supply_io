@@ -2,14 +2,13 @@ import 'dart:convert';
 import 'dart:core';
 
 import 'package:supply_io/model/supply/package_model.dart';
-import 'package:supply_io/model/supply/product_model.dart';
 import 'package:http/http.dart' as http;
 
 import '../user/login_model.dart';
 
 class Certificate {
   final int certificateId;
-  final String? link;
+  //final List<String>? link;
   final String? number;
   final String? date;
   final String? author;
@@ -31,7 +30,7 @@ class Certificate {
 
   Certificate(
       {required this.certificateId,
-      this.link,
+      //this.link,
       this.number,
       this.date,
       this.author,
@@ -57,7 +56,7 @@ class Certificate {
 
     return Certificate(
         certificateId: json['certificateId'],
-        link: json['link'],
+        //link: json['link'],
         number: json['number'],
         date: json['date'],
         author: json['author'],

@@ -6,6 +6,7 @@ import '../../helpers/theme/app_theme.dart';
 import '../../model/supply/certificate_model.dart';
 import '../../model/supply/package_model.dart';
 import '../../model/user/login_model.dart';
+import '../../service/service.dart';
 import '../sidebar_new/navigation_drawer.dart';
 import 'package:http/http.dart' as http;
 
@@ -80,7 +81,7 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
                               padding: const EdgeInsets.all(1.0),
                               child: ListTile(
                                 onTap: () async {
-                                  var res = await savePackage(
+                                  var res = await Service.usePackage(
                                       result.packages[position]).then((value) {
                                     // if (value != null) {
                                     //   setState(() {
@@ -107,9 +108,9 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
             ]),
       ));
 
-  Future<int> savePackage(Package packageToUse) async {
+  Future<int> usePackage(Package packageToUse) async {
     String token = await getJwtOrEmpty();
-    final Uri apiUrl = Uri.parse("https://192.168.8.138:44335/api/parcer/package?batch=${packageToUse.batch}&status=2");
+    final Uri apiUrl = Uri.parse("${SERVER_IP}/api/parcer/package?batch=${packageToUse.batch}&status=2");
     final response = await http.put(apiUrl);
     return response.statusCode;
   }

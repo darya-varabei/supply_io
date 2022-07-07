@@ -1,33 +1,34 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:supply_io/pages/lists/scan_result_list.dart';
+import 'package:supply_io/pages/scans/add/package_parameters.dart';
+
 import '../../helpers/theme/app_theme.dart';
-import '../../model/supply/certificate_model.dart';
-import '../../model/user/login_model.dart';
+import '../../model/supply/package_model.dart';
 import '../../service/service.dart';
 import '../sidebar_new/navigation_drawer.dart';
 import '../widgets/debouncer.dart';
 
-class CertificatesInWaitListPage extends StatefulWidget {
+class PackagesInStockListPage extends StatefulWidget {
 
-  const CertificatesInWaitListPage( {Key? key}) : super(key: key);
+  const PackagesInStockListPage( {Key? key}) : super(key: key);
 
   @override
-  _CertificatesInWaitListPageState createState() =>
-      _CertificatesInWaitListPageState();
+  _PackagesInStockListPageState createState() =>
+      _PackagesInStockListPageState();
 }
 
-class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage> {
-  _CertificatesInWaitListPageState();
+class _PackagesInStockListPageState extends State<PackagesInStockListPage> {
+  _PackagesInStockListPageState();
   final _debouncer = Debouncer(milliseconds: 500);
-  late List<Certificate> futureData;
-  late List<Certificate> filteredPackages;
+  late List<Package> futureData;
+  late List<Package> filteredPackages;
 
   @override
   void initState() {
     super.initState();
-    Service.getPackagesInUse().then((certificatesFromServer) {
+    Service.getPackagesInStock().then((packagesFromServer) {
       setState(() {
-        futureData = certificatesFromServer;
+        futureData = packagesFromServer;
         filteredPackages = futureData;
       });
     });
@@ -36,10 +37,10 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
   @override
   Widget build(BuildContext context) =>
       Scaffold(
-          drawer: const NavigationDrawer(),
-          appBar: AppBar(
-            backgroundColor: AppTheme.colors.darkGradient,
-          ),
+        drawer: const NavigationDrawer(),
+        appBar: AppBar(
+          backgroundColor: AppTheme.colors.darkGradient,
+        ),
         body: Column(
           children: <Widget>[
             TextField(
@@ -51,7 +52,7 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
                 _debouncer.run(() {
                   setState(() {
                     filteredPackages = futureData
-                        .where((u) => (u.packages.map((c) => c.batch).toList()
+                        .where((u) => (unwrapText(u.batch)
                         .contains(string.toLowerCase())))
                         .toList();
                   });
@@ -76,22 +77,31 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ScanResultListPage(filteredPackages[index])));
+                                      builder: (context) => PackageParametersPage(filteredPackages[index], "", 1, "", ParameterState.use)));
                             },
-                            title: Text(unwrapText(filteredPackages[index].number)),
+                            title: Text(unwrapText(filteredPackages[index].batch)),
                             trailing: Icon(
                               Icons.arrow_forward,
                               color: AppTheme.colors.darkGradient,
                               size: 16.0,
                             ),
                           ),
+                    Row(children: <Widget>[
                           Text(
-                            unwrapText(filteredPackages[index].date),
+                            "Масса нетто ${filteredPackages[index].weight.net.toString()} кг",
                             style: const TextStyle(
-                              fontSize: 14.0,
+                              fontSize: 10.0,
                               color: Colors.grey,
                             ),
                           ),
+                      Text(
+                        "Ширина ${filteredPackages[index].size?.width.toString()} мм",
+                        style: const TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      ])
                         ],
                       ),
                     ),
@@ -102,32 +112,6 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
           ],
         ),
       );
-
-  // Future<List<Certificate>> getPackagesInUse() async {
-  //   final Uri apiUrl = Uri.parse("${SERVER_IP}/api/parcer/package?status=В%20обработке");
-  //   String token = await getJwtOrEmpty();
-  //   final response = await http.get(apiUrl, headers: {
-  //     'access_token': token,
-  //   });
-  //
-  //   if (response.statusCode < 400) {
-  //     final String responseString = response.body;
-  //     var packageList = jsonDecode(responseString);
-  //     List<Certificate>? listDecoded = [];
-  //     listDecoded = (json.decode(response.body) as List).map((i) =>
-  //         Certificate.fromJson(i)).toList();
-  //     return listDecoded;
-  //   } else {
-  //     return List.empty();
-  //   }
-  // }
-
-  Future<String> getJwtOrEmpty() async {
-    var jwt = await storage.read(key: "jwt");
-    if (jwt == null) return "";
-    return jwt;
-  }
-
   String unwrapText(String? text) {
     if (text != null) {
       return text;

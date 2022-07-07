@@ -1,26 +1,31 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:supply_io/pages/scans/add/update_parameters_page.dart';
+import 'package:supply_io/model/supply/package_in_use_model.dart';
+import 'package:supply_io/pages/report_defect_page.dart';
 
 import '../../../helpers/theme/app_theme.dart';
 import '../../../model/supply/package_model.dart';
 import '../../../model/user/login_model.dart';
+import '../../../service/service.dart';
 import '../../sidebar_new/navigation_drawer.dart';
-import 'package:http/http.dart' as http;
+
+enum ParameterState {
+    add,
+    use
+}
 
 class PackageParametersPage extends StatefulWidget {
   Package result;
   String certificateId;
   int certificateNumber;
   String author;
+  ParameterState parameterState;
 
-  PackageParametersPage(this.result, this.certificateId, this.certificateNumber, this.author, {Key? key}) : super(key: key);
+  PackageParametersPage(this.result, this.certificateId, this.certificateNumber, this.author, this.parameterState, {Key? key}) : super(key: key);
 
   @override
   _PackageParametersPageState createState() =>
-      _PackageParametersPageState(result: result, certificateId: certificateId, certificateNumber: certificateNumber, author: author);
+      _PackageParametersPageState(result: result, certificateId: certificateId, certificateNumber: certificateNumber, author: author, parameterState: parameterState);
 }
 
 class _PackageParametersPageState extends State<PackageParametersPage> {
@@ -28,19 +33,23 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
   String certificateId;
   int certificateNumber;
   String author;
+  ParameterState parameterState;
   _PackageParametersPageState(
-      {required this.result, required this.certificateId, required this.certificateNumber, required this.author});
+      {required this.result, required this.certificateId, required this.certificateNumber, required this.author, required this.parameterState});
 
   void updateInformation(Package updatedResult) {
     setState(() => result = updatedResult);
   }
 
   void moveToSecondPage() async {
+    PackageInUseModel packageInUse = PackageInUseModel(supplyDate: result.dateAdded, grade: result.grade, numberOfCertificate: certificateId,
+        batch: result.batch, width: "${result.size?.width}", thickness: "${result.size?.thickness}", height: "${result.size?.length}",
+        mill: "", coatingClass: result.surfaceQuality, sort: "", supplier: "", elongation: "", price: "", comment: "", status: result.status?.statusName);
     final information = await Navigator.push(
       context,
       CupertinoPageRoute(
           fullscreenDialog: true,
-          builder: (context) => UpdateParametersPage(result, certificateId)),
+          builder: (context) => ReportdDefectPage(packageInUse)),
     );
     updateInformation(information);
   }
@@ -257,7 +266,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                     moveToSecondPage();
                   },
                   child: Text(
-                    "Внести изменения",
+                    "Сообщить о дефекте",
                     style: TextStyle(color: AppTheme.colors.blue),
                   ),
                   color: Colors.white,
@@ -279,8 +288,10 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 13, horizontal: 54),
                   onPressed: () async {
-                    var requestResult = await savePackage();
+                    var requestResult = await Service.savePackage(result, certificateNumber);
                     if (requestResult < 400) {
+                      showMyDialog("Сохранено",
+                          "Сохранение выполнено успешно");
                       Navigator.of(context).pop();
                     } else if (requestResult == 404) {
                       showMyDialog("Ошибка",
@@ -292,9 +303,9 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                     }
                     Navigator.of(context).pop();
                   },
-                  child: const Text(
-                    "Сохранить",
-                    style: TextStyle(color: Colors.white),
+                  child: Text(
+                    parameterState == ParameterState.add ? "Сохранить" : "В обработку",
+                    style: const TextStyle(color: Colors.white),
                   ),
                   color: AppTheme.colors.blue,
                   shape: const StadiumBorder(),
@@ -303,22 +314,21 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
             )),
       ])));
 
-  Future<int> savePackage() async {
-     String token = "";
-    final Uri apiUrl = Uri.parse('https://192.168.8.138:44335/api/parcer/package/${certificateNumber}');
-    String body = json.encode(result.toJson());
-    final response = await http.post(apiUrl,
-        headers: {
-          "Content-Type": "application/json",
-        },
-    body: json.encode(result.toJson()));
-    return response.statusCode;
-  }
+  // Future<int> savePackage() async {
+  //    String token = "";
+  //   final Uri apiUrl = Uri.parse('${SERVER_IP}/api/parcer/package/$certificateNumber');
+  //   String body = json.encode(result.toJson());
+  //   final response = await http.post(apiUrl,
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //   body: json.encode(result.toJson()));
+  //   return response.statusCode;
+  // }
 
-  /// Print Long String
   void printLongString(String text) {
     final RegExp pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
-    pattern.allMatches(text).forEach((RegExpMatch match) =>   print(match.group(0)));
+    pattern.allMatches(text).forEach((RegExpMatch match) => print(match.group(0)));
   }
 
   Future<String> getJwtOrEmpty() async {

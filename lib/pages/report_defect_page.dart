@@ -9,9 +9,9 @@ import 'package:supply_io/pages/sidebar_new/navigation_drawer.dart';
 import '../helpers/theme/app_theme.dart';
 import '../model/defect_model.dart';
 import '../model/supply/package_in_use_model.dart';
-import '../model/supply/package_model.dart';
 import '../model/user/login_model.dart';
-import 'package:http/http.dart' as http;
+
+import '../service/service.dart';
 
 class ReportdDefectPage extends StatefulWidget {
   PackageInUseModel package;
@@ -24,7 +24,7 @@ class ReportdDefectPage extends StatefulWidget {
 }
 
 class _ReportdDefectPageState extends State<ReportdDefectPage> {
-  File? _image = null;
+  List<File> images = [];
   PackageInUseModel package = PackageInUseModel(
       supplyDate: "",
       grade: "08ПС",
@@ -41,7 +41,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
       comment: null,
       status: "Имеется");
   String description = "";
-  Defect defect = Defect(rollId: "", description: "", defectPhoto: null);
+  Defect defect = Defect(rollId: "", description: "", defectPhoto: []);
   TextEditingController messageController = TextEditingController();
 
   _ReportdDefectPageState({required this.package});
@@ -69,7 +69,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                       SizedBox(
                         width: 190,
                         child: Text(
-                          "Упаковка №${package.numberOfCertificate}",
+                          "Упаковка № ${package.numberOfCertificate}",
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontSize: 20,
@@ -122,13 +122,16 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                           color: AppTheme.colors.white,
                         ),
                         const Spacer(),
-                        _image == null
-                            ? const Text("")
-                            : SizedBox(
-                                width: 100,
-                                height: 100,
-                                child: Image.file(_image!),
-                              ),
+                        ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext ctx, int index) {
+                            return SizedBox(
+                                         width: 100,
+                                         height: 100,
+                                         child: Image.file(images[index]));
+                          },
+                          itemCount: images.length,
+                        ),
                       ]),
                     ]),
                     const SizedBox(height: 20.0),
@@ -141,7 +144,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                           onPressed: () {
                             defect.description = messageController.text;
                             defect.rollId = package.batch!;
-                            saveDefect();
+                            Service.saveDefect(defect, images);
                             Navigator.pop(context);
                           },
                           child: const Text(
@@ -162,7 +165,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
     XFile? pickerFile = await ImagePicker()
         .pickImage(source: ImageSource.camera, maxHeight: 1080, maxWidth: 1080);
     setState(() {
-      _image = File(pickerFile!.path);
+      images.add(File(pickerFile!.path));
     });
   }
 
@@ -172,21 +175,21 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
     return jwt;
   }
 
-  Future<int> saveDefect() async {
-    String token = await getJwtOrEmpty();
-    final Uri apiUrl =
-        Uri.parse('https://192.168.8.138:44335/api/parcer/package/defect');
-    if (_image != null) {
-      List<int> imageBytes = _image!.readAsBytesSync();
-      String base64Image = base64Encode(imageBytes);
-      defect.defectPhoto = Uint8List.fromList(imageBytes);
-    }
+  // Future<int> saveDefect() async {
+  //   String token = await getJwtOrEmpty();
+  //   final Uri apiUrl =
+  //       Uri.parse('${SERVER_IP}/api/parcer/package/defect');
+  //   if (_image != null) {
+  //     List<int> imageBytes = _image!.readAsBytesSync();
+  //     String base64Image = base64Encode(imageBytes);
+  //     defect.defectPhoto = Uint8List.fromList(imageBytes);
+  //   }
 
-    final response = await http.put(apiUrl,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: json.encode(defect.toJson()));
-    return response.statusCode;
-  }
+  //   final response = await http.put(apiUrl,
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: json.encode(defect.toJson()));
+  //   return response.statusCode;
+  // }
 }

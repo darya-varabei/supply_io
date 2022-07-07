@@ -3,7 +3,7 @@ import 'dart:typed_data';
 class Defect {
   String rollId;
   String description;
-  Uint8List? defectPhoto;
+  List<Uint8List?> defectPhoto;
 
   Defect({required this.rollId, required this.description, required this.defectPhoto});
 

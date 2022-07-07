@@ -11,7 +11,7 @@ import '../../model/supply/weight_model.dart';
 import '../../model/user/login_model.dart';
 
 Future<Certificate?> createByPackage(String url) async {
-  final Uri apiUrl = Uri.parse("https://192.168.8.138:44335/api/parcer");
+  final Uri apiUrl = Uri.parse("${SERVER_IP}/api/parcer");
   var tokenBase = await storage.read(key: "jwt");
   String token = "";
   if (tokenBase != null) {
@@ -34,7 +34,7 @@ Future<Certificate?> createByPackage(String url) async {
 }
 
 Future<Certificate?> createByCertificate(String url) async {
-  final Uri apiUrl = Uri.parse("https://192.168.8.138:44335/api/parcer");
+  final Uri apiUrl = Uri.parse("${SERVER_IP}/api/parcer");
   var tokenBase = await storage.read(key: "jwt");
   String token = "";
   if (tokenBase != null) {
@@ -55,10 +55,8 @@ Future<Certificate?> createByCertificate(String url) async {
   }
 }
 
-
 Future<Certificate?> sendUse(String url) async {
-  final Uri apiUrl = Uri.parse(
-      "https://192.168.8.138:44335/api/parcer/certificate/check");
+  final Uri apiUrl = Uri.parse("${SERVER_IP}/api/parcer/certificate/check");
   var tokenBase = await storage.read(key: "jwt");
   String token = "";
   if (tokenBase != null) {

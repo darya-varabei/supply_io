@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:supply_io/pages/lists/packages_in_stock.dart';
 import 'package:supply_io/pages/scans/qr_scan_page.dart';
 
 import '../../../helpers/theme/app_theme.dart';
 import '../../../model/supply/certificate_model.dart';
+import '../../../service/service.dart';
 import '../../lists/use_scan_result_list.dart';
 import '../../sidebar_new/navigation_drawer.dart';
 
@@ -45,6 +47,7 @@ class _UseRollPageState extends State<UseRollPage> {
                   child: const Text(
                       'Для регистрации обработки рулона отсканируйте QR код на упаковке. В случае получения результата в виде списка рулонов, выберите необходимый по идентификатору на этикетке и продолжите работу. После регистрации рулон переместится в список на вкладке "В обработке"',
                       style: TextStyle(fontSize: 14))),
+          Row(children: <Widget>[
               FlatButton(
                 padding:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 80),
@@ -65,6 +68,26 @@ class _UseRollPageState extends State<UseRollPage> {
                 color: AppTheme.colors.blue,
                 shape: const StadiumBorder(),
               ),
+            const Spacer(),
+            FlatButton(
+              padding:
+              const EdgeInsets.symmetric(vertical: 20, horizontal: 80),
+              onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                             PackagesInStockListPage()));
+              },
+              child: const Text(
+                "Список",
+                style: TextStyle(color: Colors.white),
+              ),
+              color: AppTheme.colors.blue,
+              shape: const StadiumBorder(),
+            ),
+  ]),
+
               const SizedBox(height: 15),
             ],
           ),
@@ -85,7 +108,7 @@ class _UseRollPageState extends State<UseRollPage> {
 
       setState(() {
         this.qrCode = qrCode;
-        future = sendUse(qrCode);
+        future = Service.sendUseByLink(qrCode);
       });
 
       return future;
