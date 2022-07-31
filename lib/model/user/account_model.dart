@@ -19,5 +19,6 @@ class Account {
       surname: json['surname'],
       email: json['email'],
       position: json['position']
-    );}
+    );
+  }
 }

@@ -8,6 +8,8 @@ import '../../model/user/account_model.dart';
 class MyAccountsPage extends StatelessWidget {
   Account? account = Account(username: "darysp", name: "Дарья", surname: "Воробей", email: "daria-vo@rambler.ru", position: "Директор");
 
+  MyAccountsPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Scaffold(
       drawer: const NavigationDrawer(),

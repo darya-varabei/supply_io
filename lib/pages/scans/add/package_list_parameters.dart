@@ -277,11 +277,6 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                 )),
           ])));
 
-  void printLongString(String text) {
-    final RegExp pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
-    pattern.allMatches(text).forEach((RegExpMatch match) => print(match.group(0)));
-  }
-
   Future<String> getJwtOrEmpty() async {
     var jwt = await storage.read(key: "jwt");
     if (jwt == null) return "";

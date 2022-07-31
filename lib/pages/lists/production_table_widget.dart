@@ -1,10 +1,7 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import '../../helpers/theme/app_theme.dart';
 import '../../model/supply/package_in_use_model.dart';
-import '../../model/user/login_model.dart';
 import '../../service/service.dart';
 import '../report_defect_page.dart';
 import '../sidebar_new/navigation_drawer.dart';
@@ -158,30 +155,5 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
     setState(() {
       buttonColor = newColor;
     });
-  }
-
-  Future<List<PackageInUseModel>> getPackagesInUse() async {
-    final Uri apiUrl = Uri.parse("${SERVER_IP}/api/parcer/package?status=В%20обработке");
-    String token = await getJwtOrEmpty();
-    final response = await http.get(apiUrl, headers: {
-      'access_token': token,
-    });
-
-    if (response.statusCode < 400) {
-      final String responseString = response.body;
-      var packageList = jsonDecode(responseString);//['packages'] as List;
-      List<PackageInUseModel>? listDecoded = [PackageInUseModel(supplyDate: "", grade: "08ПС", numberOfCertificate: "44567", width: 1240, thickness: 1.2, height: "23.4", mill: null, coatingClass: null, sort: null, supplier: "НЛМК",elongation: null, price: null,  comment: null, status: "Имеется" ),PackageInUseModel(supplyDate: "", grade: "08ПС", numberOfCertificate: "44568", width: 1240, thickness: 1.2, height: "23.4", mill: null, coatingClass: null, sort: null, supplier: "НЛМК",elongation: null, price: null,  comment: null, status: "Имеется" )];
-      listDecoded = (json.decode(response.body) as List).map((i) =>
-          PackageInUseModel.fromJson(i)).toList();
-      return listDecoded;
-    } else {
-      return List.empty();
-    }
-  }
-
-  Future<String> getJwtOrEmpty() async {
-    var jwt = await storage.read(key: "jwt");
-    if (jwt == null) return "";
-    return jwt;
   }
 }

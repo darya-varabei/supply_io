@@ -1,12 +1,8 @@
 import 'dart:core';
-import 'package:flutter/material.dart';
 import 'package:supply_io/model/supply/chemical_composition_model.dart';
-import 'package:supply_io/model/supply/package_list_model.dart';
 import 'package:supply_io/model/supply/status_model.dart';
 import 'package:supply_io/model/supply/size_model.dart';
 import 'package:supply_io/model/supply/weight_model.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert' show json, base64, ascii;
 
 class Package {
   final int packageId;

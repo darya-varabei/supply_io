@@ -20,7 +20,6 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
   bool isSelected = false;
   late Package selectedPackage;
   Color buttonColor = AppTheme.colors.grey;
-  int _selectedIndex = -1;
   Certificate result;
 
   _ScanResultListPageState({required this.result});

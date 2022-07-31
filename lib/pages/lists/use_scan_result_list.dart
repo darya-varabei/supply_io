@@ -1,14 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supply_io/pages/lists/production_table_widget.dart';
 
 import '../../helpers/theme/app_theme.dart';
 import '../../model/supply/certificate_model.dart';
 import '../../model/supply/package_model.dart';
-import '../../model/user/login_model.dart';
 import '../../service/service.dart';
 import '../sidebar_new/navigation_drawer.dart';
-import 'package:http/http.dart' as http;
 
 class UseScanResultListPage extends StatefulWidget {
   Certificate result;
@@ -24,7 +21,6 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
   bool isSelected = false;
   late Package selectedPackage;
   Color buttonColor = AppTheme.colors.grey;
-  int _selectedIndex = -1;
   Certificate result;
 
   _UseScanResultListPageState({required this.result});
@@ -104,17 +100,4 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
                       })),
             ]),
       ));
-
-  Future<int> usePackage(Package packageToUse) async {
-    String token = await getJwtOrEmpty();
-    final Uri apiUrl = Uri.parse("${SERVER_IP}/api/parcer/package?batch=${packageToUse.batch}&status=2");
-    final response = await http.put(apiUrl);
-    return response.statusCode;
-  }
-
-  Future<String> getJwtOrEmpty() async {
-    var jwt = await storage.read(key: "jwt");
-    if (jwt == null) return "";
-    return jwt;
-  }
 }
