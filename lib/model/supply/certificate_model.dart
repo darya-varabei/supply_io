@@ -25,7 +25,7 @@ class Certificate {
   final String? placeNumber;
   final String? gosts;
   final String? notes;
-  final List<Package> packages;
+  List<Package> packages;
 
 
   Certificate(

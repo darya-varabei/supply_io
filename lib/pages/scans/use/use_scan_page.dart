@@ -47,10 +47,12 @@ class _UseRollPageState extends State<UseRollPage> {
                   child: const Text(
                       'Для регистрации обработки рулона отсканируйте QR код на упаковке. В случае получения результата в виде списка рулонов, выберите необходимый по идентификатору на этикетке и продолжите работу. После регистрации рулон переместится в список на вкладке "В обработке"',
                       style: TextStyle(fontSize: 14))),
-          Row(children: <Widget>[
+          Container(
+            padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
+          child: Row(children: <Widget>[
               FlatButton(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 80),
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 onPressed: () {
                   const CircularProgressIndicator();
                   scanQRCode().then((value) {
@@ -71,7 +73,7 @@ class _UseRollPageState extends State<UseRollPage> {
             const Spacer(),
             FlatButton(
               padding:
-              const EdgeInsets.symmetric(vertical: 20, horizontal: 80),
+              const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
               onPressed: () {
                   Navigator.push(
                       context,
@@ -87,7 +89,7 @@ class _UseRollPageState extends State<UseRollPage> {
               shape: const StadiumBorder(),
             ),
   ]),
-
+          ),
               const SizedBox(height: 15),
             ],
           ),

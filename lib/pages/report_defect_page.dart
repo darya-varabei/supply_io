@@ -29,8 +29,8 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
       supplyDate: "",
       grade: "08ПС",
       numberOfCertificate: "44567",
-      width: "1240",
-      thickness: "1.2",
+      width: 1240,
+      thickness: 1.2,
       height: "23.4",
       mill: null,
       coatingClass: null,
@@ -122,17 +122,26 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                           color: AppTheme.colors.white,
                         ),
                         const Spacer(),
-                        ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (BuildContext ctx, int index) {
-                            return SizedBox(
-                                         width: 100,
-                                         height: 100,
-                                         child: Image.file(images[index]));
-                          },
-                          itemCount: images.length,
-                        ),
                       ]),
+  Column(
+  children: <Widget>[
+  Container(
+  width: double.infinity,
+  height: 100.0,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (BuildContext ctx, int index) {
+                          return SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: Image.file(images[index]));
+                        },
+                        itemCount: images.length,
+                      ),
+
+  ),
+  ]
+  )
                     ]),
                     const SizedBox(height: 20.0),
                     Container(
@@ -142,16 +151,20 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 13, horizontal: 54),
                           onPressed: () {
-                            defect.description = messageController.text;
-                            defect.rollId = package.batch!;
-                            Service.saveDefect(defect, images);
-                            Navigator.pop(context);
+                            if (messageController.text.length == 0 || images.length == 0) {
+                        null;
+                            } else {
+                              defect.description = messageController.text;
+                              defect.rollId = package.batch!;
+                              Service.saveDefect(defect, images);
+                              Navigator.pop(context);
+                            }
                           },
                           child: const Text(
                             "Сохранить",
                             style: TextStyle(color: Colors.white),
                           ),
-                          color: AppTheme.colors.blue,
+                          color: messageController.text.length == 0 || images.length == 0 ? AppTheme.colors.grey : AppTheme.colors.blue,
                           shape: const StadiumBorder(),
                         ),
                       ]),

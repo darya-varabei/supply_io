@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:supply_io/pages/lists/scan_result_list.dart';
+import 'package:supply_io/pages/scans/add/package_parameters.dart';
 import '../../helpers/theme/app_theme.dart';
 import '../../model/supply/certificate_model.dart';
+import '../../model/supply/package_list_model.dart';
+import '../../model/supply/package_model.dart';
 import '../../model/user/login_model.dart';
 import '../../service/service.dart';
+import '../scans/add/package_list_parameters.dart';
 import '../sidebar_new/navigation_drawer.dart';
 import '../widgets/debouncer.dart';
 
@@ -19,13 +23,13 @@ class CertificatesInWaitListPage extends StatefulWidget {
 class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage> {
   _CertificatesInWaitListPageState();
   final _debouncer = Debouncer(milliseconds: 500);
-  late List<Certificate> futureData;
-  late List<Certificate> filteredPackages;
+  List<PackageList> futureData = [];
+  List<PackageList> filteredPackages = [];
 
   @override
   void initState() {
     super.initState();
-    Service.getPackagesInUse().then((certificatesFromServer) {
+    Service.getCertificatesInWait().then((certificatesFromServer) {
       setState(() {
         futureData = certificatesFromServer;
         filteredPackages = futureData;
@@ -51,7 +55,7 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
                 _debouncer.run(() {
                   setState(() {
                     filteredPackages = futureData
-                        .where((u) => (u.packages.map((c) => c.batch).toList()
+                        .where((u) => (unwrapText(u.batch)
                         .contains(string.toLowerCase())))
                         .toList();
                   });
@@ -76,9 +80,9 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ScanResultListPage(filteredPackages[index])));
+                                      builder: (context) => PackageListParametersPage(filteredPackages[index])));
                             },
-                            title: Text(unwrapText(filteredPackages[index].number)),
+                            title: Text(unwrapText(filteredPackages[index].batch)),
                             trailing: Icon(
                               Icons.arrow_forward,
                               color: AppTheme.colors.darkGradient,
@@ -86,7 +90,7 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
                             ),
                           ),
                           Text(
-                            unwrapText(filteredPackages[index].date),
+                            unwrapText(filteredPackages[index].supplier),
                             style: const TextStyle(
                               fontSize: 14.0,
                               color: Colors.grey,

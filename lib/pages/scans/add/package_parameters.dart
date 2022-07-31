@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supply_io/model/supply/package_in_use_model.dart';
+import 'package:supply_io/model/supply/status_model.dart';
 import 'package:supply_io/pages/report_defect_page.dart';
 
 import '../../../helpers/theme/app_theme.dart';
+import '../../../model/supply/package_list_model.dart';
 import '../../../model/supply/package_model.dart';
 import '../../../model/user/login_model.dart';
 import '../../../service/service.dart';
@@ -43,7 +45,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
 
   void moveToSecondPage() async {
     PackageInUseModel packageInUse = PackageInUseModel(supplyDate: result.dateAdded, grade: result.grade, numberOfCertificate: certificateId,
-        batch: result.batch, width: "${result.size?.width}", thickness: "${result.size?.thickness}", height: "${result.size?.length}",
+        batch: result.batch, width: result.size?.width, thickness: result.size?.thickness, height: "${result.size?.length}",
         mill: "", coatingClass: result.surfaceQuality, sort: "", supplier: "", elongation: "", price: "", comment: "", status: result.status?.statusName);
     final information = await Navigator.push(
       context,
@@ -51,7 +53,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
           fullscreenDialog: true,
           builder: (context) => ReportdDefectPage(packageInUse)),
     );
-    updateInformation(information);
+    //updateInformation(information);
   }
 
   @override
@@ -219,7 +221,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ),
               const Spacer(),
               Text(
-                "${result.weight.gross}",
+                "${result.weight?.gross}",
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     fontSize: 16,
@@ -244,7 +246,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ),
               const Spacer(),
               Text(
-                "${result.weight.net}",
+                "${result.weight?.net}",
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     fontSize: 16,
@@ -288,6 +290,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 13, horizontal: 54),
                   onPressed: () async {
+                    result.status = Status(statusId: 2, statusName: "Имеется");
                     var requestResult = await Service.savePackage(result, certificateNumber);
                     if (requestResult < 400) {
                       showMyDialog("Сохранено",

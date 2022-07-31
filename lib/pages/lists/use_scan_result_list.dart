@@ -81,8 +81,8 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
                               padding: const EdgeInsets.all(1.0),
                               child: ListTile(
                                 onTap: () async {
-                                  var res = await Service.usePackage(
-                                      result.packages[position]).then((value) {
+                                  var res = await Service.sendUseById(
+                                      result.packages[position].batch ?? "").then((value) {
                                     // if (value != null) {
                                     //   setState(() {
                                     //     isApiCallProcess = false;

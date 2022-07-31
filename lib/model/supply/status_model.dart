@@ -1,6 +1,6 @@
 class Status {
-  final int? statusId;
-  final String? statusName;
+  int? statusId;
+  String? statusName;
 
   Status({
       this.statusId,

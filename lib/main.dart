@@ -1,9 +1,10 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:supply_io/pages/scans/add/main_scanner_page.dart';
 import 'package:supply_io/pages/user/login_page.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
+import 'package:supply_io/service/service.dart';
 import 'model/user/login_model.dart';
 
 void main() {
@@ -49,30 +50,57 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: FutureBuilder(
-          future: jwtOrEmpty,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) return const CircularProgressIndicator();
-            if (snapshot.data != "") {
-              var str = snapshot.data;
-              var jwt = str.toString().split(".");
-
-              if (jwt.length == 0) {
-                return LoginPage();
-              } else {
-                var payload = json.decode(
-                    ascii.decode(base64.decode(base64.normalize(jwt[1]))));
-                if (DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
-                    .isAfter(DateTime.now())) {
-                  return LoginPage();//MainPage();
-                } else {
-                  return LoginPage();
-                }
-              }
-            } else {
-              return LoginPage();
+        future: widgetChoice(),
+        builder: (BuildContext context, AsyncSnapshot<Widget> widget) {
+          if(widget.connectionState == ConnectionState.done){
+            if (!widget.hasData) {
+              return const Center(
+                  child: Text('No Data exists')
+              );
             }
-          }),
+            if (widget.data != null) {
+              return widget.data!;
+            }
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      )
+      // home: FutureBuilder(
+      //     future: Service.checkIfUserLogged(),
+      //     builder: (context, snapshot) {
+      //       if (!snapshot.hasData) return const CircularProgressIndicator();
+      //       if (snapshot.data != "") {
+      //         var str = snapshot.data;
+      //         var jwt = str.toString().split(".");
+      //
+      //         if (snapshot == false) {
+      //           return LoginPage();
+      //         } else {
+      //           var payload = json.decode(
+      //               ascii.decode(base64.decode(base64.normalize(jwt[1]))));
+      //           if (DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
+      //               .isAfter(DateTime.now())) {
+      //             return LoginPage();//MainPage();
+      //           } else {
+      //             return LoginPage();
+      //           }
+      //         }
+      //       } else {
+      //         return LoginPage();
+      //       }
+      //     }),
     );
+  }
+
+  Future<Widget> widgetChoice() async {
+    bool? isUserLoggedIn = await Service.checkIfUserLogged();
+    if (!isUserLoggedIn) {
+      return const LoginPage();
+    } else {
+      return MainPage(ScanOptions.package);
+    }
   }
 }
 

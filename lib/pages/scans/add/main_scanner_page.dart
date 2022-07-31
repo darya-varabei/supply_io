@@ -60,7 +60,7 @@ class _MainPageState extends State<MainPage> {
                 child: Container(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                     child: Text(
-                      scanOption == ScanOptions.package ? Literals.scanQRTitle : Literals.scanCertificateTitle,
+                      scanOption == ScanOptions.package ? Literals.scanQRTitle : Literals.scanQRStory,
                       style: TextStyle(
                           fontSize: 24,
                           color: AppTheme.colors.darkGradient,
@@ -69,7 +69,7 @@ class _MainPageState extends State<MainPage> {
             Container(
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 120),
                 child: Text(
-                    scanOption == ScanOptions.package ? Literals.scanQRStory : Literals.scanCertificateStory,
+                    scanOption == ScanOptions.package ? Literals.scanCertificateTitle : Literals.scanCertificateStory,
                     style: const TextStyle(fontSize: 14))),
             FlatButton(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 80),

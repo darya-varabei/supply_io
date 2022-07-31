@@ -12,8 +12,11 @@ class Endpoint {
   static const String getCertificates = "parcer/package";
   static const String addCertificate = "parcer";
   static const String savePackage = "parcer/package/";
+  static const String changeStatus = "parcer/package";
   static const String useByLink = "parcer/certificate/check";
   static const String getPackage = "parcer/package";
   static const String getPackagesInUse = "parcer/package";
   static const String saveDefect = "parcer/package/defect";
+  static const String getInStock = "parcer/package";
+  static const String checkIfLoggedIn = "";
 }

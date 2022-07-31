@@ -1,25 +1,31 @@
 class PackageInUseModel {
   String? supplyDate;
+  int? packageId;
   String? grade;
   String? batch;
   String? numberOfCertificate;
-  String? width;
-  String? thickness;
+  int? width;
+  int? weight;
+  double? thickness;
   String? height;
   String? mill;
+  int? net;
   String? coatingClass;
   String? sort;
   String? supplier;
   String? elongation;
   String? price;
   String? comment;
+  String? photo;
   String? status;
 
   PackageInUseModel({
   this.supplyDate,
+    this.packageId,
   this.grade,
   this.numberOfCertificate,
     this.batch,
+    this.weight,
   this.width,
   this.thickness,
   this.height,
@@ -36,11 +42,13 @@ class PackageInUseModel {
   factory PackageInUseModel.fromJson(Map<String, dynamic> json) {
     return PackageInUseModel(
         supplyDate: json['supplyDate'].toString(),
+      packageId: json['packageId'],
         grade: json['grade'].toString(),
         numberOfCertificate: json['numberOfCertificate'].toString(),
         batch: json['batch'].toString(),
-        width: json["width"].toString(),
-        thickness: json['thickness'].toString(),
+        width: json["width"],
+      weight: json["weight"],
+        thickness: json['thickness'],
         height: json['height'].toString(),
         mill: json['mill'].toString(),
         coatingClass: json['coatingClass'].toString(),

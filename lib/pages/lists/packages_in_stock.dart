@@ -20,8 +20,8 @@ class PackagesInStockListPage extends StatefulWidget {
 class _PackagesInStockListPageState extends State<PackagesInStockListPage> {
   _PackagesInStockListPageState();
   final _debouncer = Debouncer(milliseconds: 500);
-  late List<Package> futureData;
-  late List<Package> filteredPackages;
+  List<Package> futureData = [];
+  List<Package> filteredPackages = [];
 
   @override
   void initState() {
@@ -88,7 +88,7 @@ class _PackagesInStockListPageState extends State<PackagesInStockListPage> {
                           ),
                     Row(children: <Widget>[
                           Text(
-                            "Масса нетто ${filteredPackages[index].weight.net.toString()} кг",
+                            "Масса нетто ${filteredPackages[index].weight?.net.toString()} кг",
                             style: const TextStyle(
                               fontSize: 10.0,
                               color: Colors.grey,

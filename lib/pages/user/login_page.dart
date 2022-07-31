@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:supply_io/helpers/literals.dart';
 import 'package:supply_io/pages/scans/add/main_scanner_page.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
-import 'package:supply_io/service/service.dart';
 import '../../model/user/login_model.dart';
 import '../../helpers/animated_items/progressHUD.dart';
 import '../../model/user/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -90,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             onChanged: (input) =>
-                                loginRequestModel.email = input!,
+                                loginRequestModel.email = input,
                             //input,
                             validator: (input) => !input!.contains('@')
                                 ? "Неверный формат"
@@ -116,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                                 TextStyle(color: AppTheme.colors.darkGradient),
                             keyboardType: TextInputType.text,
                             onChanged: (input) =>
-                                loginRequestModel.password = input!,
+                                loginRequestModel.password = input,
                             //input,
                             validator: (input) => input!.length < 3
                                 ? "Пароль должен иметь более 8 символов"
@@ -255,7 +256,8 @@ class _LoginPageState extends State<LoginPage> {
       Map<String, dynamic> responseMap = json.decode(response1.body);
       if (response1.statusCode < 300) {
         userData.addData(responseMap);
-        storage.write(key: "jwt", value: userData.accessToken);
+        storage.write(key: "access_token", value: userData.accessToken);
+        storage.write(key: "refresh_token", value: userData.refreshToken);
       } else {
         if (responseMap.containsKey("message")) {
           scaffoldKey.currentState?.showSnackBar(snackBar);

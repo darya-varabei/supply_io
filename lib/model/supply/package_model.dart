@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:supply_io/model/supply/chemical_composition_model.dart';
+import 'package:supply_io/model/supply/package_list_model.dart';
 import 'package:supply_io/model/supply/status_model.dart';
 import 'package:supply_io/model/supply/size_model.dart';
 import 'package:supply_io/model/supply/weight_model.dart';
@@ -11,7 +12,7 @@ class Package {
   final int packageId;
   final String? dateAdded;
   final String? dateChange;
-  final Status? status;
+  Status? status;
   final String? namberConsignmentPackage;
   final String? heat;
   final String? batch;
@@ -27,7 +28,7 @@ class Package {
   final int? quantity;
   final String? variety;
   final String? gost;
-  final Weight weight;
+  final Weight? weight;
   final int? customerItemNumber;
   final String? treatment;
   final int? groupCode;
@@ -75,7 +76,7 @@ class Package {
       required this.packageId,
       this.dateAdded,
       this.dateChange,
-      required this.status,
+      this.status,
       this.namberConsignmentPackage,
       this.heat,
       this.batch,
@@ -87,11 +88,11 @@ class Package {
       this.strenghtGroup,
       this.profile,
       this.barcode,
-      required this.size,
+      this.size,
       this.quantity,
       this.variety,
       this.gost,
-      required this.weight,
+      this.weight,
       this.customerItemNumber,
       this.treatment,
       this.groupCode,
@@ -191,7 +192,7 @@ class Package {
       testingMethod: json['testingMethod'],
       unitTemporaryResistance: json['unitTemporaryResistance'],
       unitYieldStrength: json['unitYieldStrength'],
-      sphericalHoleDepth: json['sphericalHoleDepth'].toDouble(),
+      sphericalHoleDepth: json['sphericalHoleDepth'],
       microBallCem: json['microBallCem'],
       r90: json['r90'],
       n90: json['n90'],

@@ -169,7 +169,7 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
     if (response.statusCode < 400) {
       final String responseString = response.body;
       var packageList = jsonDecode(responseString);//['packages'] as List;
-      List<PackageInUseModel>? listDecoded = [PackageInUseModel(supplyDate: "", grade: "08ПС", numberOfCertificate: "44567", width: "1240", thickness: "1.2", height: "23.4", mill: null, coatingClass: null, sort: null, supplier: "НЛМК",elongation: null, price: null,  comment: null, status: "Имеется" ),PackageInUseModel(supplyDate: "", grade: "08ПС", numberOfCertificate: "44568", width: "1240", thickness: "1.2", height: "23.4", mill: null, coatingClass: null, sort: null, supplier: "НЛМК",elongation: null, price: null,  comment: null, status: "Имеется" )];
+      List<PackageInUseModel>? listDecoded = [PackageInUseModel(supplyDate: "", grade: "08ПС", numberOfCertificate: "44567", width: 1240, thickness: 1.2, height: "23.4", mill: null, coatingClass: null, sort: null, supplier: "НЛМК",elongation: null, price: null,  comment: null, status: "Имеется" ),PackageInUseModel(supplyDate: "", grade: "08ПС", numberOfCertificate: "44568", width: 1240, thickness: 1.2, height: "23.4", mill: null, coatingClass: null, sort: null, supplier: "НЛМК",elongation: null, price: null,  comment: null, status: "Имеется" )];
       listDecoded = (json.decode(response.body) as List).map((i) =>
           PackageInUseModel.fromJson(i)).toList();
       return listDecoded;
