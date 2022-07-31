@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:supply_io/pages/lists/packages_in_stock.dart';
-import 'package:supply_io/pages/scans/qr_scan_page.dart';
 
 import '../../../helpers/theme/app_theme.dart';
 import '../../../model/supply/certificate_model.dart';
@@ -79,7 +78,7 @@ class _UseRollPageState extends State<UseRollPage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                             PackagesInStockListPage()));
+                             const PackagesInStockListPage()));
               },
               child: const Text(
                 "Список",

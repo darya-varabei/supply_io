@@ -1,20 +1,13 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+
 import 'package:flutter/material.dart';
 import 'package:supply_io/pages/sidebar_new/navigation_drawer.dart';
 
 import '../../helpers/theme/app_theme.dart';
 import '../../model/user/account_model.dart';
-import '../../model/user/login_model.dart';
 
 class MyAccountsPage extends StatelessWidget {
   Account? account = Account(username: "darysp", name: "Дарья", surname: "Воробей", email: "daria-vo@rambler.ru", position: "Директор");
-  // MyAccountsPage({Key? key}) : super(key: key) {
-  //   Future<Account?> future = createUser("darysp");
-  //   future.then((result) {
-  //     account = result;
-  //   });
-  // }
+
   @override
   Widget build(BuildContext context) => Scaffold(
       drawer: const NavigationDrawer(),
@@ -148,18 +141,4 @@ class MyAccountsPage extends StatelessWidget {
                   ),
                 ),
               ])));
-
-  // Future<Account?> createUser(String username) async {
-  //   final Uri apiUrl = Uri.parse("${SERVER_IP}/api/account/${username}");
-  //
-  //   final response = await http.get(apiUrl);
-  //
-  //   if(response.statusCode == 200) {
-  //     final String responseString = response.body;
-  //     print(responseString);
-  //     return Account.fromJson(jsonDecode(responseString));
-  //   } else {
-  //     return null;
-  //   }
-  // }
 }

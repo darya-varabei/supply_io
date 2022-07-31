@@ -34,13 +34,12 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
     PackageInUseModel packageInUse = PackageInUseModel(supplyDate: result.supplyDate, grade: result.grade, numberOfCertificate: result.numberOfCertificate,
         batch: result.batch, width: result.width, thickness: result.thickness, height: "",
         mill: "", coatingClass: null, sort: "", supplier: "", elongation: "", price: "", comment: "", status: result.status);
-    final information = await Navigator.push(
+    await Navigator.push(
       context,
       CupertinoPageRoute(
           fullscreenDialog: true,
           builder: (context) => ReportdDefectPage(packageInUse)),
     );
-    //updateInformation(information);
   }
 
   @override
@@ -85,7 +84,7 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                   alignment: Alignment.centerRight,
                   child: Column(children: <Widget>[
                     Text(
-                      result.batch!,
+                      result.batch,
                       style: TextStyle(
                           fontSize: 24,
                           color: AppTheme.colors.darkGradient,
@@ -108,7 +107,7 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                   ),
                   const Spacer(),
                   Text(
-                    "${result.grade}",
+                    result.grade,
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: 16,
@@ -267,9 +266,9 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                         }
                         Navigator.of(context).pop();
                       },
-                      child: Text(
+                      child: const Text(
                         "Сохранить",
-                        style: const TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white),
                       ),
                       color: AppTheme.colors.blue,
                       shape: const StadiumBorder(),

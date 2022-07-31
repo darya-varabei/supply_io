@@ -150,21 +150,21 @@ class NavigationDrawer extends StatelessWidget {
         break;
       case 2:
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => UseRollPage()));
+            context, MaterialPageRoute(builder: (context) => const UseRollPage()));
         break;
       case 3:
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    ProductionTableWidget()));
+                    const ProductionTableWidget()));
         break;
       case 4:
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    CertificatesInWaitListPage()));
+                    const CertificatesInWaitListPage()));
         break;
       case 5:
         Navigator.push(
@@ -191,7 +191,7 @@ class NavigationDrawer extends StatelessWidget {
           children: [
             Text('',
                 style: TextStyle(fontSize: 14, color: AppTheme.colors.white)),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text('',

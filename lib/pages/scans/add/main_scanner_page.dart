@@ -79,7 +79,7 @@ class _MainPageState extends State<MainPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  ScanResultListPage(value!)));
+                                  ScanResultListPage(value)));
                     } else {
                       return showDialog(
                         context: context,
@@ -158,5 +158,6 @@ class _MainPageState extends State<MainPage> {
     } on PlatformException {
       qrCode = 'Failed to get platform version.';
     }
+    return null;
   }
 }

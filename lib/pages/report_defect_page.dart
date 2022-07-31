@@ -1,8 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supply_io/pages/sidebar_new/navigation_drawer.dart';
@@ -123,25 +120,22 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                         ),
                         const Spacer(),
                       ]),
-  Column(
-  children: <Widget>[
-  Container(
-  width: double.infinity,
-  height: 100.0,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext ctx, int index) {
-                          return SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: Image.file(images[index]));
-                        },
-                        itemCount: images.length,
-                      ),
-
-  ),
-  ]
-  )
+                      Column(children: <Widget>[
+                        Container(
+                          width: double.infinity,
+                          height: 100.0,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (BuildContext ctx, int index) {
+                              return SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: Image.file(images[index]));
+                            },
+                            itemCount: images.length,
+                          ),
+                        ),
+                      ])
                     ]),
                     const SizedBox(height: 20.0),
                     Container(
@@ -151,8 +145,9 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 13, horizontal: 54),
                           onPressed: () {
-                            if (messageController.text.length == 0 || images.length == 0) {
-                        null;
+                            if (messageController.text.isEmpty ||
+                                images.isEmpty) {
+                              null;
                             } else {
                               defect.description = messageController.text;
                               defect.rollId = package.batch!;
@@ -164,7 +159,10 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                             "Сохранить",
                             style: TextStyle(color: Colors.white),
                           ),
-                          color: messageController.text.length == 0 || images.length == 0 ? AppTheme.colors.grey : AppTheme.colors.blue,
+                          color:
+                              messageController.text.isEmpty || images.isEmpty
+                                  ? AppTheme.colors.grey
+                                  : AppTheme.colors.blue,
                           shape: const StadiumBorder(),
                         ),
                       ]),
@@ -187,22 +185,4 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
     if (jwt == null) return "";
     return jwt;
   }
-
-  // Future<int> saveDefect() async {
-  //   String token = await getJwtOrEmpty();
-  //   final Uri apiUrl =
-  //       Uri.parse('${SERVER_IP}/api/parcer/package/defect');
-  //   if (_image != null) {
-  //     List<int> imageBytes = _image!.readAsBytesSync();
-  //     String base64Image = base64Encode(imageBytes);
-  //     defect.defectPhoto = Uint8List.fromList(imageBytes);
-  //   }
-
-  //   final response = await http.put(apiUrl,
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: json.encode(defect.toJson()));
-  //   return response.statusCode;
-  // }
 }
