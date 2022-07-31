@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:supply_io/helpers/literals.dart';
+import 'package:supply_io/model/supply/package_in_use_model.dart';
 import 'package:supply_io/model/user/user_model.dart';
 
 import '../model/defect_model.dart';
@@ -78,7 +79,12 @@ class Service {
     }
     final Uri apiUrl = Uri.parse(
         "${Endpoint.baseUrl}${Endpoint.checkIfLoggedIn}");
+    final response = await http.get(apiUrl, headers: await header());
+    if (response.statusCode < 400) {
     return true;
+    } else {
+      return false;
+    }
   }
 
   static Future<Certificate?> createByCertificate(String url) async {
@@ -114,15 +120,14 @@ class Service {
     }
   }
 
-  static Future<Certificate?> sendUseById(String batch) async {
+  static Future<int?> sendUseById(String batch) async {
     final Uri apiUrl = Uri.parse("${Endpoint.baseUrl}${Endpoint.savePackage}");
 
     final msg = jsonEncode({"batch":batch,
     "status": "В обработке"});
     final response = await http.put(apiUrl, headers: await header(), body: msg);
     if (response.statusCode < 400) {
-      final String responseString = response.body;
-      return Certificate.fromJson(jsonDecode(responseString));
+      return response.statusCode;
     } else {
       return null;
     }
@@ -166,18 +171,14 @@ class Service {
   //   return response.statusCode;
   // }
 
-  static Future<List<PackageList>> getPackagesInUse() async {
-    final Uri apiUrl = Uri.parse("https://parcer-dotnet.herokuapp.com/api/parcer/package?status=В%20обработке");
-    // String body = json.encode({
-    //   "batch": "",
-    //   "status": "В обработке"
-    // });
+  static Future<List<PackageInUseModel>> getPackagesInUse() async {
+    final Uri apiUrl = Uri.parse("${Endpoint.baseUrl}${Endpoint.getInStock}?status=В%обработке");
     final response = await http.get(apiUrl, headers: await header());
 
     if (response.statusCode < 400) {
-      List<PackageList>? listDecoded = [];
+      List<PackageInUseModel>? listDecoded = [];
       listDecoded = (json.decode(response.body) as List).map((i) =>
-          PackageList.fromJson(i)).toList();
+          PackageInUseModel.fromJson(i)).toList();
       return listDecoded;
     } else {
       return List.empty();
@@ -186,12 +187,6 @@ class Service {
 
   static Future<List<PackageList>> getCertificatesInWait() async {
     final Uri apiUrl = Uri.parse("${Endpoint.baseUrl}${Endpoint.getInStock}?status=В%ожидании");
-
-    // final body = {
-    //   'batch': '',
-    //   'status': "В ожидании"
-    // };
-
     final response = await http.get(apiUrl, headers: await header());
 
     if (response.statusCode < 400) {
@@ -206,11 +201,6 @@ class Service {
 
   static Future<List<Package>> getPackagesInStock() async {
     final Uri apiUrl = Uri.parse("${Endpoint.baseUrl}${Endpoint.getInStock}");
-
-    // final body = {
-    //   'batch': '',
-    //   'status': "Имеется"
-    // };
 
     final response = await http.get(apiUrl, headers: await header());
 

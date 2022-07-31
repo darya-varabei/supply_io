@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import '../../helpers/theme/app_theme.dart';
 import '../../model/supply/package_in_use_model.dart';
 import '../../model/user/login_model.dart';
+import '../../service/service.dart';
 import '../report_defect_page.dart';
 import '../sidebar_new/navigation_drawer.dart';
 
@@ -26,7 +27,7 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
   @override
   void initState() {
     super.initState();
-    futureData = getPackagesInUse();
+    futureData = Service.getPackagesInUse();
   }
 
   @override

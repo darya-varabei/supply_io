@@ -12,9 +12,6 @@ import '../../sidebar_new/navigation_drawer.dart';
 
 class PackageListParametersPage extends StatefulWidget {
   PackageList result;
-  // String certificateId;
-  // int certificateNumber;
-  // String author;
 
   PackageListParametersPage(this.result, {Key? key}) : super(key: key);
 
@@ -280,18 +277,6 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                   ]),
                 )),
           ])));
-
-  // Future<int> savePackage() async {
-  //    String token = "";
-  //   final Uri apiUrl = Uri.parse('${SERVER_IP}/api/parcer/package/$certificateNumber');
-  //   String body = json.encode(result.toJson());
-  //   final response = await http.post(apiUrl,
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //   body: json.encode(result.toJson()));
-  //   return response.statusCode;
-  // }
 
   void printLongString(String text) {
     final RegExp pattern = RegExp('.{1,800}'); // 800 is the size of each chunk

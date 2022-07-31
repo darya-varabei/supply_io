@@ -5,7 +5,6 @@ import 'package:supply_io/model/supply/status_model.dart';
 import 'package:supply_io/pages/report_defect_page.dart';
 
 import '../../../helpers/theme/app_theme.dart';
-import '../../../model/supply/package_list_model.dart';
 import '../../../model/supply/package_model.dart';
 import '../../../model/user/login_model.dart';
 import '../../../service/service.dart';
@@ -47,13 +46,12 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
     PackageInUseModel packageInUse = PackageInUseModel(supplyDate: result.dateAdded, grade: result.grade, numberOfCertificate: certificateId,
         batch: result.batch, width: result.size?.width, thickness: result.size?.thickness, height: "${result.size?.length}",
         mill: "", coatingClass: result.surfaceQuality, sort: "", supplier: "", elongation: "", price: "", comment: "", status: result.status?.statusName);
-    final information = await Navigator.push(
+    Navigator.push(
       context,
       CupertinoPageRoute(
           fullscreenDialog: true,
           builder: (context) => ReportdDefectPage(packageInUse)),
     );
-    //updateInformation(information);
   }
 
   @override
@@ -290,21 +288,43 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 13, horizontal: 54),
                   onPressed: () async {
-                    result.status = Status(statusId: 2, statusName: "Имеется");
-                    var requestResult = await Service.savePackage(result, certificateNumber);
-                    if (requestResult < 400) {
-                      showMyDialog("Сохранено",
-                          "Сохранение выполнено успешно");
-                      Navigator.of(context).pop();
-                    } else if (requestResult == 404) {
-                      showMyDialog("Ошибка",
-                          "Не удается установить интернет соединение");
+                    if (parameterState == ParameterState.add) {
+                      result.status =
+                          Status(statusId: 2, statusName: "Имеется");
+                      var requestResult = await Service.savePackage(
+                          result, certificateNumber);
+                      if (requestResult < 400) {
+                        showMyDialog("Сохранено",
+                            "Сохранение выполнено успешно");
+                        Navigator.of(context).pop();
+                      } else if (requestResult == 404) {
+                        showMyDialog("Ошибка",
+                            "Не удается установить интернет соединение");
+                        Navigator.of(context).pop();
+                      } else {
+                        showMyDialog("Ошибка",
+                            "Не удается выполнить сохранение");
+                        Navigator.of(context).pop();
+                      }
                       Navigator.of(context).pop();
                     } else {
-                      showMyDialog("Ошибка", "Не удается выполнить сохранение");
+                      var requestResult = await Service.sendUseById(
+                          result.batch ?? "");
+                      if (requestResult != null) {
+                        showMyDialog("Сохранено",
+                            "Рулон переведен в обработку");
+                        Navigator.of(context).pop();
+                      } else if (requestResult == 404) {
+                        showMyDialog("Ошибка",
+                            "Не удается установить интернет соединение");
+                        Navigator.of(context).pop();
+                      } else {
+                        showMyDialog("Ошибка",
+                            "Не удается выполнить отправку в обработку");
+                        Navigator.of(context).pop();
+                      }
                       Navigator.of(context).pop();
                     }
-                    Navigator.of(context).pop();
                   },
                   child: Text(
                     parameterState == ParameterState.add ? "Сохранить" : "В обработку",
@@ -316,23 +336,6 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ]),
             )),
       ])));
-
-  // Future<int> savePackage() async {
-  //    String token = "";
-  //   final Uri apiUrl = Uri.parse('${SERVER_IP}/api/parcer/package/$certificateNumber');
-  //   String body = json.encode(result.toJson());
-  //   final response = await http.post(apiUrl,
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //   body: json.encode(result.toJson()));
-  //   return response.statusCode;
-  // }
-
-  void printLongString(String text) {
-    final RegExp pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
-    pattern.allMatches(text).forEach((RegExpMatch match) => print(match.group(0)));
-  }
 
   Future<String> getJwtOrEmpty() async {
     var jwt = await storage.read(key: "jwt");

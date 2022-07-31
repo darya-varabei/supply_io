@@ -49,7 +49,9 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
                     child: Row(children: <Widget>[
                       IconButton(
                         icon: const Icon(Icons.arrow_back),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
                       ),
                       const Spacer(),
                       SizedBox(
@@ -81,13 +83,8 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
                               padding: const EdgeInsets.all(1.0),
                               child: ListTile(
                                 onTap: () async {
-                                  var res = await Service.sendUseById(
+                                  await Service.sendUseById(
                                       result.packages[position].batch ?? "").then((value) {
-                                    // if (value != null) {
-                                    //   setState(() {
-                                    //     isApiCallProcess = false;
-                                    //   });
-                                    // }
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(

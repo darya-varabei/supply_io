@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:supply_io/pages/lists/scan_result_list.dart';
-import 'package:supply_io/pages/scans/add/package_parameters.dart';
 import '../../helpers/theme/app_theme.dart';
-import '../../model/supply/certificate_model.dart';
 import '../../model/supply/package_list_model.dart';
-import '../../model/supply/package_model.dart';
-import '../../model/user/login_model.dart';
 import '../../service/service.dart';
 import '../scans/add/package_list_parameters.dart';
 import '../sidebar_new/navigation_drawer.dart';
@@ -106,31 +101,6 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
           ],
         ),
       );
-
-  // Future<List<Certificate>> getPackagesInUse() async {
-  //   final Uri apiUrl = Uri.parse("${SERVER_IP}/api/parcer/package?status=В%20обработке");
-  //   String token = await getJwtOrEmpty();
-  //   final response = await http.get(apiUrl, headers: {
-  //     'access_token': token,
-  //   });
-  //
-  //   if (response.statusCode < 400) {
-  //     final String responseString = response.body;
-  //     var packageList = jsonDecode(responseString);
-  //     List<Certificate>? listDecoded = [];
-  //     listDecoded = (json.decode(response.body) as List).map((i) =>
-  //         Certificate.fromJson(i)).toList();
-  //     return listDecoded;
-  //   } else {
-  //     return List.empty();
-  //   }
-  // }
-
-  Future<String> getJwtOrEmpty() async {
-    var jwt = await storage.read(key: "jwt");
-    if (jwt == null) return "";
-    return jwt;
-  }
 
   String unwrapText(String? text) {
     if (text != null) {

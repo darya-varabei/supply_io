@@ -1,5 +1,3 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -18,9 +16,8 @@ enum ScanOptions {
 }
 
 class MainPage extends StatefulWidget {
-  @override
   ScanOptions scanOption = ScanOptions.undefined;
-  MainPage(this.scanOption);
+  MainPage(this.scanOption, {Key? key}) : super(key: key);
   @override
   _MainPageState createState() => _MainPageState(scanOption: scanOption);
 }
@@ -76,11 +73,6 @@ class _MainPageState extends State<MainPage> {
               onPressed: () {
                 const CircularProgressIndicator();
                 scanQRCode().then((value) {
-    // if (value != null) {
-    //   setState(() {
-    //     isApiCallProcess = false;
-    //   });
-    // }
                   if (value != null) {
                     if (scanOption == ScanOptions.package) {
                       Navigator.push(
