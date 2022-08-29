@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:supply_io/pages/scans/add/package_parameters.dart';
 
 import '../../helpers/theme/app_theme.dart';
 import '../../model/supply/package_list_model.dart';
-import '../../model/supply/package_model.dart';
 import '../../service/service.dart';
 import '../scans/add/package_list_parameters.dart';
 import '../sidebar_new/navigation_drawer.dart';

@@ -5,7 +5,6 @@ import '../../../model/supply/package_model.dart';
 import '../../sidebar_new/navigation_drawer.dart';
 
 class UpdateParametersPage extends StatefulWidget {
-  @override
   Package result;
   String certificateId;
 

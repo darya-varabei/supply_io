@@ -157,54 +157,17 @@ class _LoginPageState extends State<LoginPage> {
                             onPressed: () async {
                               var jwt = await login();
                               if (jwt < 400) {
-                                //storage.write(key: "jwt", value: "$jwt");
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => MainPage(ScanOptions.package)));
-                                //MainPage.fromBase64("$jwt")));
                               } else {
-
                                 const snackBar =
                                     SnackBar(content: Text("Неверный ввод"));
                                 scaffoldKey.currentState
                                     ?.showSnackBar(snackBar);
                               }
                               isApiCallProcess = false;
-                              //this.submit();
-                              // if (validateAndSave()) {
-                              //   print(loginRequestModel.toJson());
-                              //   setState(() {
-                              //     isApiCallProcess = true;
-                              //   });
-                              //   APIService apiService = new APIService();
-                              //   apiService
-                              //       .login(loginRequestModel)
-                              //       .then((value) {
-                              //     if (value != null) {
-                              //       setState(() {
-                              //         isApiCallProcess = false;
-                              //       });
-                              //       if (value.token!.isNotEmpty) {
-                              //         final snackBar1 = SnackBar(
-                              //             content:
-                              //                 Text("Вход выполнен успешно"));
-                              //         scaffoldKey.currentState
-                              //             ?.showSnackBar(snackBar1);
-                              //         Navigator.of(context).push(
-                              //           MaterialPageRoute(
-                              //             builder: (context) => MainPage(),
-                              //           ),
-                              //         );
-                              //       } else {
-                              //         final snackBar =
-                              //             SnackBar(content: Text(value.error!));
-                              //         scaffoldKey.currentState
-                              //             ?.showSnackBar(snackBar);
-                              //       }
-                              //     }
-                              //   });
-                              // }
                             },
                             child: const Text(
                               "Войти",
