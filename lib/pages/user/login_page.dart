@@ -155,9 +155,6 @@ class _LoginPageState extends State<LoginPage> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 80),
                             onPressed: () async {
-                              setState(() {
-                                isApiCallProcess = true;
-                              });
                               var jwt = await login();
                               if (jwt < 400) {
                                 //storage.write(key: "jwt", value: "$jwt");
@@ -167,11 +164,13 @@ class _LoginPageState extends State<LoginPage> {
                                         builder: (context) => MainPage(ScanOptions.package)));
                                 //MainPage.fromBase64("$jwt")));
                               } else {
+
                                 const snackBar =
                                     SnackBar(content: Text("Неверный ввод"));
                                 scaffoldKey.currentState
                                     ?.showSnackBar(snackBar);
                               }
+                              isApiCallProcess = false;
                               //this.submit();
                               // if (validateAndSave()) {
                               //   print(loginRequestModel.toJson());

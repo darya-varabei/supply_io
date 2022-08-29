@@ -99,7 +99,7 @@ class _MainPageState extends State<MainPage> {
                             ),
                       );
                     }
-                  } else {
+                  } else if (qrCode != 'Unknown') {
                     return showDialog(
                       context: context,
                       builder: (ctx) =>

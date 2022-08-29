@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "805837096359",
+    "firebase_url": "https://supplyio-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "supplyio",
+    "storage_bucket": "supplyio.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:805837096359:android:fabf45bed236bc27b4a282",
+        "android_client_info": {
+          "package_name": "com.SpSoft.SupplyIo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "805837096359-8spna8gmvj6mq6v1u2ka533kai7mm07q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCImmyw1pkEXl55hkgS5Ns6JweQCg4Cx48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "805837096359-8spna8gmvj6mq6v1u2ka533kai7mm07q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

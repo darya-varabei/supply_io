@@ -55,11 +55,13 @@ class _UseRollPageState extends State<UseRollPage> {
                 onPressed: () {
                   const CircularProgressIndicator();
                   scanQRCode().then((value) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                UseScanResultListPage(value!)));
+                    if (value != null) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  UseScanResultListPage(value)));
+                    }
                   });
                 },
                 child: const Text(

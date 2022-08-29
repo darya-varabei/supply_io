@@ -3,8 +3,8 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:supply_io/helpers/literals.dart';
-import 'package:supply_io/model/supply/package_in_use_model.dart';
 import 'package:supply_io/model/user/user_model.dart';
+import 'package:supply_io/pages/scans/add/package_list_parameters.dart';
 
 import '../model/defect_model.dart';
 import '../model/supply/certificate_model.dart';
@@ -24,7 +24,7 @@ class Service {
     }
     return {
     'Content-Type': 'application/json; charset=UTF-8',
-    'Access_Token': token
+    'access_Token': token
     };
   }
 
@@ -45,14 +45,13 @@ class Service {
     if (images.isNotEmpty && defect.description.isNotEmpty) {
       for (var i = 0; i < images.length; i++) {
         List<int> imageBytes = images[i].readAsBytesSync();
-        String base64Image = base64Encode(imageBytes);
         defect.defectPhoto.add(Uint8List.fromList(imageBytes));
       }
     }
 
     final body = json.encode(defect.toJson());
 
-    final response = await http.post(apiUrl,
+    final response = await http.put(apiUrl,
         headers: await header(),
         body: body);
     return response.statusCode;
@@ -95,11 +94,6 @@ class Service {
     if (response.statusCode < 400) {
       final String responseString = response.body;
       final certificate = Certificate.fromJson(jsonDecode(responseString));
-      for(int i = 0; i < certificate.packages.length; i++) {
-        certificate.packages[i].status?.statusName = "В ожидании";
-        certificate.packages[i].status?.statusId = 3;
-        Service.savePackageToWait(certificate.packages[i], certificate.certificateId);
-      }
       return certificate;
     } else {
       return null;
@@ -114,6 +108,7 @@ class Service {
     if (response.statusCode < 400) {
       final String responseString = response.body;
       final certificate = Certificate.fromJson(jsonDecode(responseString));
+      //if ()certificate.packages.count == 1)
       return certificate;
     } else {
       return null;
@@ -134,7 +129,7 @@ class Service {
   }
 
   static Future<int?> savePackageFromWait(String batch) async {
-    final Uri apiUrl = Uri.parse("${Endpoint.baseUrl}${Endpoint.changeStatus}?batch=$batch&status=Имеется");
+    final Uri apiUrl = Uri.parse("${Endpoint.baseUrl}${Endpoint.changeStatus}");
 
     final msg = jsonEncode({"batch":batch,
       "status": "Имеется"});
@@ -164,29 +159,8 @@ class Service {
     return response.statusCode;
   }
 
-  // static Future<int> usePackage(Package packageToUse) async {
-  //
-  //   final Uri apiUrl = Uri.parse("${Endpoint.baseUrl}${Endpoint.usePackage}?batch=${packageToUse.batch}&status=2");
-  //   final response = await http.put(apiUrl);
-  //   return response.statusCode;
-  // }
-
-  static Future<List<PackageInUseModel>> getPackagesInUse() async {
-    final Uri apiUrl = Uri.parse("${Endpoint.baseUrl}${Endpoint.getInStock}?status=В%обработке");
-    final response = await http.get(apiUrl, headers: await header());
-
-    if (response.statusCode < 400) {
-      List<PackageInUseModel>? listDecoded = [];
-      listDecoded = (json.decode(response.body) as List).map((i) =>
-          PackageInUseModel.fromJson(i)).toList();
-      return listDecoded;
-    } else {
-      return List.empty();
-    }
-  }
-
-  static Future<List<PackageList>> getCertificatesInWait() async {
-    final Uri apiUrl = Uri.parse("${Endpoint.baseUrl}${Endpoint.getInStock}?status=В%ожидании");
+  static Future<List<PackageList>> getPackagesInUse() async {
+    final Uri apiUrl = Uri.parse("${Endpoint.baseUrl}${Endpoint.getInStock}?status=В%20обработке");
     final response = await http.get(apiUrl, headers: await header());
 
     if (response.statusCode < 400) {
@@ -199,15 +173,40 @@ class Service {
     }
   }
 
-  static Future<List<Package>> getPackagesInStock() async {
-    final Uri apiUrl = Uri.parse("${Endpoint.baseUrl}${Endpoint.getInStock}");
+  static Future<Future<int?>?> definePackageListAction(PackageListMode mode, PackageList package) async {
+    switch(mode) {
+      case PackageListMode.inWait:
+        return savePackageFromWait(package.batch);
+      case PackageListMode.inUse:
+        return sendUseById(package.batch);
+      case PackageListMode.inProduction:
+        return null;
+    }
+  }
+
+  static Future<List<PackageList>> getCertificatesInWait() async {
+    final Uri apiUrl = Uri.parse("${Endpoint.baseUrl}${Endpoint.getInStock}?status=В%20ожидании");
+    final response = await http.get(apiUrl, headers: await header());
+
+    if (response.statusCode < 400) {
+      List<PackageList>? listDecoded = [];
+      listDecoded = (json.decode(response.body) as List).map((i) =>
+          PackageList.fromJson(i)).toList();
+      return listDecoded;
+    } else {
+      return List.empty();
+    }
+  }
+
+  static Future<List<PackageList>> getPackagesInStock() async {
+    final Uri apiUrl = Uri.parse("${Endpoint.baseUrl}${Endpoint.getInStock}?status=Имеется");
 
     final response = await http.get(apiUrl, headers: await header());
 
     if (response.statusCode < 400) {
-      List<Package>? listDecoded = [];
+      List<PackageList>? listDecoded = [];
       listDecoded = (json.decode(response.body) as List).map((i) =>
-          Package.fromJson(i)).toList();
+          PackageList.fromJson(i)).toList();
       return listDecoded;
     } else {
       return List.empty();

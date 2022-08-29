@@ -13,7 +13,7 @@ class DrawerItem extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: SizedBox(
-        height: 20,
+        height: 30,
         child: Row(
           children: [
             Icon(icon, size: 20, color: AppTheme.colors.white,),

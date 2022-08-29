@@ -5,26 +5,33 @@ import 'package:flutter/material.dart';
 import '../../../helpers/theme/app_theme.dart';
 import '../../../model/supply/package_in_use_model.dart';
 import '../../../model/supply/package_list_model.dart';
-import '../../../model/user/login_model.dart';
 import '../../../service/service.dart';
 import '../../report_defect_page.dart';
 import '../../sidebar_new/navigation_drawer.dart';
 
+enum PackageListMode {
+  inWait,
+  inUse,
+  inProduction
+}
+
 class PackageListParametersPage extends StatefulWidget {
   PackageList result;
+  PackageListMode mode;
 
-  PackageListParametersPage(this.result, {Key? key}) : super(key: key);
+  PackageListParametersPage(this.result, this.mode, {Key? key}) : super(key: key);
 
   @override
   _PackageListParametersPageState createState() =>
-      _PackageListParametersPageState(result: result);
+      _PackageListParametersPageState(result: result, mode: mode);
 }
 
 class _PackageListParametersPageState extends State<PackageListParametersPage> {
   PackageList result;
+  PackageListMode mode;
 
   _PackageListParametersPageState(
-      {required this.result});
+      {required this.result, required this.mode});
 
   void updateInformation(PackageList updatedResult) {
     setState(() => result = updatedResult);
@@ -247,18 +254,19 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                 child: Container(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                   child: Column(children: <Widget>[
+                    if (mode != PackageListMode.inProduction)
                     FlatButton(
                       padding:
-                      const EdgeInsets.symmetric(vertical: 13, horizontal: 54),
+                      EdgeInsets.symmetric(vertical: 13, horizontal: 54),
                       onPressed: () async {
-                        var requestResult = await Service.savePackageFromWait(result.batch);
-                        if (requestResult != null) {
-                          showMyDialog("Сохранено",
-                              "Сохранение выполнено успешно");
-                          Navigator.of(context).pop();
-                        } else if (requestResult == 404) {
+                        var requestResult = await Service.definePackageListAction(mode, result);
+                        if (requestResult == 404) {
                           showMyDialog("Ошибка",
                               "Не удается установить интернет соединение");
+                          Navigator.of(context).pop();
+                        } else if (requestResult != null) {
+                          showMyDialog("Сохранено",
+                              "Сохранение выполнено успешно");
                           Navigator.of(context).pop();
                         } else {
                           showMyDialog("Ошибка", "Не удается выполнить сохранение");
@@ -266,7 +274,8 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                         }
                         Navigator.of(context).pop();
                       },
-                      child: const Text(
+                      child:
+                      const Text(
                         "Сохранить",
                         style: TextStyle(color: Colors.white),
                       ),
@@ -276,12 +285,6 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                   ]),
                 )),
           ])));
-
-  Future<String> getJwtOrEmpty() async {
-    var jwt = await storage.read(key: "jwt");
-    if (jwt == null) return "";
-    return jwt;
-  }
 
   Future<void> showMyDialog(String title, String text) async {
     return showDialog<void>(

@@ -7,7 +7,7 @@ class Literals {
 }
 
 class Endpoint {
-  static const String baseUrl = "https://parcer-dotnet.herokuapp.com/api/";
+  static const String baseUrl = "http://178.172.137.155/api/";
   static const String login = "authentication/login";
   static const String getCertificates = "parcer/package";
   static const String addCertificate = "parcer";

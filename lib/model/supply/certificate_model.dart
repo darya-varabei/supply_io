@@ -53,7 +53,7 @@ class Certificate {
 
     return Certificate(
         certificateId: json['certificateId'],
-        link: json['link'],
+        link: List<String>.from(json["link"].map((x) => x)),
         number: json['number'],
         date: json['date'],
         author: json['author'],
@@ -61,7 +61,7 @@ class Certificate {
         fax: json['fax'],
         recipient: json['recipient'],
         recipientCountry: json['recipientCountry'],
-        product: json['product'],
+        product: Product.fromJson(json['product']),
         shipmentShop: json['shipmentShop'],
         wagonNumber: json['wagonNumber'],
         orderNumber: json['orderNumber'],
@@ -70,7 +70,7 @@ class Certificate {
         placeNumber: json['placeNumber'],
         gosts: json['gosts'],
         notes: json['notes'],
-        packages: json['packages']);
+        packages: List<Package>.from(json["packages"].map((x) => Package.fromJson(x))),);
 
        // packages: imagesList);//json["packages"] == null ? null : Package.fromJson(json["packages"]));
   }

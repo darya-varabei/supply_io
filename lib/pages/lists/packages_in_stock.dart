@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:supply_io/pages/scans/add/package_parameters.dart';
 
 import '../../helpers/theme/app_theme.dart';
+import '../../model/supply/package_list_model.dart';
 import '../../model/supply/package_model.dart';
 import '../../service/service.dart';
+import '../scans/add/package_list_parameters.dart';
 import '../sidebar_new/navigation_drawer.dart';
 import '../widgets/debouncer.dart';
 
@@ -19,8 +21,8 @@ class PackagesInStockListPage extends StatefulWidget {
 class _PackagesInStockListPageState extends State<PackagesInStockListPage> {
   _PackagesInStockListPageState();
   final _debouncer = Debouncer(milliseconds: 500);
-  List<Package> futureData = [];
-  List<Package> filteredPackages = [];
+  List<PackageList> futureData = [];
+  List<PackageList> filteredPackages = [];
 
   @override
   void initState() {
@@ -76,7 +78,7 @@ class _PackagesInStockListPageState extends State<PackagesInStockListPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => PackageParametersPage(filteredPackages[index], "", 1, "", ParameterState.use)));
+                                      builder: (context) => PackageListParametersPage(filteredPackages[index], PackageListMode.inUse)));
                             },
                             title: Text(unwrapText(filteredPackages[index].batch)),
                             trailing: Icon(
@@ -87,14 +89,14 @@ class _PackagesInStockListPageState extends State<PackagesInStockListPage> {
                           ),
                     Row(children: <Widget>[
                           Text(
-                            "Масса нетто ${filteredPackages[index].weight?.net.toString()} кг",
+                            "Масса нетто ${filteredPackages[index].weight.toString()} кг",
                             style: const TextStyle(
                               fontSize: 10.0,
                               color: Colors.grey,
                             ),
                           ),
                       Text(
-                        "Ширина ${filteredPackages[index].size?.width.toString()} мм",
+                        "  Ширина ${filteredPackages[index].width.toString()} мм",
                         style: const TextStyle(
                           fontSize: 10.0,
                           color: Colors.grey,

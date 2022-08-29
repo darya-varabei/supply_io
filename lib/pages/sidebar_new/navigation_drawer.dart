@@ -71,7 +71,7 @@ class NavigationDrawer extends StatelessWidget {
                   ),
                   DrawerItem(
                     name: 'Сохранить сертификат по QR',
-                    icon: Icons.photo_camera,
+                    icon: Icons.photo_album,
                     onPressed: () => onItemPressed(context, index: 1),
                   ),
                   const SizedBox(
@@ -93,15 +93,15 @@ class NavigationDrawer extends StatelessWidget {
                   ),
                   DrawerItem(
                       name: 'Сертификаты в ожидании',
-                      icon: Icons.list,
+                      icon: Icons.filter_list,
                       onPressed: () => onItemPressed(context, index: 4)),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  DrawerItem(
-                      name: 'Аккаунт',
-                      icon: Icons.person,
-                      onPressed: () => onItemPressed(context, index: 5)),
+                  // const SizedBox(
+                  //   height: 30,
+                  // ),
+                  // DrawerItem(
+                  //     name: 'Аккаунт',
+                  //     icon: Icons.person,
+                  //     onPressed: () => onItemPressed(context, index: 5)),
                   const SizedBox(
                     height: 30,
                   ),
@@ -115,7 +115,7 @@ class NavigationDrawer extends StatelessWidget {
                   ),
                   DrawerItem(
                       name: 'Выйти',
-                      icon: Icons.settings,
+                      icon: Icons.logout,
                       onPressed: () => onItemPressed(context, index: 6)),
                   const SizedBox(
                     height: 30,
@@ -170,6 +170,12 @@ class NavigationDrawer extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) =>  MyAccountsPage()));
+        break;
+      case 6:
+        storage.write(key: "access_token", value: "");
+        storage.write(key: "refresh_token", value: "");
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        break;
     }
   }
 

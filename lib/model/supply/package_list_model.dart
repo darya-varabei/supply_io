@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+import 'package:supply_io/model/supply/package_model.dart';
+
 class PackageList {
   final String? supplyDate;
   final int packageId;
@@ -6,9 +9,9 @@ class PackageList {
   final String numberOfCertificate;
   final int width;
   final double thickness;
-  final double weight;
+  final int weight;
   final int? mill;
-  final int? coatingClass;
+  final String? coatingClass;
   final String? sort;
   final int net;
   final String supplier;

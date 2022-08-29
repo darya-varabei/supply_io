@@ -53,7 +53,7 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
                       SizedBox(
                         width: 190,
                         child: Text(
-                          "Сертификат № ${result.certificateId}",
+                          "Сертификат № ${result.number}",
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontSize: 28,

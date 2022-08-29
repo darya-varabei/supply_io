@@ -64,9 +64,9 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                       ),
                       const Spacer(),
                       SizedBox(
-                        width: 190,
+                        width: 250,
                         child: Text(
-                          "Упаковка № ${package.numberOfCertificate}",
+                          "Упаковка № ${package.batch}",
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontSize: 20,

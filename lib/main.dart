@@ -1,10 +1,14 @@
 import 'dart:io';
 
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:supply_io/pages/error_page/connection_error_page.dart';
 import 'package:supply_io/pages/scans/add/main_scanner_page.dart';
 import 'package:supply_io/pages/user/login_page.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
 import 'package:supply_io/service/service.dart';
+import 'helpers/portrait_mode.dart';
 import 'model/user/login_model.dart';
 
 void main() {
@@ -12,15 +16,8 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget with PortraitModeMixin {
   const MyApp({Key? key}) : super(key: key);
-
-  Future<String> get jwtOrEmpty async {
-    var jwt = await storage.read(key: "jwt");
-    if (jwt == null) return "";
-    return jwt;
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -54,43 +51,15 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<Widget> widget) {
           if(widget.connectionState == ConnectionState.done){
             if (!widget.hasData) {
-              return const Center(
-                  child: Text('No Data exists')
-              );
+              return const ConnectionErrorPage();
             }
             if (widget.data != null) {
               return widget.data!;
             }
           }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const SplashScreen();
         }
       )
-      // home: FutureBuilder(
-      //     future: Service.checkIfUserLogged(),
-      //     builder: (context, snapshot) {
-      //       if (!snapshot.hasData) return const CircularProgressIndicator();
-      //       if (snapshot.data != "") {
-      //         var str = snapshot.data;
-      //         var jwt = str.toString().split(".");
-      //
-      //         if (snapshot == false) {
-      //           return LoginPage();
-      //         } else {
-      //           var payload = json.decode(
-      //               ascii.decode(base64.decode(base64.normalize(jwt[1]))));
-      //           if (DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
-      //               .isAfter(DateTime.now())) {
-      //             return LoginPage();//MainPage();
-      //           } else {
-      //             return LoginPage();
-      //           }
-      //         }
-      //       } else {
-      //         return LoginPage();
-      //       }
-      //     }),
     );
   }
 
@@ -101,6 +70,22 @@ class MyApp extends StatelessWidget {
     } else {
       return MainPage(ScanOptions.package);
     }
+  }
+}
+
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSplashScreen(
+      splash: Lottie.asset('assets/91771-spinning-circles-loading-animation.json'),
+        nextScreen: const MyApp(),
+      splashIconSize: 250,
+      duration: 2000,
+      splashTransition: SplashTransition.fadeTransition,
+        animationDuration: const Duration(seconds: 2),
+    );
   }
 }
 

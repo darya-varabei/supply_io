@@ -75,7 +75,7 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => PackageListParametersPage(filteredPackages[index])));
+                                      builder: (context) => PackageListParametersPage(filteredPackages[index], PackageListMode.inWait)));
                             },
                             title: Text(unwrapText(filteredPackages[index].batch)),
                             trailing: Icon(
@@ -84,13 +84,45 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
                               size: 16.0,
                             ),
                           ),
-                          Text(
-                            unwrapText(filteredPackages[index].supplier),
-                            style: const TextStyle(
-                              fontSize: 14.0,
-                              color: Colors.grey,
+                          Column(children: <Widget>[
+                            Text(
+                              "Cертификат №${unwrapText(filteredPackages[index].numberOfCertificate)}",
+                              style: const TextStyle(
+                                fontSize: 9.0,
+                                color: Colors.grey,
+                              ),
                             ),
-                          ),
+                          Row(children: <Widget>[
+                            Text(
+                                unwrapText(filteredPackages[index].supplier),
+                                style: const TextStyle(
+                                  fontSize: 9.0,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            Text(
+                              "  Масса нетто ${filteredPackages[index].weight.toString()} кг",
+                              style: const TextStyle(
+                                fontSize: 9.0,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            Text(
+                              "  Ширина ${filteredPackages[index].width.toString()} мм",
+                              style: const TextStyle(
+                                fontSize: 9.0,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ])
+                  ])
+                          // Text(
+                          //   unwrapText(filteredPackages[index].supplier),
+                          //   style: const TextStyle(
+                          //     fontSize: 14.0,
+                          //     color: Colors.grey,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
