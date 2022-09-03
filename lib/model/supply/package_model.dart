@@ -42,16 +42,16 @@ class Package {
   final ChemicalCompositionModel? chemicalComposition;
   final String? sampleLocation;
   final String? directOfTestPicses;
-  final int? temporalResistance;
+  final double? temporalResistance;
   final String? yieldPoint;
   final String? tensilePoint;
-  final int? elongation;
+  final double? elongation;
   final String? bend;
   final String? hardness;
   final String? rockwell;
   final String? brinel;
   final String? eriksen;
-  final int? impactStrength;
+  final double? impactStrength;
   final String? grainSize;
   final String? decarburiization;
   final String? cementite;
@@ -61,10 +61,10 @@ class Package {
   final String? unitTemporaryResistance;
   final String? unitYieldStrength;
   final double? sphericalHoleDepth;
-  final int? microBallCem;
-  final int? r90;
-  final int? n90;
-  final int? koafNavodorag;
+  final double? microBallCem;
+  final double? r90;
+  final double? n90;
+  final double? koafNavodorag;
   final String? notes;
   //final List<List<>>? photo;
   final String? comment;
@@ -171,10 +171,10 @@ class Package {
       chemicalComposition: ChemicalCompositionModel.fromJson(json['chemicalComposition']),
       sampleLocation: json['sampleLocation'],
       directOfTestPicses: json['directOfTestPicses'],
-      temporalResistance: json['temporalResistance'],
+      temporalResistance: json['temporalResistance']?.toDouble(),
       yieldPoint: json['yieldPoint'],
       tensilePoint: json['tensilePoint'],
-      elongation: json['elongation'],
+      elongation: json['elongation']?.toDouble(),
       bend: json['bend'],
       hardness: json['hardness'],
       rockwell: json['rockwell'],
@@ -189,11 +189,11 @@ class Package {
       testingMethod: json['testingMethod'],
       unitTemporaryResistance: json['unitTemporaryResistance'],
       unitYieldStrength: json['unitYieldStrength'],
-      sphericalHoleDepth: json['sphericalHoleDepth'],
-      microBallCem: json['microBallCem'],
-      r90: json['r90'],
-      n90: json['n90'],
-      koafNavodorag: json['koafNavodorag'],
+      sphericalHoleDepth: json['sphericalHoleDepth']?.toDouble(),
+      microBallCem: json['microBallCem']?.toDouble(),
+      r90: json['r90']?.toDouble(),
+      n90: json['n90']?.toDouble(),
+      koafNavodorag: json['koafNavodorag']?.toDouble(),
       notes: json['notes'],
       //photo: json['photo'],
       comment: json['comment'],

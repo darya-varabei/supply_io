@@ -38,7 +38,7 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
         backgroundColor: AppTheme.colors.darkGradient,
       ),
       body: Container(
-        padding: const EdgeInsets.all(40),
+        padding: const EdgeInsets.all(20),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -52,25 +52,6 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
                             color: AppTheme.colors.darkGradient,
                             fontWeight: FontWeight.w400),
                       ),
-                    // FlatButton(
-                    //     padding: const EdgeInsets.symmetric(
-                    //         vertical: 13, horizontal: 26),
-                    //     onPressed: () {
-                    //       Navigator.push(
-                    //           context,
-                    //           MaterialPageRoute(
-                    //               builder: (context) =>
-                    //                   ReportdDefectPage(
-                    //                       selectedPackage)));
-                    //     },
-                    //     child: const Text(
-                    //       "Сообщить о дефекте",
-                    //       style: TextStyle(color: Colors.white),
-                    //     ),
-                    //     color: isSelected
-                    //         ? AppTheme.colors.blue
-                    //         : AppTheme.colors.grey,
-                    //     shape: const StadiumBorder(),)
                     ]),
                   ),
 
@@ -102,23 +83,25 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
                                           ),
                                         ),
                                         Column(children: <Widget>[
-                                          Text(
-                                            "Сертификат ${futureData[index].numberOfCertificate} кг",
-                                            style: const TextStyle(
-                                              fontSize: 10.0,
-                                              color: Colors.grey,
+                                          Row(children: <Widget>[
+                                            Text(
+                                              "Сертификат ${futureData[index].numberOfCertificate}, ",
+                                              style: const TextStyle(
+                                                fontSize: 10.0,
+                                                color: Colors.grey,
+                                              ),
                                             ),
-                                          ),
+                                            Text(
+                                              unwrapText(futureData[index].supplier),
+                                              style: const TextStyle(
+                                                fontSize: 10.0,
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                          ]),
                                         Row(children: <Widget>[
                                           Text(
-                                            unwrapText(futureData[index].supplier),
-                                            style: const TextStyle(
-                                              fontSize: 10.0,
-                                              color: Colors.grey,
-                                            ),
-                                          ),
-                                          Text(
-                                            "  Масса нетто ${futureData[index].weight.toString()} кг",
+                                            "Масса нетто ${futureData[index].weight.toString()} кг,",
                                             style: const TextStyle(
                                               fontSize: 10.0,
                                               color: Colors.grey,

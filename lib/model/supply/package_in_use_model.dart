@@ -4,7 +4,7 @@ class PackageInUseModel {
   String? grade;
   String? batch;
   String? numberOfCertificate;
-  int? width;
+  double? width;
   int? weight;
   double? thickness;
   String? height;
@@ -46,7 +46,7 @@ class PackageInUseModel {
         grade: json['grade'].toString(),
         numberOfCertificate: json['numberOfCertificate'].toString(),
         batch: json['batch'].toString(),
-        width: json["width"],
+        width: json["width"].toDouble(),
       weight: json["weight"],
         thickness: json['thickness'],
         height: json['height'].toString(),

@@ -85,23 +85,25 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
                             ),
                           ),
                           Column(children: <Widget>[
-                            Text(
-                              "Cертификат №${unwrapText(filteredPackages[index].numberOfCertificate)}",
-                              style: const TextStyle(
-                                fontSize: 9.0,
-                                color: Colors.grey,
+                            Row(children: [
+                              Text(
+                                "Cертификат №${unwrapText(filteredPackages[index].numberOfCertificate)} ",
+                                style: const TextStyle(
+                                  fontSize: 9.0,
+                                  color: Colors.grey,
+                                ),
                               ),
-                            ),
-                          Row(children: <Widget>[
-                            Text(
+                              Text(
                                 unwrapText(filteredPackages[index].supplier),
                                 style: const TextStyle(
                                   fontSize: 9.0,
                                   color: Colors.grey,
                                 ),
                               ),
+                            ],),
+                          Row(children: <Widget>[
                             Text(
-                              "  Масса нетто ${filteredPackages[index].weight.toString()} кг",
+                              "Масса нетто ${filteredPackages[index].weight.toString()} кг",
                               style: const TextStyle(
                                 fontSize: 9.0,
                                 color: Colors.grey,

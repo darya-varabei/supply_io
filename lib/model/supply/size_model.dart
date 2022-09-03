@@ -1,8 +1,8 @@
 class XSize {
   int? sizeId;
   double? thickness;
-  int? width;
-  double? length;
+  double? width;
+  String? length;
 
   XSize({
     this.sizeId,
@@ -13,8 +13,8 @@ class XSize {
   factory XSize.fromJson(Map<String, dynamic> json) {
     return XSize(
         sizeId: json['sizeId'],
-        thickness: json['thickness'],
-        width: json['width'],
+        thickness: json['thickness']?.toDouble(),
+        width: json['width']?.toDouble(),
         length: json['length']);
   }
 

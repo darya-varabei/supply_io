@@ -210,7 +210,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                           result.size?.thickness = bufferThickness;
                         }
                         if (bufferWidth != 0) {
-                          result.size?.width = bufferWidth;
+                          result.size?.width = bufferWidth * 1.0;
                         }
                         Navigator.pop(context, result);
                       },

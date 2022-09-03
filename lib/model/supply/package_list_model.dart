@@ -7,7 +7,7 @@ class PackageList {
   final String batch;
   final String grade;
   final String numberOfCertificate;
-  final int width;
+  final double width;
   final double thickness;
   final int weight;
   final int? mill;
@@ -49,7 +49,7 @@ class PackageList {
       batch: json['batch'].toString(),
       grade: json['grade'].toString(),
       numberOfCertificate: json['numberOfCertificate'].toString(),
-      width: json["width"],
+      width: json["width"].toDouble(),
       thickness: json['thickness'],
       weight: json['weight'],
       mill: json['mill'],
