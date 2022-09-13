@@ -72,10 +72,18 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
 
                           ListTile(
                             onTap: () {
-                              Navigator.push(
+                              final result = Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => PackageListParametersPage(filteredPackages[index], PackageListMode.inWait)));
+                                      builder: (context) => PackageListParametersPage(filteredPackages[index], PackageListMode.inWait)
+                                          //if context.
+                                  ));
+                              result.then((value) {
+                                filteredPackages[index] = value;
+                              });
+                              if (filteredPackages[index].status == "В обработке") {
+                                filteredPackages.removeAt(index);
+                              }
                             },
                             title: Text(unwrapText(filteredPackages[index].batch)),
                             trailing: Icon(

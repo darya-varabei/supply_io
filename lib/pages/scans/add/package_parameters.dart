@@ -308,12 +308,15 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                       }
                       Navigator.of(context).pop();
                     } else {
+                      result.status =
+                          Status(statusId: 3, statusName: "В обработке");
                       var requestResult = await Service.sendUseById(
                           result.batch ?? "");
                       if (requestResult != null) {
                         showMyDialog("Сохранено",
                             "Рулон переведен в обработку");
-                        Navigator.of(context).pop();
+                        Navigator.pop(context, result);
+                        //Navigator.of(context).pop();
                       } else if (requestResult == 404) {
                         showMyDialog("Ошибка",
                             "Не удается установить интернет соединение");
@@ -323,7 +326,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                             "Не удается выполнить отправку в обработку");
                         Navigator.of(context).pop();
                       }
-                      Navigator.of(context).pop();
+                      Navigator.pop(context, result);
                     }
                   },
                   child: Text(

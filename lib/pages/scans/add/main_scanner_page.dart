@@ -42,7 +42,8 @@ class _MainPageState extends State<MainPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Widget _uiSetup(BuildContext context) {
-    return Scaffold(
+    return
+      Scaffold(
       key: _scaffoldKey,
       drawer: const NavigationDrawer(),
       appBar: AppBar(

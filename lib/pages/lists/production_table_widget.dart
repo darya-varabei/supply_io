@@ -70,10 +70,22 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
 
                                         ListTile(
                                           onTap: () {
-                                            Navigator.push(
+                                            final result = Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) => PackageListParametersPage(futureData[index], PackageListMode.inProduction)));
+                                                    builder: (context) => PackageListParametersPage(futureData[index], PackageListMode.inWait)
+                                                  //if context.
+                                                ));
+                                            result.then((value) {
+                                              futureData[index] = value;
+                                            });
+                                            if (futureData[index].status == "С дефектом") {
+                                              futureData.removeAt(index);
+                                            }
+                                            // Navigator.push(
+                                            //     context,
+                                            //     MaterialPageRoute(
+                                            //         builder: (context) => PackageListParametersPage(futureData[index], PackageListMode.inProduction)));
                                           },
                                           title: Text(unwrapText(futureData[index].batch)),
                                           trailing: Icon(
