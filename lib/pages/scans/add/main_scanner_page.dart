@@ -105,7 +105,7 @@ class _MainPageState extends State<MainPage> {
                       context: context,
                       builder: (ctx) =>
                           AlertDialog(
-                            title: const Text("Ошибка сохранение"),
+                            title: const Text("Ошибка сохранения"),
                             content: const Text(
                                 "Проверьте корректность сканируемого QR кода"),
                             actions: <Widget>[

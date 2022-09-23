@@ -23,7 +23,6 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
   Certificate result;
 
   _ScanResultListPageState({required this.result});
-
   @override
   Widget build(BuildContext context) => Scaffold(
       drawer: const NavigationDrawer(),
@@ -78,15 +77,7 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
                               padding: const EdgeInsets.all(1.0),
                               child: ListTile(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              PackageParametersPage(
-                                                  result.packages[position],
-                                                  result.number!,
-                                                  result.certificateId,
-                                              result.author!, ParameterState.add)));
+                                  _navigateAndDisplaySelection(context, position);
                                 },
                                 title: Text(
                                     "${result.packages[position].batch}"),
@@ -100,4 +91,21 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
                       })),
             ]),
       ));
+
+  Future<void> _navigateAndDisplaySelection(BuildContext context, int position) async {
+    final result1 = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                PackageParametersPage(
+                    result.packages[position],
+                    result.number!,
+                    result.certificateId,
+                    result.author!, ParameterState.add)));
+    if (result.packages[position].status?.statusName == "Имеется") {
+      setState(() {
+        result.packages.removeAt(position);
+      });
+    }
+  }
 }

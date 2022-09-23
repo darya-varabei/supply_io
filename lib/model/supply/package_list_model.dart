@@ -19,7 +19,7 @@ class PackageList {
   final int? price;
   final String? comment;
   final List<String>? photo;
-  final String status;
+  String status;
 
   PackageList({
     this.supplyDate,

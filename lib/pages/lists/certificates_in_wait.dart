@@ -72,18 +72,7 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
 
                           ListTile(
                             onTap: () {
-                              final result = Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PackageListParametersPage(filteredPackages[index], PackageListMode.inWait)
-                                          //if context.
-                                  ));
-                              result.then((value) {
-                                filteredPackages[index] = value;
-                              });
-                              if (filteredPackages[index].status == "В обработке") {
-                                filteredPackages.removeAt(index);
-                              }
+                              _navigateAndDisplaySelection(context, index);
                             },
                             title: Text(unwrapText(filteredPackages[index].batch)),
                             trailing: Icon(
@@ -126,13 +115,6 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
                             ),
                           ])
                   ])
-                          // Text(
-                          //   unwrapText(filteredPackages[index].supplier),
-                          //   style: const TextStyle(
-                          //     fontSize: 14.0,
-                          //     color: Colors.grey,
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),
@@ -151,4 +133,19 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
       return "";
     }
   }
+
+  Future<void> _navigateAndDisplaySelection(BuildContext context, int index) async {
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PackageListParametersPage(filteredPackages[index], PackageListMode.inWait)
+          //if context.
+        ));
+    if (filteredPackages[index].status == "Имеется") {
+      setState(() {
+        filteredPackages.removeAt(index);
+      });
+    }
+  }
+
 }

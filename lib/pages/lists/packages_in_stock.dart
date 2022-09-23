@@ -75,23 +75,7 @@ class _PackagesInStockListPageState extends State<PackagesInStockListPage> {
 
                           ListTile(
                           onTap: () {
-                            final result = Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PackageListParametersPage(filteredPackages[index], PackageListMode.inUse)
-                                  //if context.
-                                ));
-                            result.then((value) {
-                              filteredPackages[index] = value;
-                            });
-                            if (filteredPackages[index].status == "Имеется") {
-                              filteredPackages.removeAt(index);
-                            }
-                    // Navigator.push(
-                    // context,
-                    // MaterialPageRoute(
-                    // builder: (context) => PackageListParametersPage(filteredPackages[index], PackageListMode.inUse))
-                    // );
+                            _navigateAndDisplaySelection(context, index);
                     },
                       title: Text(unwrapText(filteredPackages[index].batch)),
                       trailing: Icon(
@@ -150,5 +134,20 @@ class _PackagesInStockListPageState extends State<PackagesInStockListPage> {
     } else {
       return "";
     }
+  }
+
+  Future<void> _navigateAndDisplaySelection(BuildContext context, int index) async {
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PackageListParametersPage(filteredPackages[index], PackageListMode.inUse)
+          //if context.
+        ));
+    if (filteredPackages[index].status == "В обработке") {
+      setState(() {
+        filteredPackages.removeAt(index);
+      });
+    }
+   // });
   }
 }

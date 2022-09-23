@@ -3,8 +3,10 @@ import 'package:supply_io/pages/lists/production_table_widget.dart';
 
 import '../../helpers/theme/app_theme.dart';
 import '../../model/supply/certificate_model.dart';
+import '../../model/supply/package_list_model.dart';
 import '../../model/supply/package_model.dart';
 import '../../service/service.dart';
+import '../scans/add/send_use_parameters_page.dart';
 import '../sidebar_new/navigation_drawer.dart';
 
 class UseScanResultListPage extends StatefulWidget {
@@ -79,14 +81,20 @@ class _UseScanResultListPageState extends State<UseScanResultListPage> {
                               padding: const EdgeInsets.all(1.0),
                               child: ListTile(
                                 onTap: () async {
-                                  await Service.sendUseById(
-                                      result.packages[position].batch ?? "").then((value) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                            const ProductionTableWidget()));
-                                  });
+                                  Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                UpdateUseParametersPage(result.packages[position].batch, result.packages[position].size?.width, result.packages[position].weight?.net )
+                                            ));
+                                  // await Service.sendUseById(
+                                  //     result.packages[position].batch ?? "").then((value) {
+                                  //   Navigator.push(
+                                  //       context,
+                                  //       MaterialPageRoute(
+                                  //           builder: (context) =>
+                                  //           const ProductionTableWidget()));
+                                  // });
                                 },
                                 title: Text(
                                     "${result.packages[position].batch}"),

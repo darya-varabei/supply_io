@@ -1,6 +1,6 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:supply_io/pages/scans/add/send_use_parameters_page.dart';
 
 import '../../../helpers/theme/app_theme.dart';
 import '../../../model/supply/package_in_use_model.dart';
@@ -33,9 +33,9 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
   _PackageListParametersPageState(
       {required this.result, required this.mode});
 
-  void updateInformation(PackageList updatedResult) {
-    setState(() => result = updatedResult);
-  }
+  // void updateInformation(PackageList updatedResult) {
+  //   setState(() => result = updatedResult);
+  // }
 
   void moveToSecondPage() async {
     PackageInUseModel packageInUse = PackageInUseModel(supplyDate: result.supplyDate, grade: result.grade, numberOfCertificate: result.numberOfCertificate,
@@ -43,7 +43,7 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
         mill: "", coatingClass: null, sort: "", supplier: "", elongation: "", price: "", comment: "", status: result.status);
     await Navigator.push(
       context,
-      CupertinoPageRoute(
+      MaterialPageRoute(
           fullscreenDialog: true,
           builder: (context) => ReportdDefectPage(packageInUse)),
     );
@@ -67,7 +67,7 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.pop(context, result);
                       },
                     ),
                     const Spacer(),
@@ -259,20 +259,41 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                       padding:
                       EdgeInsets.symmetric(vertical: 13, horizontal: 54),
                       onPressed: () async {
-                        var requestResult = await Service.definePackageListAction(mode, result);
-                        if (requestResult == 404) {
-                          showMyDialog("Ошибка",
-                              "Не удается установить интернет соединение");
-                          Navigator.of(context).pop();
-                        } else if (requestResult != null) {
-                          showMyDialog("Сохранено",
-                              "Сохранение выполнено успешно");
-                          Navigator.of(context).pop();
+                        if (mode == PackageListMode.inUse) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      UpdateUseParametersPage(result.batch, result.width, result.net )
+                              ));
                         } else {
-                          showMyDialog("Ошибка", "Не удается выполнить сохранение");
-                          Navigator.of(context).pop();
+                          var requestResult = await Service
+                              .definePackageListAction(mode, result);
+                          if (requestResult == 404) {
+                            showMyDialog("Ошибка",
+                                "Не удается установить интернет соединение");
+                            Navigator.of(context).pop();
+                          } else if (requestResult != null) {
+                            setState(() {
+                              result.status = mode == PackageListMode.inWait
+                                  ? "Имеется"
+                                  : "В обработке";
+                            });
+                            showMyDialog("Сохранено",
+                                "Сохранение выполнено успешно");
+                            Navigator.pop(context, result);
+                          } else {
+                            showMyDialog(
+                                "Ошибка", "Не удается выполнить сохранение");
+                            Navigator.of(context).pop();
+                          }
+                          setState(() {
+                            result.status = mode == PackageListMode.inWait
+                                ? "Имеется"
+                                : "В обработке";
+                          });
+                          Navigator.pop(context, result);
                         }
-                        Navigator.of(context).pop();
                       },
                       child:
                       const Text(

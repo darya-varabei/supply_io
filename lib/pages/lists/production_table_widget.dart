@@ -70,22 +70,7 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
 
                                         ListTile(
                                           onTap: () {
-                                            final result = Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) => PackageListParametersPage(futureData[index], PackageListMode.inWait)
-                                                  //if context.
-                                                ));
-                                            result.then((value) {
-                                              futureData[index] = value;
-                                            });
-                                            if (futureData[index].status == "С дефектом") {
-                                              futureData.removeAt(index);
-                                            }
-                                            // Navigator.push(
-                                            //     context,
-                                            //     MaterialPageRoute(
-                                            //         builder: (context) => PackageListParametersPage(futureData[index], PackageListMode.inProduction)));
+                                            _navigateAndDisplaySelection(context, index);
                                           },
                                           title: Text(unwrapText(futureData[index].batch)),
                                           trailing: Icon(
@@ -142,73 +127,6 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
                               },
                             ),
                           )
-                          // return ListView.builder(
-                          //     itemCount: data?.length,
-                          //     itemBuilder: (context, position) {
-                          //       return Card(
-                          //         margin: const EdgeInsets.symmetric(
-                          //             vertical: 10.0, horizontal: 2.0),
-                          //         shape: RoundedRectangleBorder(
-                          //           borderRadius: BorderRadius.circular(15.0),
-                          //         ),
-                          //         color: position == selectedIndex ? AppTheme.colors.grey : AppTheme.colors.white,
-                          //         child: Padding(
-                          //             padding: const EdgeInsets.all(1.0),
-                          //             child: ListTile(
-                          //               onTap: () {
-                          //                 if (isSelected == true) {
-                          //                   selectedIndex = position;
-                          //                   isSelected = false;
-                          //                   selectedPackage = data![position];
-                          //                   actOnCellTap(AppTheme.colors.red);
-                          //                 } else {
-                          //                   selectedIndex = position;
-                          //                   selectedPackage = data![position];
-                          //                   isSelected = true;
-                          //                   actOnCellTap(AppTheme.colors.grey);
-                          //                 }
-                          //               },
-                          //               title: Text(data![position].batch!),
-                          //               trailing: Icon(
-                          //                 Icons.arrow_forward,
-                          //                 color: AppTheme.colors.darkGradient,
-                          //                 size: 20.0,
-                          //               ),
-                          //             )),
-                          //       );
-                          //     });
-                      //  }
-
-                        // return Flexible(
-                        //     flex: 2,
-                        //     child: Container(
-                        //       padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                        //       child: Column(children: <Widget>[
-                        //         const CircularProgressIndicator(),
-                        //         // FlatButton(
-                        //         //   padding: const EdgeInsets.symmetric(
-                        //         //       vertical: 13, horizontal: 26),
-                        //         //   onPressed: () {
-                        //         //     Navigator.push(
-                        //         //         context,
-                        //         //         MaterialPageRoute(
-                        //         //             builder: (context) =>
-                        //         //                 ReportdDefectPage(
-                        //         //                     selectedPackage)));
-                        //         //   },
-                        //         //   child: const Text(
-                        //         //     "Сообщить о дефекте",
-                        //         //     style: TextStyle(color: Colors.white),
-                        //         //   ),
-                        //         //   color: isSelected
-                        //         //       ? AppTheme.colors.blue
-                        //         //       : AppTheme.colors.grey,
-                        //         //   shape: const StadiumBorder(),
-                        //         //),
-                        //       ]
-                        //       ),
-                        //     ));
-                     // }))
             ]
         ),
       ));
@@ -217,6 +135,20 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
     setState(() {
       buttonColor = newColor;
     });
+  }
+
+  Future<void> _navigateAndDisplaySelection(BuildContext context, int index) async {
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PackageListParametersPage(futureData[index], PackageListMode.inProduction)
+          //if context.
+        ));
+    if (futureData[index].status == "С дефектом") {
+      setState(() {
+        futureData.removeAt(index);
+      });
+    }
   }
 
   String unwrapText(String? text) {

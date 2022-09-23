@@ -72,7 +72,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                 IconButton(
                   icon: const Icon(Icons.arrow_back),
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.pop(context, result);
                   },
                 ),
                 const Spacer(),
@@ -293,20 +293,41 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                           Status(statusId: 2, statusName: "Имеется");
                       var requestResult = await Service.savePackage(
                           result, certificateNumber);
-                      if (requestResult < 400) {
+                      if (requestResult == 204) {
+                        showDialog(
+                          context: context,
+                          builder: (ctx) =>
+                              AlertDialog(
+                                title: const Text("Ошибка сохранение"),
+                                content: const Text(
+                                    "Данный рулон уже существует в базе"),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    onPressed: () {
+                                      Navigator.pop(context, result);
+                                    },
+                                    child: const Text("ОК"),
+                                  ),
+                                ],
+                              ),
+                        );
+                        //Navigator.pop(context, result);
+                    } else if (requestResult < 400) {
+                        setState(() {
+                          result.status?.statusName = "Имеется";
+                        });
                         showMyDialog("Сохранено",
                             "Сохранение выполнено успешно");
-                        Navigator.of(context).pop();
+                        Navigator.pop(context, result);
                       } else if (requestResult == 404) {
                         showMyDialog("Ошибка",
                             "Не удается установить интернет соединение");
-                        Navigator.of(context).pop();
+                        Navigator.pop(context, result);
                       } else {
                         showMyDialog("Ошибка",
                             "Не удается выполнить сохранение");
-                        Navigator.of(context).pop();
+                        Navigator.pop(context, result);
                       }
-                      Navigator.of(context).pop();
                     } else {
                       result.status =
                           Status(statusId: 3, statusName: "В обработке");
