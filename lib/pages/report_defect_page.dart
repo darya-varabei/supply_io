@@ -38,7 +38,7 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
       comment: null,
       status: "Имеется");
   String description = "";
-  Defect defect = Defect(rollId: "", description: "", defectPhoto: []);
+  Defect defect = Defect(rollId: 0, description: "", defectPhoto: []);
   TextEditingController messageController = TextEditingController();
 
   _ReportdDefectPageState({required this.package});
@@ -150,7 +150,8 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                               null;
                             } else {
                               defect.description = messageController.text;
-                              defect.rollId = package.batch!;
+                              defect.rollId = package.packageId!;
+                              package.status = "С дефектом" ;
                               Service.saveDefect(defect, images);
                               Navigator.pop(context);
                             }

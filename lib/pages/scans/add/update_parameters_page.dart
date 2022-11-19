@@ -122,7 +122,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                       width: 100,
                       height: 40,
                       child: TextFormField(
-                        initialValue: "${result.weight?.gross}",
+                        initialValue: "${result.weight?.gross?.round()}",
                         onChanged: (text) {
                           bufferWeight = int.parse(text);
                         },
@@ -180,7 +180,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                       width: 100,
                       height: 40,
                       child: TextFormField(
-                        initialValue: "${result.size?.width}",
+                        initialValue: "${result.size?.width?.round()}",
                         onChanged: (text) {
                           bufferWidth = int.parse(text);
                         },
@@ -204,7 +204,7 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                           result.grade = bufferGrade;
                         }
                         if (bufferWeight != 0.0) {
-                          result.weight?.gross = bufferWeight;
+                          result.weight?.gross = bufferWeight * 1.0;
                         }
                         if (bufferThickness != 0.0) {
                           result.size?.thickness = bufferThickness;

@@ -6,7 +6,6 @@ import 'package:supply_io/pages/report_defect_page.dart';
 
 import '../../../helpers/theme/app_theme.dart';
 import '../../../model/supply/package_model.dart';
-import '../../../model/user/login_model.dart';
 import '../../../service/service.dart';
 import '../../sidebar_new/navigation_drawer.dart';
 
@@ -43,15 +42,21 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
   }
 
   void moveToSecondPage() async {
-    PackageInUseModel packageInUse = PackageInUseModel(supplyDate: result.dateAdded, grade: result.grade, numberOfCertificate: certificateId,
+    PackageInUseModel packageInUse = PackageInUseModel(supplyDate: result.dateAdded, grade: result.grade, packageId: result.packageId, numberOfCertificate: certificateId,
         batch: result.batch, width: result.size?.width, thickness: result.size?.thickness, height: "${result.size?.length}",
         mill: "", coatingClass: result.surfaceQuality, sort: "", supplier: "", elongation: "", price: "", comment: "", status: result.status?.statusName);
-    Navigator.push(
+    final resultDef = await Navigator.push(
       context,
       CupertinoPageRoute(
           fullscreenDialog: true,
           builder: (context) => ReportdDefectPage(packageInUse)),
     );
+    if (packageInUse.status == "С дефектом") {
+      setState(() {
+        result.status?.statusName = "С дефектом";
+      });
+      Navigator.pop(context, result);
+    }
   }
 
   @override
@@ -318,34 +323,28 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                         });
                         showMyDialog("Сохранено",
                             "Сохранение выполнено успешно");
-                        Navigator.pop(context, result);
                       } else if (requestResult == 404) {
                         showMyDialog("Ошибка",
                             "Не удается установить интернет соединение");
-                        Navigator.pop(context, result);
                       } else {
                         showMyDialog("Ошибка",
                             "Не удается выполнить сохранение");
-                        Navigator.pop(context, result);
                       }
                     } else {
                       result.status =
                           Status(statusId: 3, statusName: "В обработке");
                       var requestResult = await Service.sendUseById(
-                          result.batch ?? "");
+                          result.packageId);
                       if (requestResult != null) {
                         showMyDialog("Сохранено",
                             "Рулон переведен в обработку");
                         Navigator.pop(context, result);
-                        //Navigator.of(context).pop();
                       } else if (requestResult == 404) {
                         showMyDialog("Ошибка",
                             "Не удается установить интернет соединение");
-                        Navigator.of(context).pop();
                       } else {
                         showMyDialog("Ошибка",
                             "Не удается выполнить отправку в обработку");
-                        Navigator.of(context).pop();
                       }
                       Navigator.pop(context, result);
                     }
@@ -360,12 +359,6 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ]),
             )),
       ])));
-
-  Future<String> getJwtOrEmpty() async {
-    var jwt = await storage.read(key: "jwt");
-    if (jwt == null) return "";
-    return jwt;
-  }
 
   Future<void> showMyDialog(String title, String text) async {
     return showDialog<void>(
@@ -385,6 +378,9 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
             TextButton(
               child: const Text('Готово'),
               onPressed: () {
+                if (title == "Сохранено") {
+                  Navigator.of(context).pop();
+                }
                 Navigator.of(context).pop();
               },
             ),

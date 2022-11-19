@@ -102,7 +102,7 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
                     result.number!,
                     result.certificateId,
                     result.author!, ParameterState.add)));
-    if (result.packages[position].status?.statusName == "Имеется") {
+    if (result.packages[position].status?.statusName == "Имеется" || result.packages[position].status?.statusName == "С дефектом") {
       setState(() {
         result.packages.removeAt(position);
       });

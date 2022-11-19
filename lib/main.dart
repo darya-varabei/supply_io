@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget with PortraitModeMixin {
         builder: (BuildContext context, AsyncSnapshot<Widget> widget) {
           if(widget.connectionState == ConnectionState.done){
             if (!widget.hasData) {
-              return const ConnectionErrorPage();
+              return const LoginPage();
             }
             if (widget.data != null) {
               return widget.data!;
@@ -65,11 +65,11 @@ class MyApp extends StatelessWidget with PortraitModeMixin {
 
   Future<Widget> widgetChoice() async {
     bool? isUserLoggedIn = await Service.checkIfUserLogged();
-    if (!isUserLoggedIn) {
+    //if (!isUserLoggedIn) {
       return const LoginPage();
-    } else {
+    //} else {
       return MainPage(ScanOptions.package);
-    }
+  //  }
   }
 }
 

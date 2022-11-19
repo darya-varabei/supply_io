@@ -6,7 +6,7 @@ class ChemicalCompositionModel{
   final double? s;
   final double? p;
   final double? cr;
-  final double ni;
+  final double? ni;
   final double? cu;
   final double? as;
   final double? n2;

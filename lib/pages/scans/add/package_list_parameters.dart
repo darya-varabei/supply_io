@@ -33,20 +33,22 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
   _PackageListParametersPageState(
       {required this.result, required this.mode});
 
-  // void updateInformation(PackageList updatedResult) {
-  //   setState(() => result = updatedResult);
-  // }
-
   void moveToSecondPage() async {
-    PackageInUseModel packageInUse = PackageInUseModel(supplyDate: result.supplyDate, grade: result.grade, numberOfCertificate: result.numberOfCertificate,
+    PackageInUseModel packageInUse = PackageInUseModel(supplyDate: result.supplyDate, packageId: result.packageId, grade: result.grade, numberOfCertificate: result.numberOfCertificate,
         batch: result.batch, width: result.width, thickness: result.thickness, height: "",
         mill: "", coatingClass: null, sort: "", supplier: "", elongation: "", price: "", comment: "", status: result.status);
-    await Navigator.push(
+   final resultDef = await Navigator.push(
       context,
       MaterialPageRoute(
           fullscreenDialog: true,
           builder: (context) => ReportdDefectPage(packageInUse)),
     );
+   if (packageInUse.status == "С дефектом") {
+     setState(() {
+       result.status = "С дефектом";
+     });
+     Navigator.pop(context, result);
+   }
   }
 
   @override
@@ -189,7 +191,7 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                   ),
                   const Spacer(),
                   Text(
-                    "${result.width}",
+                    "${result.width.round()}",
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: 16,
@@ -214,7 +216,7 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                   ),
                   const Spacer(),
                   Text(
-                    "${result.net}",
+                    "${result.net.round()}",
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: 16,
@@ -260,11 +262,16 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                       EdgeInsets.symmetric(vertical: 13, horizontal: 54),
                       onPressed: () async {
                         if (mode == PackageListMode.inUse) {
+                          setState(() {
+                            result.status = mode == PackageListMode.inWait
+                                ? "Имеется"
+                                : "В обработке";
+                          });
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      UpdateUseParametersPage(result.batch, result.width, result.net )
+                                      UpdateUseParametersPage(result.batch, result.packageId,  result.width, result.net*1.0 )
                               ));
                         } else {
                           var requestResult = await Service
@@ -272,7 +279,6 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                           if (requestResult == 404) {
                             showMyDialog("Ошибка",
                                 "Не удается установить интернет соединение");
-                            Navigator.of(context).pop();
                           } else if (requestResult != null) {
                             setState(() {
                               result.status = mode == PackageListMode.inWait
@@ -285,7 +291,6 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                           } else {
                             showMyDialog(
                                 "Ошибка", "Не удается выполнить сохранение");
-                            Navigator.of(context).pop();
                           }
                           setState(() {
                             result.status = mode == PackageListMode.inWait
@@ -325,6 +330,10 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
             TextButton(
               child: const Text('Готово'),
               onPressed: () {
+                if (title == "Сохранено") {
+                  Navigator.of(context).pop();
+                  //Navigator.of(context).pop();
+                }
                 Navigator.of(context).pop();
               },
             ),

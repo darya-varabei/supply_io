@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 class Defect {
-  String rollId;
+  int rollId;
   String description;
   List<Uint8List?> defectPhoto;
 
@@ -17,7 +17,7 @@ class Defect {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
-      'batch': rollId.trim(),
+      'packageId': rollId,
       'comment': description.trim(),
       'photo': defectPhoto,
     };

@@ -9,11 +9,11 @@ class PackageList {
   final String numberOfCertificate;
   final double width;
   final double thickness;
-  final int weight;
+  final double weight;
   final int? mill;
   final String? coatingClass;
   final String? sort;
-  final int net;
+  final double net;
   final String supplier;
   final int? elongation;
   final int? price;
@@ -50,12 +50,12 @@ class PackageList {
       grade: json['grade'].toString(),
       numberOfCertificate: json['numberOfCertificate'].toString(),
       width: json["width"].toDouble(),
-      thickness: json['thickness'],
-      weight: json['weight'],
+      thickness: json['thickness']*1.0,
+      weight: json['weight']*1.0,
       mill: json['mill'],
       coatingClass: json['coatingClass'],
       sort: json['sort'].toString(),
-      net: json['net'],
+      net: json['net']*1.0,
       supplier: json['supplier'].toString(),
       elongation: json['elongation'],
       price: json['price'],

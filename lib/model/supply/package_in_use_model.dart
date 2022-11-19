@@ -48,7 +48,7 @@ class PackageInUseModel {
         batch: json['batch'].toString(),
         width: json["width"].toDouble(),
       weight: json["weight"],
-        thickness: json['thickness'],
+        thickness: json['thickness']*1.0,
         height: json['height'].toString(),
         mill: json['mill'].toString(),
         coatingClass: json['coatingClass'].toString(),

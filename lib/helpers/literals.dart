@@ -19,4 +19,5 @@ class Endpoint {
   static const String saveDefect = "parcer/package/defect";
   static const String getInStock = "parcer/package";
   static const String checkIfLoggedIn = "authentication/check";
+  static const String sendPartToUse = "parcer/package/part";
 }

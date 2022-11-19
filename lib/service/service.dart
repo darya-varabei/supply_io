@@ -13,6 +13,8 @@ import '../model/supply/package_model.dart';
 import '../model/user/login_model.dart';
 import 'package:http/http.dart' as http;
 
+import '../pages/scans/add/send_use_parameters_page.dart';
+
 class Service {
 
   static Future<Map<String, String>?> header() async {
@@ -115,10 +117,10 @@ class Service {
     }
   }
 
-  static Future<int?> sendUseById(String batch) async {
+  static Future<int?> sendUseById(int packageId) async {
     final Uri apiUrl = Uri.parse("${Endpoint.baseUrl}${Endpoint.savePackage}");
 
-    final msg = jsonEncode({"batch":batch,
+    final msg = jsonEncode({"packageId": packageId,
     "status": "В обработке"});
     final response = await http.put(apiUrl, headers: await header(), body: msg);
     if (response.statusCode < 400) {
@@ -128,10 +130,25 @@ class Service {
     }
   }
 
-  static Future<int?> savePackageFromWait(String batch) async {
+  static Future<int?> sendPartUseById(int packageId, double weight, double width) async {
+    final Uri apiUrl = Uri.parse("${Endpoint.baseUrl}${Endpoint.sendPartToUse}");
+
+    final msg = jsonEncode(
+        {"packageId": packageId,
+         "net": weight,
+          "width": width});
+    final response = await http.put(apiUrl, headers: await header(), body: msg);
+    if (response.statusCode < 400) {
+      return response.statusCode;
+    } else {
+      return null;
+    }
+  }
+
+  static Future<int?> savePackageFromWait(int packageId) async {
     final Uri apiUrl = Uri.parse("${Endpoint.baseUrl}${Endpoint.changeStatus}");
 
-    final msg = jsonEncode({"batch":batch,
+    final msg = jsonEncode({"packageId": packageId,
       "status": "Имеется"});
     final response = await http.put(apiUrl, headers: await header(), body: msg);
     if (response.statusCode < 400) {
@@ -176,11 +193,20 @@ class Service {
   static Future<Future<int?>?> definePackageListAction(PackageListMode mode, PackageList package) async {
     switch(mode) {
       case PackageListMode.inWait:
-        return savePackageFromWait(package.batch);
+        return savePackageFromWait(package.packageId);
       case PackageListMode.inUse:
-        return sendUseById(package.batch);
+        return sendUseById(package.packageId);
       case PackageListMode.inProduction:
         return null;
+    }
+  }
+
+  static Future<Future<int?>?> defineUseAction(SingingCharacter mode, int packageId, double weight, double width) async {
+    switch(mode) {
+      case SingingCharacter.part:
+        return sendPartUseById(packageId, weight*1.0, width);
+      case SingingCharacter.whole:
+        return sendUseById(packageId);
     }
   }
 

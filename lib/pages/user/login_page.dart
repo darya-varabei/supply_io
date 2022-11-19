@@ -155,6 +155,11 @@ class _LoginPageState extends State<LoginPage> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 80),
                             onPressed: () async {
+                              FocusScopeNode currentFocus = FocusScope.of(context);
+
+                              if (!currentFocus.hasPrimaryFocus) {
+                                currentFocus.unfocus();
+                              }
                               var jwt = await login();
                               if (jwt < 400) {
                                 Navigator.push(

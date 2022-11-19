@@ -100,14 +100,14 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
                             ],),
                           Row(children: <Widget>[
                             Text(
-                              "Масса нетто ${filteredPackages[index].weight.toString()} кг",
+                              "Масса нетто ${filteredPackages[index].weight.round().toString()} кг",
                               style: const TextStyle(
                                 fontSize: 9.0,
                                 color: Colors.grey,
                               ),
                             ),
                             Text(
-                              "  Ширина ${filteredPackages[index].width.toString()} мм",
+                              "  Ширина ${filteredPackages[index].width.round().toString()} мм",
                               style: const TextStyle(
                                 fontSize: 9.0,
                                 color: Colors.grey,
@@ -141,7 +141,7 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
             builder: (context) => PackageListParametersPage(filteredPackages[index], PackageListMode.inWait)
           //if context.
         ));
-    if (filteredPackages[index].status == "Имеется") {
+    if (filteredPackages[index].status == "Имеется" || filteredPackages[index].status == "С дефектом") {
       setState(() {
         filteredPackages.removeAt(index);
       });
