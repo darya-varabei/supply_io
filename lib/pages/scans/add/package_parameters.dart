@@ -44,7 +44,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
   void moveToSecondPage() async {
     PackageInUseModel packageInUse = PackageInUseModel(supplyDate: result.dateAdded, grade: result.grade, packageId: result.packageId, numberOfCertificate: certificateId,
         batch: result.batch, width: result.size?.width, thickness: result.size?.thickness, height: "${result.size?.length}",
-        mill: "", coatingClass: result.surfaceQuality, sort: "", supplier: "", elongation: "", price: "", comment: "", status: result.status?.statusName);
+        mill: "", coatingClass: "", sort: "", supplier: "", elongation: "", price: "", comment: "", status: result.status?.statusName);
     final resultDef = await Navigator.push(
       context,
       CupertinoPageRoute(
@@ -124,7 +124,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ),
               const Spacer(),
               Text(
-                "${result.grade}",
+                (result.grade ?? "") + " " + (result.destination ?? ""),
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     fontSize: 16,
@@ -199,7 +199,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ),
               const Spacer(),
               Text(
-                "${result.size?.width}",
+                "${result.size?.width?.round()}",
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     fontSize: 16,
@@ -224,7 +224,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ),
               const Spacer(),
               Text(
-                "${result.weight?.gross}",
+                "${result.weight?.gross?.round()}",
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     fontSize: 16,
@@ -249,7 +249,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
               ),
               const Spacer(),
               Text(
-                "${result.weight?.net}",
+                "${result.weight?.net?.round()}",
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     fontSize: 16,
@@ -316,7 +316,6 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                                 ],
                               ),
                         );
-                        //Navigator.pop(context, result);
                     } else if (requestResult < 400) {
                         setState(() {
                           result.status?.statusName = "Имеется";

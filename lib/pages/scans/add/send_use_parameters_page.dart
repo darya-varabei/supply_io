@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supply_io/service/service.dart';
 
@@ -55,7 +54,7 @@ class _UpdateUseParametersPageState extends State<UpdateUseParametersPage> {
                           SizedBox(
                             width: 190,
                             child: Text(
-                              "Упаковка №${batch}",
+                              "Упаковка №$batch",
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                   fontSize: 16,

@@ -3,13 +3,11 @@ import 'dart:io';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:supply_io/pages/error_page/connection_error_page.dart';
 import 'package:supply_io/pages/scans/add/main_scanner_page.dart';
 import 'package:supply_io/pages/user/login_page.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
 import 'package:supply_io/service/service.dart';
 import 'helpers/portrait_mode.dart';
-import 'model/user/login_model.dart';
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();

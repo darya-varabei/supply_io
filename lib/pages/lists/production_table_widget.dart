@@ -98,14 +98,14 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
                                           ]),
                                         Row(children: <Widget>[
                                           Text(
-                                            "Масса нетто ${futureData[index].weight.round().toString()} кг,",
+                                            "Масса нетто ${futureData[index].weight?.round().toString()} кг,",
                                             style: const TextStyle(
                                               fontSize: 10.0,
                                               color: Colors.grey,
                                             ),
                                           ),
                                           Text(
-                                            "  Ширина ${futureData[index].width.round().toString()} мм",
+                                            "  Ширина ${futureData[index].width?.round().toString()} мм",
                                             style: const TextStyle(
                                               fontSize: 10.0,
                                               color: Colors.grey,

@@ -102,7 +102,7 @@ class _PackagesInStockListPageState extends State<PackagesInStockListPage> {
                     ],),
                       Row(children: <Widget>[
                         Text(
-                          "Масса нетто ${filteredPackages[index].weight.round()
+                          "Масса нетто ${filteredPackages[index].weight?.round()
                               .toString()} кг, ",
                           style: const TextStyle(
                             fontSize: 9.0,
@@ -110,7 +110,7 @@ class _PackagesInStockListPageState extends State<PackagesInStockListPage> {
                           ),
                         ),
                         Text(
-                          "Ширина ${filteredPackages[index].width.round()
+                          "Ширина ${filteredPackages[index].width?.round()
                               .toString()} мм",
                           style: const TextStyle(
                             fontSize: 9.0,
@@ -141,7 +141,6 @@ class _PackagesInStockListPageState extends State<PackagesInStockListPage> {
         context,
         MaterialPageRoute(
             builder: (context) => PackageListParametersPage(filteredPackages[index], PackageListMode.inUse)
-          //if context.
         ));
     if (filteredPackages[index].status == "В обработке" || filteredPackages[index].status == "С дефектом") {
       setState(() {

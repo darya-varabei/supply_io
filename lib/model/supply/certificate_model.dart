@@ -14,7 +14,7 @@ class Certificate {
   final String? fax;
   final String? recipient;
   final String? recipientCountry;
-  final Product product;
+  final Product? product;
   final String? shipmentShop;
   final String? wagonNumber;
   final String? orderNumber;

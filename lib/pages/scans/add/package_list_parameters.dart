@@ -116,7 +116,7 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                   ),
                   const Spacer(),
                   Text(
-                    result.grade,
+                    (result.grade ?? "") + " " + (result.destination ?? ""),
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: 16,
@@ -141,7 +141,7 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                   ),
                   const Spacer(),
                   Text(
-                    result.supplier,
+                    result.supplier ?? "",
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: 16,
@@ -191,7 +191,7 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                   ),
                   const Spacer(),
                   Text(
-                    "${result.width.round()}",
+                    "${result.width?.round()}",
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: 16,
@@ -216,7 +216,7 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                   ),
                   const Spacer(),
                   Text(
-                    "${result.net.round()}",
+                    "${result.net?.round()}",
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: 16,
@@ -259,7 +259,7 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                     if (mode != PackageListMode.inProduction)
                     FlatButton(
                       padding:
-                      EdgeInsets.symmetric(vertical: 13, horizontal: 54),
+                      const EdgeInsets.symmetric(vertical: 13, horizontal: 54),
                       onPressed: () async {
                         if (mode == PackageListMode.inUse) {
                           setState(() {
@@ -271,7 +271,7 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      UpdateUseParametersPage(result.batch, result.packageId,  result.width, result.net*1.0 )
+                                      UpdateUseParametersPage(result.batch, result.packageId,  result.width, (result.net ?? 0) * 1.0 )
                               ));
                         } else {
                           var requestResult = await Service

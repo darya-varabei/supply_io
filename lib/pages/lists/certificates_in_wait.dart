@@ -100,14 +100,14 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
                             ],),
                           Row(children: <Widget>[
                             Text(
-                              "Масса нетто ${filteredPackages[index].weight.round().toString()} кг",
+                              "Масса нетто ${filteredPackages[index].weight?.round().toString()} кг",
                               style: const TextStyle(
                                 fontSize: 9.0,
                                 color: Colors.grey,
                               ),
                             ),
                             Text(
-                              "  Ширина ${filteredPackages[index].width.round().toString()} мм",
+                              "  Ширина ${filteredPackages[index].width?.round().toString()} мм",
                               style: const TextStyle(
                                 fontSize: 9.0,
                                 color: Colors.grey,
@@ -139,7 +139,6 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
         context,
         MaterialPageRoute(
             builder: (context) => PackageListParametersPage(filteredPackages[index], PackageListMode.inWait)
-          //if context.
         ));
     if (filteredPackages[index].status == "Имеется" || filteredPackages[index].status == "С дефектом") {
       setState(() {
@@ -147,5 +146,4 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
       });
     }
   }
-
 }

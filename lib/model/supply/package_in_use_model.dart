@@ -6,6 +6,7 @@ class PackageInUseModel {
   String? numberOfCertificate;
   double? width;
   int? weight;
+  String? destination;
   double? thickness;
   String? height;
   String? mill;
@@ -30,6 +31,7 @@ class PackageInUseModel {
   this.thickness,
   this.height,
   this.mill,
+    this.destination,
   this.coatingClass,
   this.sort,
   this.supplier,
@@ -51,6 +53,7 @@ class PackageInUseModel {
         thickness: json['thickness']*1.0,
         height: json['height'].toString(),
         mill: json['mill'].toString(),
+        destination: json['destination'] ?? "",
         coatingClass: json['coatingClass'].toString(),
         sort: json['sort'].toString(),
         supplier: json['supplier'].toString(),

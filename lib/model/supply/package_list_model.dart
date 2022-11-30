@@ -1,20 +1,19 @@
-import 'package:flutter/cupertino.dart';
-import 'package:supply_io/model/supply/package_model.dart';
 
 class PackageList {
   final String? supplyDate;
   final int packageId;
   final String batch;
-  final String grade;
-  final String numberOfCertificate;
-  final double width;
-  final double thickness;
-  final double weight;
+  final String? grade;
+  final String? numberOfCertificate;
+  final double? width;
+  final double? thickness;
+  final double? weight;
   final int? mill;
+  final String? destination;
   final String? coatingClass;
   final String? sort;
-  final double net;
-  final String supplier;
+  final double? net;
+  final String? supplier;
   final int? elongation;
   final int? price;
   final String? comment;
@@ -23,20 +22,21 @@ class PackageList {
 
   PackageList({
     this.supplyDate,
+    this.destination,
     required this.packageId,
     required this.batch,
-    required this.grade,
-    required this.numberOfCertificate,
-    required this.width,
-    required this.thickness,
-    required this.weight,
+    this.grade,
+    this.numberOfCertificate,
+    this.width,
+    this.thickness,
+    this.weight,
     this.mill,
     this.coatingClass,
     this.sort,
-    required this.net,
-    required this.supplier,
+    this.net,
+    this.supplier,
     this.elongation,
-    required this.price,
+    this.price,
     this.comment,
     this.photo,
     required this.status,
@@ -52,6 +52,7 @@ class PackageList {
       width: json["width"].toDouble(),
       thickness: json['thickness']*1.0,
       weight: json['weight']*1.0,
+      destination: json['destination'] ?? "",
       mill: json['mill'],
       coatingClass: json['coatingClass'],
       sort: json['sort'].toString(),

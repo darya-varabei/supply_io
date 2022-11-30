@@ -118,6 +118,24 @@ class _MainPageState extends State<MainPage> {
                             ],
                           ),
                     );
+                  } else {
+                    return showDialog(
+                      context: context,
+                      builder: (ctx) =>
+                          AlertDialog(
+                            title: const Text("Ошибка"),
+                            content: const Text(
+                                "Проверьте корректность сканируемого QR кода"),
+                            actions: <Widget>[
+                              FlatButton(
+                                onPressed: () {
+                                  Navigator.of(ctx).pop();
+                                },
+                                child: const Text("ОК"),
+                              ),
+                            ],
+                          ),
+                    );
                   }
                 });
               },

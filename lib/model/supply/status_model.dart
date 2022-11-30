@@ -12,6 +12,15 @@ class Status {
         statusName: json['statusName']);
   }
 
+  static Status unknownToUsable(Map<String, dynamic>? value) {
+    if (value == null) {
+      return Status(statusId: 1, statusName: "В ожидании");
+    }
+    return Status(
+        statusId: value['statusId'],
+        statusName: value['statusName']);
+  }
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'statusId': statusId,
