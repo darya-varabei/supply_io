@@ -20,7 +20,7 @@ class _AlertConfirmationState extends State<AlertConfirmation> {
             Container(
               margin: const EdgeInsets.only(top: 30),
               child: Center(
-                child: RaisedButton(
+                child: ElevatedButton(
                   onPressed: () {
                     showDialog(
                       context: context,
@@ -28,7 +28,7 @@ class _AlertConfirmationState extends State<AlertConfirmation> {
                         title: const Text("Сертификат сохранен успешно"),
                         content: const Text("Для сохранения рулонов из сертификата перейдите на вкладку 'Сертификаты в ожидании'"),
                         actions: <Widget>[
-                          FlatButton(
+                          TextButton(
                             onPressed: () {
                               Navigator.of(ctx).pop();
                             },

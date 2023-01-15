@@ -69,8 +69,12 @@ class _MainPageState extends State<MainPage> {
                 child: Text(
                     scanOption == ScanOptions.package ? Literals.scanCertificateTitle : Literals.scanCertificateStory,
                     style: const TextStyle(fontSize: 14))),
-            FlatButton(
+            TextButton(
+              style: TextButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 80),
+                backgroundColor: AppTheme.colors.blue,
+                shape: StadiumBorder(),
+              ),
               onPressed: () {
                 const CircularProgressIndicator();
                 scanQRCode().then((value) {
@@ -90,7 +94,7 @@ class _MainPageState extends State<MainPage> {
                               content: const Text(
                                   "Для сохранения рулонов из сертификата перейдите на вкладку 'Сертификаты в ожидании'"),
                               actions: <Widget>[
-                                FlatButton(
+                                TextButton(
                                   onPressed: () {
                                     Navigator.of(ctx).pop();
                                   },
@@ -109,7 +113,7 @@ class _MainPageState extends State<MainPage> {
                             content: const Text(
                                 "Проверьте корректность сканируемого QR кода"),
                             actions: <Widget>[
-                              FlatButton(
+                              TextButton(
                                 onPressed: () {
                                   Navigator.of(ctx).pop();
                                 },
@@ -127,7 +131,7 @@ class _MainPageState extends State<MainPage> {
                             content: const Text(
                                 "Проверьте корректность сканируемого QR кода"),
                             actions: <Widget>[
-                              FlatButton(
+                              TextButton(
                                 onPressed: () {
                                   Navigator.of(ctx).pop();
                                 },
@@ -143,8 +147,6 @@ class _MainPageState extends State<MainPage> {
                 "Сканировать",
                 style: TextStyle(color: Colors.white),
               ),
-              color: AppTheme.colors.blue,
-              shape: const StadiumBorder(),
             ),
             const SizedBox(height: 15),
           ],

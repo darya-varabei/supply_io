@@ -148,9 +148,13 @@ class _UpdateUseParametersPageState extends State<UpdateUseParametersPage> {
                         ]),
                         const SizedBox(height: 50.0),
                         Column(children: <Widget>[
-                          FlatButton(
-                            padding:
-                            const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              padding:
+                              const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                              backgroundColor: AppTheme.colors.blue,
+                              shape: StadiumBorder(),
+                        ),
                             onPressed: () async {
                               if (selectedWeight <= weight!*1.0 && selectedWidth <= width!*1.0) {
                                 var requestResult = Service.defineUseAction(
@@ -176,8 +180,6 @@ class _UpdateUseParametersPageState extends State<UpdateUseParametersPage> {
                               "В обработку",
                               style: TextStyle(color: Colors.white),
                             ),
-                            color: AppTheme.colors.blue,
-                            shape: const StadiumBorder(),
                           ),
                           //const SizedBox(height: 70.0),
                         ]),

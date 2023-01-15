@@ -264,9 +264,18 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
             child: Container(
               padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
               child: Column(children: <Widget>[
-                FlatButton(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 13, horizontal: 26),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding:
+                    const EdgeInsets.symmetric(vertical: 13, horizontal: 26),
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                            color: AppTheme.colors.blue,
+                            width: 2,
+                            style: BorderStyle.solid),
+                        borderRadius: BorderRadius.circular(20)),
+              ),
                   onPressed: () {
                     moveToSecondPage();
                   },
@@ -274,13 +283,6 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                     "Сообщить о дефекте",
                     style: TextStyle(color: AppTheme.colors.blue),
                   ),
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                          color: AppTheme.colors.blue,
-                          width: 2,
-                          style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(20)),
                 ),
               ]),
             )),
@@ -289,9 +291,13 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
             child: Container(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: Column(children: <Widget>[
-                FlatButton(
+                TextButton(
+                  style: TextButton.styleFrom(
+                  backgroundColor: AppTheme.colors.blue,
+                  shape: StadiumBorder(),
                   padding:
                       const EdgeInsets.symmetric(vertical: 13, horizontal: 54),
+              ),
                   onPressed: () async {
                     if (parameterState == ParameterState.add) {
                       result.status =
@@ -307,7 +313,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                                 content: const Text(
                                     "Данный рулон уже существует в базе"),
                                 actions: <Widget>[
-                                  FlatButton(
+                                  TextButton(
                                     onPressed: () {
                                       Navigator.pop(context, result);
                                     },
@@ -352,8 +358,6 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                     parameterState == ParameterState.add ? "Сохранить" : "В обработку",
                     style: const TextStyle(color: Colors.white),
                   ),
-                  color: AppTheme.colors.blue,
-                  shape: const StadiumBorder(),
                 ),
               ]),
             )),

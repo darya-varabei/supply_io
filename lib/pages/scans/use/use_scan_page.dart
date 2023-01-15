@@ -49,9 +49,12 @@ class _UseRollPageState extends State<UseRollPage> {
           Container(
             padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
           child: Row(children: <Widget>[
-              FlatButton(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              TextButton(
+                style: TextButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                backgroundColor: AppTheme.colors.blue,
+                shape: StadiumBorder(),
+          ),
                 onPressed: () {
                   const CircularProgressIndicator();
                   scanQRCode().then((value) {
@@ -68,13 +71,14 @@ class _UseRollPageState extends State<UseRollPage> {
                   "Сканировать",
                   style: TextStyle(color: Colors.white),
                 ),
-                color: AppTheme.colors.blue,
-                shape: const StadiumBorder(),
               ),
             const Spacer(),
-            FlatButton(
-              padding:
-              const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+            TextButton(
+              style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+              backgroundColor: AppTheme.colors.blue,
+              shape: StadiumBorder(),
+              ),
               onPressed: () {
                   Navigator.push(
                       context,
@@ -86,8 +90,6 @@ class _UseRollPageState extends State<UseRollPage> {
                 "Список",
                 style: TextStyle(color: Colors.white),
               ),
-              color: AppTheme.colors.blue,
-              shape: const StadiumBorder(),
             ),
   ]),
           ),

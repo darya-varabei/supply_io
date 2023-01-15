@@ -151,9 +151,13 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           const SizedBox(height: 30),
-                          FlatButton(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 20, horizontal: 80),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 80),
+                              backgroundColor: AppTheme.colors.blue,
+                              shape: StadiumBorder(),
+                            ),
                             onPressed: () async {
                               FocusScopeNode currentFocus = FocusScope.of(context);
 
@@ -169,8 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                               } else {
                                 const snackBar =
                                     SnackBar(content: Text("Неверный ввод"));
-                                scaffoldKey.currentState
-                                    ?.showSnackBar(snackBar);
+                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
                               }
                               isApiCallProcess = false;
                             },
@@ -178,8 +181,6 @@ class _LoginPageState extends State<LoginPage> {
                               "Войти",
                               style: TextStyle(color: Colors.white),
                             ),
-                            color: AppTheme.colors.blue,
-                            shape: const StadiumBorder(),
                           ),
                           const SizedBox(height: 15),
                         ],
@@ -227,7 +228,7 @@ class _LoginPageState extends State<LoginPage> {
         storage.write(key: "refresh_token", value: userData.refreshToken);
       } else {
         if (responseMap.containsKey("message")) {
-          scaffoldKey.currentState?.showSnackBar(snackBar);
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
       }
       return response1.statusCode;

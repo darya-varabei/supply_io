@@ -256,9 +256,17 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                 child: Container(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   child: Column(children: <Widget>[
-                    FlatButton(
-                      padding:
-                      const EdgeInsets.symmetric(vertical: 13, horizontal: 26),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 26),
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: AppTheme.colors.blue,
+                                width: 2,
+                                style: BorderStyle.solid),
+                            borderRadius: BorderRadius.circular(20)),
+                ),
                       onPressed: () {
                         moveToSecondPage();
                       },
@@ -266,13 +274,6 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                         "Сообщить о дефекте",
                         style: TextStyle(color: AppTheme.colors.blue),
                       ),
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              color: AppTheme.colors.blue,
-                              width: 2,
-                              style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(20)),
                     ),
                   ]),
                 )),
@@ -282,9 +283,9 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                   child: Column(children: <Widget>[
                     if (mode != PackageListMode.inProduction)
-                    FlatButton(
-                      padding:
-                      const EdgeInsets.symmetric(vertical: 13, horizontal: 54),
+                    TextButton(
+                      // padding:
+                      // const EdgeInsets.symmetric(vertical: 13, horizontal: 54),
                       onPressed: () async {
                         if (mode == PackageListMode.inUse) {
                           setState(() {
@@ -325,13 +326,14 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                           Navigator.pop(context, result);
                         }
                       },
-                      child:
-                      const Text(
-                        "Сохранить",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: AppTheme.colors.blue,
-                      shape: const StadiumBorder(),
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 54),
+                        backgroundColor: AppTheme.colors.blue,
+                        shape: StadiumBorder(),
+                      ), child: const Text(
+                      "Сохранить",
+                      style: TextStyle(color: Colors.white),
+                    ),
                     ),
                   ]),
                 )),

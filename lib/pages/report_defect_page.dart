@@ -99,13 +99,17 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                     const SizedBox(height: 20.0),
                     Column(children: <Widget>[
                       Row(children: <Widget>[
-                        RaisedButton.icon(
+                        ElevatedButton.icon(
                           onPressed: () {
                             getImage();
                           },
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0))),
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                const BorderRadius.all(Radius.circular(10.0))),
+                            foregroundColor: AppTheme.colors.blue,
+                           backgroundColor: AppTheme.colors.white,
+                          ),
                           label: Text(
                             'Прикрепить фото',
                             style: TextStyle(color: AppTheme.colors.blue),
@@ -114,9 +118,6 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                             Icons.camera_front_outlined,
                             color: AppTheme.colors.blue,
                           ),
-                          textColor: AppTheme.colors.blue,
-                          splashColor: AppTheme.colors.blue,
-                          color: AppTheme.colors.white,
                         ),
                         const Spacer(),
                       ]),
@@ -141,9 +142,16 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                     Container(
                       padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                       child: Column(children: <Widget>[
-                        FlatButton(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 13, horizontal: 54),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 13, horizontal: 54),
+                            backgroundColor:
+                            messageController.text.isEmpty || images.isEmpty
+                                ? AppTheme.colors.grey
+                                : AppTheme.colors.blue,
+                            shape: StadiumBorder(),
+                      ),
                           onPressed: () {
                             if (messageController.text.isEmpty ||
                                 images.isEmpty) {
@@ -160,11 +168,6 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                             "Сохранить",
                             style: TextStyle(color: Colors.white),
                           ),
-                          color:
-                              messageController.text.isEmpty || images.isEmpty
-                                  ? AppTheme.colors.grey
-                                  : AppTheme.colors.blue,
-                          shape: const StadiumBorder(),
                         ),
                       ]),
                     ),

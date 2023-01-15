@@ -196,31 +196,31 @@ class _UpdateParametersPageState extends State<UpdateParametersPage> {
                   ]),
                   const SizedBox(height: 50.0),
                   Column(children: <Widget>[
-                    FlatButton(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-                      onPressed: () {
-                        if (bufferGrade != "") {
-                          result.grade = bufferGrade;
-                        }
-                        if (bufferWeight != 0.0) {
-                          result.weight?.gross = bufferWeight * 1.0;
-                        }
-                        if (bufferThickness != 0.0) {
-                          result.size?.thickness = bufferThickness;
-                        }
-                        if (bufferWidth != 0) {
-                          result.size?.width = bufferWidth * 1.0;
-                        }
-                        Navigator.pop(context, result);
-                      },
-                      child: const Text(
-                        "Сохранить",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: AppTheme.colors.blue,
-                      shape: const StadiumBorder(),
-                    ),
+                    // FlatButton(
+                    //   padding:
+                    //       const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                    //   onPressed: () {
+                    //     if (bufferGrade != "") {
+                    //       result.grade = bufferGrade;
+                    //     }
+                    //     if (bufferWeight != 0.0) {
+                    //       result.weight?.gross = bufferWeight * 1.0;
+                    //     }
+                    //     if (bufferThickness != 0.0) {
+                    //       result.size?.thickness = bufferThickness;
+                    //     }
+                    //     if (bufferWidth != 0) {
+                    //       result.size?.width = bufferWidth * 1.0;
+                    //     }
+                    //     Navigator.pop(context, result);
+                    //   },
+                    //   child: const Text(
+                    //     "Сохранить",
+                    //     style: TextStyle(color: Colors.white),
+                    //   ),
+                    //   color: AppTheme.colors.blue,
+                    //   shape: const StadiumBorder(),
+                    // ),
                     const SizedBox(height: 50.0),
                   ]),
                 ])),
