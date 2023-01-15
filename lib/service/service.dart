@@ -59,18 +59,26 @@ class Service {
     return response.statusCode;
   }
 
-  static Future<Certificate?> createByPackage(String url) async {
+  static Future<Certificate?> createByPackage(String url, bool isRepAllowed) async {
     final Uri apiUrl = Uri.parse(
         "${Endpoint.baseUrl}${Endpoint.addCertificate}");
 
-    final msg = jsonEncode({"link": url});
+    final startIndex = url.indexOf("http");
+    final resUrl = url.substring(startIndex);
+    final msg = jsonEncode({"link": resUrl});
+
     final response = await http.post(apiUrl, headers: await header(), body: msg);
     if (response.statusCode < 400) {
       final String responseString = response.body;
       return Certificate.fromJson(jsonDecode(responseString));
     } else {
-      return null;
+      if (isRepAllowed) {
+       createByPackage(resUrl, false);
+   } else {
+    return null;
     }
+
+  }
   }
 
   static Future<bool> checkIfUserLogged() async {

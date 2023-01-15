@@ -51,8 +51,15 @@ class _CertificatesInWaitListPageState extends State<CertificatesInWaitListPage>
                   setState(() {
                     filteredPackages = futureData
                         .where((u) => (unwrapText(u.batch)
+                   .contains(string.toLowerCase())) ||
+                    (unwrapText(u.supplier).toLowerCase()
+                    .contains(string.toLowerCase())) ||
+                    (unwrapText(u.weight?.round().toString())
+                    .contains(string.toLowerCase())) ||
+                     (unwrapText(u.width.toString())
                         .contains(string.toLowerCase())))
                         .toList();
+
                   });
                 });
               },

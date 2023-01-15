@@ -168,7 +168,7 @@ class _MainPageState extends State<MainPage> {
       setState(() {
         this.qrCode = qrCode;
         if (scanOption == ScanOptions.package) {
-          result = Service.createByPackage(qrCode);
+          result = Service.createByPackage(qrCode, true);
         } else {
           result = Service.createByCertificate(qrCode);
         }

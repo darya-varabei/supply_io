@@ -52,10 +52,16 @@ class _PackagesInStockListPageState extends State<PackagesInStockListPage> {
                 _debouncer.run(() {
                   setState(() {
                     filteredPackages = futureData
-                        .where((u) =>
-                    (unwrapText(u.batch)
+                        .where((u) => (unwrapText(u.batch)
+                        .contains(string.toLowerCase())) ||
+                    (unwrapText(u.supplier).toLowerCase()
+                    .contains(string.toLowerCase())) ||
+                    (unwrapText(u.weight?.round().toString())
+                    .contains(string.toLowerCase())) ||
+                    (unwrapText(u.width.toString())
                         .contains(string.toLowerCase())))
                         .toList();
+
                   });
                 });
               },

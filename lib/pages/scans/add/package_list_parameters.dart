@@ -207,6 +207,31 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                 padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
                 child: Row(children: <Widget>[
                   Text(
+                    "Масса(брутто)",
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: AppTheme.colors.darkGradient,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  const Spacer(),
+                  Text(
+                    "${result.weight?.round()}",
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: AppTheme.colors.darkGradient,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ]),
+              ),
+            ),
+            Flexible(
+              flex: 1,
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                child: Row(children: <Widget>[
+                  Text(
                     "Масса(нетто)",
                     textAlign: TextAlign.right,
                     style: TextStyle(

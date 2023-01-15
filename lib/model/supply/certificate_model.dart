@@ -14,7 +14,6 @@ class Certificate {
   final String? fax;
   final String? recipient;
   final String? recipientCountry;
-  final Product? product;
   final String? shipmentShop;
   final String? wagonNumber;
   final String? orderNumber;
@@ -36,7 +35,6 @@ class Certificate {
       this.fax,
       this.recipient,
       this.recipientCountry,
-        required this.product,
       this.shipmentShop,
       this.wagonNumber,
       this.orderNumber,
@@ -61,7 +59,6 @@ class Certificate {
         fax: json['fax'],
         recipient: json['recipient'],
         recipientCountry: json['recipientCountry'],
-        product: Product.fromJson(json['product']),
         shipmentShop: json['shipmentShop'],
         wagonNumber: json['wagonNumber'],
         orderNumber: json['orderNumber'],
@@ -71,7 +68,5 @@ class Certificate {
         gosts: json['gosts'],
         notes: json['notes'],
         packages: List<Package>.from(json["packages"].map((x) => Package.fromJson(x))),);
-
-       // packages: imagesList);//json["packages"] == null ? null : Package.fromJson(json["packages"]));
   }
 }
