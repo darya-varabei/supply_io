@@ -9,15 +9,13 @@ import '../../../service/service.dart';
 import '../../lists/scan_result_list.dart';
 import '../../sidebar_new/navigation_drawer.dart';
 
-enum ScanOptions {
-  certificate,
-  package,
-  undefined
-}
+enum ScanOptions { certificate, package, use, undefined }
 
 class MainPage extends StatefulWidget {
   ScanOptions scanOption = ScanOptions.undefined;
+
   MainPage(this.scanOption, {Key? key}) : super(key: key);
+
   @override
   _MainPageState createState() => _MainPageState(scanOption: scanOption);
 }
@@ -42,8 +40,7 @@ class _MainPageState extends State<MainPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Widget _uiSetup(BuildContext context) {
-    return
-      Scaffold(
+    return Scaffold(
       key: _scaffoldKey,
       drawer: const NavigationDrawer(),
       appBar: AppBar(
@@ -58,7 +55,9 @@ class _MainPageState extends State<MainPage> {
                 child: Container(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                     child: Text(
-                      scanOption == ScanOptions.package ? Literals.scanQRTitle : Literals.scanQRStory,
+                      scanOption == ScanOptions.package
+                          ? Literals.scanQRTitle
+                          : Literals.scanQRStory,
                       style: TextStyle(
                           fontSize: 24,
                           color: AppTheme.colors.darkGradient,
@@ -67,13 +66,16 @@ class _MainPageState extends State<MainPage> {
             Container(
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 120),
                 child: Text(
-                    scanOption == ScanOptions.package ? Literals.scanCertificateTitle : Literals.scanCertificateStory,
+                    scanOption == ScanOptions.package
+                        ? Literals.scanCertificateTitle
+                        : Literals.scanCertificateStory,
                     style: const TextStyle(fontSize: 14))),
             TextButton(
               style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 80),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 80),
                 backgroundColor: AppTheme.colors.blue,
-                shape: StadiumBorder(),
+                shape: const StadiumBorder(),
               ),
               onPressed: () {
                 const CircularProgressIndicator();
@@ -83,65 +85,43 @@ class _MainPageState extends State<MainPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  ScanResultListPage(value)));
+                              builder: (context) => ScanResultListPage(value)));
                     } else {
                       return showDialog(
                         context: context,
-                        builder: (ctx) =>
-                            AlertDialog(
-                              title: const Text("Сертификат сохранен успешно"),
-                              content: const Text(
-                                  "Для сохранения рулонов из сертификата перейдите на вкладку 'Сертификаты в ожидании'"),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(ctx).pop();
-                                  },
-                                  child: const Text("ОК"),
-                                ),
-                              ],
+                        builder: (ctx) => AlertDialog(
+                          title: const Text("Сертификат сохранен успешно"),
+                          content: const Text(
+                              "Для сохранения рулонов из сертификата перейдите на вкладку 'Сертификаты в ожидании'"),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(ctx).pop();
+                              },
+                              child: const Text("ОК"),
                             ),
+                          ],
+                        ),
                       );
                     }
-                  } else if (qrCode != '-1') {
-                    return showDialog(
-                      context: context,
-                      builder: (ctx) =>
-                          AlertDialog(
-                            title: const Text("Ошибка сохранения"),
-                            content: const Text(
-                                "Проверьте корректность сканируемого QR кода"),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(ctx).pop();
-                                },
-                                child: const Text("ОК"),
-                              ),
-                            ],
-                          ),
-                    );
                   } else {
                     return showDialog(
                       context: context,
-                      builder: (ctx) =>
-                          AlertDialog(
-                            title: const Text("Ошибка"),
-                            content: const Text(
-                                "Проверьте корректность сканируемого QR кода"),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(ctx).pop();
-                                },
-                                child: const Text("ОК"),
-                              ),
-                            ],
+                      builder: (ctx) => AlertDialog(
+                        title: const Text("Ошибка"),
+                        content: const Text("Проверьте корректность сканируемого QR кода"),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(ctx).pop();
+                            },
+                            child: const Text("ОК"),
                           ),
+                        ],
+                      ),
                     );
                   }
-                });
+                });;
               },
               child: const Text(
                 "Сканировать",
@@ -159,7 +139,7 @@ class _MainPageState extends State<MainPage> {
     late Future<Certificate?> result;
     try {
       final qrCode = await FlutterBarcodeScanner.scanBarcode(
-        '#ff6666',
+        '#ffffff',
         'Cancel',
         true,
         ScanMode.QR,

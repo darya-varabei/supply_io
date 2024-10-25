@@ -3,10 +3,8 @@ import 'dart:io';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:supply_io/pages/scans/add/main_scanner_page.dart';
 import 'package:supply_io/pages/user/login_page.dart';
 import 'package:supply_io/helpers/theme/app_theme.dart';
-import 'package:supply_io/service/service.dart';
 import 'helpers/portrait_mode.dart';
 
 void main() {
@@ -62,12 +60,7 @@ class MyApp extends StatelessWidget with PortraitModeMixin {
   }
 
   Future<Widget> widgetChoice() async {
-    bool? isUserLoggedIn = await Service.checkIfUserLogged();
-    //if (!isUserLoggedIn) {
       return const LoginPage();
-    //} else {
-      return MainPage(ScanOptions.package);
-  //  }
   }
 }
 

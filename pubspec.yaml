@@ -46,6 +46,8 @@ dependencies:
   # create QR Code
   barcode_widget: ^2.0.2
   lottie: ^1.2.1
+  qr_code_scanner: ^1.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -54,7 +54,7 @@ class _ScanResultListPageState extends State<ScanResultListPage> {
                           "Сертификат № ${result.number}",
                           textAlign: TextAlign.right,
                           style: TextStyle(
-                              fontSize: 28,
+                              fontSize: 16,
                               color: AppTheme.colors.darkGradient,
                               fontWeight: FontWeight.w400),
                         ),

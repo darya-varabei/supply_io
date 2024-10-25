@@ -282,59 +282,60 @@ class _PackageListParametersPageState extends State<PackageListParametersPage> {
                 child: Container(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                   child: Column(children: <Widget>[
-                    if (mode != PackageListMode.inProduction)
-                    TextButton(
-                      // padding:
-                      // const EdgeInsets.symmetric(vertical: 13, horizontal: 54),
-                      onPressed: () async {
-                        if (mode == PackageListMode.inUse) {
-                          setState(() {
-                            result.status = mode == PackageListMode.inWait
-                                ? "Имеется"
-                                : "В обработке";
-                          });
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      UpdateUseParametersPage(result.batch, result.packageId,  result.width, (result.net ?? 0) * 1.0 )
-                              ));
-                        } else {
-                          var requestResult = await Service
-                              .definePackageListAction(mode, result);
-                          if (requestResult == 404) {
-                            showMyDialog("Ошибка",
-                                "Не удается установить интернет соединение");
-                          } else if (requestResult != null) {
+                      TextButton(
+                        onPressed: () async {
+                          if (mode == PackageListMode.inUse) {
                             setState(() {
                               result.status = mode == PackageListMode.inWait
                                   ? "Имеется"
                                   : "В обработке";
                             });
-                            showMyDialog("Сохранено",
-                                "Сохранение выполнено успешно");
-                            Navigator.pop(context, result);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        UpdateUseParametersPage(
+                                            result.batch, result.packageId,
+                                            result.width,
+                                            (result.net ?? 0) * 1.0)
+                                ));
                           } else {
-                            showMyDialog(
-                                "Ошибка", "Не удается выполнить сохранение");
+                            var requestResult = await Service
+                                .definePackageListAction(mode, result);
+                            if (requestResult == 404) {
+                              showMyDialog("Ошибка",
+                                  "Не удается установить интернет соединение");
+                            } else if (requestResult != null) {
+                              setState(() {
+                                result.status = mode != PackageListMode.inUse
+                                    ? "Имеется"
+                                    : "В обработке";
+                              });
+                              showMyDialog("Сохранено",
+                                  "Сохранение выполнено успешно");
+                              Navigator.pop(context, result);
+                            } else {
+                              showMyDialog(
+                                  "Ошибка", "Не удается выполнить сохранение");
+                            }
+                            setState(() {
+                              result.status = mode != PackageListMode.inUse
+                                  ? "Имеется"
+                                  : "В обработке";
+                            });
+                            Navigator.pop(context, result);
                           }
-                          setState(() {
-                            result.status = mode == PackageListMode.inWait
-                                ? "Имеется"
-                                : "В обработке";
-                          });
-                          Navigator.pop(context, result);
-                        }
-                      },
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 54),
-                        backgroundColor: AppTheme.colors.blue,
-                        shape: StadiumBorder(),
-                      ), child: const Text(
-                      "Сохранить",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    ),
+                        },
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 13, horizontal: 24),
+                          backgroundColor: AppTheme.colors.blue,
+                          shape: StadiumBorder(),
+                        ), child: Text(
+                        mode == PackageListMode.inProduction ? "Вернуть из обработки" : "Сохранить",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      ),
                   ]),
                 )),
           ])));

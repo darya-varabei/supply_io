@@ -97,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ? "Неверный формат"
                                 : null,
                             decoration: InputDecoration(
-                              hintText: "Электронная почта",
+                              hintText: "Логин",
                               enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       color: AppTheme.colors.darkGradient

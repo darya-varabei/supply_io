@@ -6,7 +6,6 @@ import '../../model/user/login_model.dart';
 import '../lists/production_table_widget.dart';
 import '../scans/add/main_scanner_page.dart';
 import '../scans/use/use_scan_page.dart';
-import '../user/my_accounts_page.dart';
 import 'drawer_item.dart';
 
 class NavigationDrawer extends StatelessWidget {
@@ -95,13 +94,6 @@ class NavigationDrawer extends StatelessWidget {
                       name: 'Сертификаты в ожидании',
                       icon: Icons.filter_list,
                       onPressed: () => onItemPressed(context, index: 4)),
-                  // const SizedBox(
-                  //   height: 30,
-                  // ),
-                  // DrawerItem(
-                  //     name: 'Аккаунт',
-                  //     icon: Icons.person,
-                  //     onPressed: () => onItemPressed(context, index: 5)),
                   const SizedBox(
                     height: 30,
                   ),
@@ -116,7 +108,7 @@ class NavigationDrawer extends StatelessWidget {
                   DrawerItem(
                       name: 'Выйти',
                       icon: Icons.logout,
-                      onPressed: () => onItemPressed(context, index: 6)),
+                      onPressed: () => onItemPressed(context, index: 5)),
                   const SizedBox(
                     height: 30,
                   ),
@@ -166,44 +158,10 @@ class NavigationDrawer extends StatelessWidget {
                     const CertificatesInWaitListPage()));
         break;
       case 5:
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>  MyAccountsPage()));
-        break;
-      case 6:
         storage.write(key: "access_token", value: "");
         storage.write(key: "refresh_token", value: "");
         Navigator.of(context).popUntil((route) => route.isFirst);
         break;
     }
-  }
-
-  Widget headerWidget() {
-    const url =
-        'https://media.istockphoto.com/photos/learn-to-love-yourself-first-picture-id1291208214?b=1&k=20&m=1291208214&s=170667a&w=0&h=sAq9SonSuefj3d4WKy4KzJvUiLERXge9VgZO-oqKUOo=';
-    return Row(
-      children: [
-        const CircleAvatar(
-          radius: 40,
-          backgroundImage: NetworkImage(url),
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('',
-                style: TextStyle(fontSize: 14, color: AppTheme.colors.white)),
-            const SizedBox(
-              height: 10,
-            ),
-            Text('',
-                style: TextStyle(fontSize: 14, color: AppTheme.colors.white))
-          ],
-        )
-      ],
-    );
   }
 }

@@ -7,6 +7,7 @@ import 'package:supply_io/pages/report_defect_page.dart';
 import '../../../helpers/theme/app_theme.dart';
 import '../../../model/supply/package_model.dart';
 import '../../../service/service.dart';
+import '../../../ui_components/parameterContainer/parameter_container.dart';
 import '../../sidebar_new/navigation_drawer.dart';
 
 enum ParameterState {
@@ -42,7 +43,7 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
   }
 
   void moveToSecondPage() async {
-    PackageInUseModel packageInUse = PackageInUseModel(supplyDate: result.dateAdded, grade: result.grade, packageId: result.packageId, numberOfCertificate: certificateId,
+    PackageInUseModel packageInUse = PackageInUseModel(supplyDate: "", grade: result.grade, packageId: result.packageId, numberOfCertificate: certificateId,
         batch: result.batch, width: result.size?.width, thickness: result.size?.thickness, height: "${result.size?.length}",
         mill: "", coatingClass: "", sort: "", supplier: "", elongation: "", price: "", comment: "", status: result.status?.statusName);
     final resultDef = await Navigator.push(
@@ -109,156 +110,13 @@ class _PackageParametersPageState extends State<PackageParametersPage> {
                 ),
               ]),
             )),
-        Flexible(
-          flex: 1,
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
-            child: Row(children: <Widget>[
-              Text(
-                "Марка стали",
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    fontSize: 16,
-                    color: AppTheme.colors.darkGradient,
-                    fontWeight: FontWeight.w600),
-              ),
-              const Spacer(),
-              Text(
-                (result.grade ?? "") + " " + (result.destination ?? ""),
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    fontSize: 16,
-                    color: AppTheme.colors.darkGradient,
-                    fontWeight: FontWeight.w400),
-              ),
-            ]),
-          ),
-        ),
-        Flexible(
-          flex: 1,
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
-            child: Row(children: <Widget>[
-              Text(
-                "Производитель",
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    fontSize: 16,
-                    color: AppTheme.colors.darkGradient,
-                    fontWeight: FontWeight.w600),
-              ),
-              const Spacer(),
-              Text(
-                author,
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    fontSize: 16,
-                    color: AppTheme.colors.darkGradient,
-                    fontWeight: FontWeight.w400),
-              ),
-            ]),
-          ),
-        ),
-        Flexible(
-          flex: 1,
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
-            child: Row(children: <Widget>[
-              Text(
-                "Толщина",
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    fontSize: 16,
-                    color: AppTheme.colors.darkGradient,
-                    fontWeight: FontWeight.w600),
-              ),
-              const Spacer(),
-              Text(
-                "${result.size?.thickness}",
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    fontSize: 16,
-                    color: AppTheme.colors.darkGradient,
-                    fontWeight: FontWeight.w400),
-              ),
-            ]),
-          ),
-        ),
-        Flexible(
-          flex: 1,
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
-            child: Row(children: <Widget>[
-              Text(
-                "Ширина",
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    fontSize: 16,
-                    color: AppTheme.colors.darkGradient,
-                    fontWeight: FontWeight.w600),
-              ),
-              const Spacer(),
-              Text(
-                "${result.size?.width?.round()}",
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    fontSize: 16,
-                    color: AppTheme.colors.darkGradient,
-                    fontWeight: FontWeight.w400),
-              ),
-            ]),
-          ),
-        ),
-        Flexible(
-          flex: 1,
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
-            child: Row(children: <Widget>[
-              Text(
-                "Масса(брутто)",
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    fontSize: 16,
-                    color: AppTheme.colors.darkGradient,
-                    fontWeight: FontWeight.w600),
-              ),
-              const Spacer(),
-              Text(
-                "${result.weight?.gross?.round()}",
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    fontSize: 16,
-                    color: AppTheme.colors.darkGradient,
-                    fontWeight: FontWeight.w400),
-              ),
-            ]),
-          ),
-        ),
-        Flexible(
-          flex: 1,
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
-            child: Row(children: <Widget>[
-              Text(
-                "Масса(нетто)",
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    fontSize: 16,
-                    color: AppTheme.colors.darkGradient,
-                    fontWeight: FontWeight.w600),
-              ),
-              const Spacer(),
-              Text(
-                "${result.weight?.net?.round()}",
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    fontSize: 16,
-                    color: AppTheme.colors.darkGradient,
-                    fontWeight: FontWeight.w400),
-              ),
-            ]),
-          ),
-        ),
+            ParametersContainer(name: "Марка стали", value: (result.grade ?? "") + " " + (result.destination ?? "")),
+            ParametersContainer(name: "Производитель", value: author),
+            ParametersContainer(name: "Толщина", value: "${result.size?.thickness}"),
+            ParametersContainer(name: "Ширина", value: "${result.size?.width?.round()}"),
+            ParametersContainer(name: "Масса(брутто)", value: "${result.weight?.gross?.round()}"),
+            ParametersContainer(name: "Масса(нетто)", value: "${result.weight?.net?.round()}"),
+
         Flexible(
             flex: 2,
             child: Container(

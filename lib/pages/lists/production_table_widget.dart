@@ -26,7 +26,6 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
     Service.getPackagesInUse().then((certificatesFromServer) {
       setState(() {
         futureData = certificatesFromServer;
-       // filteredPackages = futureData;
       });
     });
   }
@@ -98,7 +97,7 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
                                           ]),
                                         Row(children: <Widget>[
                                           Text(
-                                            "Масса нетто ${futureData[index].weight?.round().toString()} кг,",
+                                            "Масса нетто ${futureData[index].net?.round().toString()} кг,",
                                             style: const TextStyle(
                                               fontSize: 10.0,
                                               color: Colors.grey,
@@ -113,13 +112,6 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
                                           ),
                                         ])
                                           ])
-                                        // Text(
-                                        //   unwrapText(filteredPackages[index].supplier),
-                                        //   style: const TextStyle(
-                                        //     fontSize: 14.0,
-                                        //     color: Colors.grey,
-                                        //   ),
-                                        // ),
                                       ],
                                     ),
                                   ),
@@ -137,25 +129,26 @@ class ProductionTableWidgetState extends State<ProductionTableWidget> {
     });
   }
 
-  Future<void> _navigateAndDisplaySelection(BuildContext context, int index) async {
-    final result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => PackageListParametersPage(futureData[index], PackageListMode.inProduction)
-          //if context.
-        ));
-    if (futureData[index].status == "С дефектом") {
-      setState(() {
-        futureData.removeAt(index);
-      });
-    }
-  }
-
   String unwrapText(String? text) {
     if (text != null) {
       return text;
     } else {
       return "";
+    }
+  }
+
+  Future<void> _navigateAndDisplaySelection(
+      BuildContext context, int index) async {
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PackageListParametersPage(
+                futureData[index], PackageListMode.inProduction)
+            ));
+    if (futureData[index].status == "С дефектом" || futureData[index].status == "Имеется") {
+      setState(() {
+        futureData.removeAt(index);
+      });
     }
   }
 }

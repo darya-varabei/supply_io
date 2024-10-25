@@ -153,6 +153,5 @@ class _PackagesInStockListPageState extends State<PackagesInStockListPage> {
         filteredPackages.removeAt(index);
       });
     }
-   // });
   }
 }

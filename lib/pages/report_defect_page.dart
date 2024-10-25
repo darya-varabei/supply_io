@@ -6,7 +6,6 @@ import 'package:supply_io/pages/sidebar_new/navigation_drawer.dart';
 import '../helpers/theme/app_theme.dart';
 import '../model/defect_model.dart';
 import '../model/supply/package_in_use_model.dart';
-import '../model/user/login_model.dart';
 
 import '../service/service.dart';
 
@@ -22,21 +21,7 @@ class ReportdDefectPage extends StatefulWidget {
 
 class _ReportdDefectPageState extends State<ReportdDefectPage> {
   List<File> images = [];
-  PackageInUseModel package = PackageInUseModel(
-      supplyDate: "",
-      grade: "08ПС",
-      numberOfCertificate: "44567",
-      width: 1240,
-      thickness: 1.2,
-      height: "23.4",
-      mill: null,
-      coatingClass: null,
-      sort: null,
-      supplier: "НЛМК",
-      elongation: null,
-      price: null,
-      comment: null,
-      status: "Имеется");
+  PackageInUseModel package;
   String description = "";
   Defect defect = Defect(rollId: 0, description: "", defectPhoto: []);
   TextEditingController messageController = TextEditingController();
@@ -104,9 +89,9 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
                             getImage();
                           },
                           style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
+                            shape: const RoundedRectangleBorder(
                                 borderRadius:
-                                const BorderRadius.all(Radius.circular(10.0))),
+                                BorderRadius.all(Radius.circular(10.0))),
                             foregroundColor: AppTheme.colors.blue,
                            backgroundColor: AppTheme.colors.white,
                           ),
@@ -182,11 +167,5 @@ class _ReportdDefectPageState extends State<ReportdDefectPage> {
     setState(() {
       images.add(File(pickerFile!.path));
     });
-  }
-
-  Future<String> getJwtOrEmpty() async {
-    var jwt = await storage.read(key: "jwt");
-    if (jwt == null) return "";
-    return jwt;
   }
 }

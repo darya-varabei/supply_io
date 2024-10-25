@@ -17,8 +17,56 @@ class UseRollPage extends StatefulWidget {
 }
 
 class _UseRollPageState extends State<UseRollPage> {
-  String qrCode = 'Unknown';
+  String qrCode = '-1';
   late Certificate result;
+
+  void setItem(String itemValue) {
+    qrCode = itemValue;
+    itemChanged();
+  }
+
+  void itemChanged() {
+    usingAction().then((value) {
+      if (value != null) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => UseScanResultListPage(value)));
+      } else if (qrCode != '-1') {
+        return showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text("Ошибка сохранения"),
+            content: const Text("Проверьте корректность сканируемого QR кода"),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+                child: const Text("ОК"),
+              ),
+            ],
+          ),
+        );
+      } else {
+        return showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text("Ошибка"),
+            content: const Text("Проверьте корректность сканируемого QR кода"),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+                child: const Text("ОК"),
+              ),
+            ],
+          ),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -46,64 +94,101 @@ class _UseRollPageState extends State<UseRollPage> {
                   child: const Text(
                       'Для регистрации обработки рулона отсканируйте QR код на упаковке. В случае получения результата в виде списка рулонов, выберите необходимый по идентификатору на этикетке и продолжите работу. После регистрации рулон переместится в список на вкладке "В обработке"',
                       style: TextStyle(fontSize: 14))),
-          Container(
-            padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
-          child: Row(children: <Widget>[
-              TextButton(
-                style: TextButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                backgroundColor: AppTheme.colors.blue,
-                shape: StadiumBorder(),
-          ),
-                onPressed: () {
-                  const CircularProgressIndicator();
-                  scanQRCode().then((value) {
-                    if (value != null) {
+              Container(
+                padding: const EdgeInsets.fromLTRB(15, 0, 15, 40),
+                child: Row(children: <Widget>[
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 30),
+                      backgroundColor: AppTheme.colors.blue,
+                      shape: StadiumBorder(),
+                    ),
+                    onPressed: () {
+                      const CircularProgressIndicator();
+                      scanQRCode().then((value) {
+                        if (value != null) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UseScanResultListPage(value)));
+                        } else if (qrCode != '-1') {
+                          return showDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                              title: const Text("Ошибка сохранения"),
+                              content: const Text("Проверьте корректность сканируемого QR кода"),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(ctx).pop();
+                                  },
+                                  child: const Text("ОК"),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return showDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                              title: const Text("Ошибка"),
+                              content: const Text("Проверьте корректность сканируемого QR кода"),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(ctx).pop();
+                                  },
+                                  child: const Text("ОК"),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      });
+                    },
+                    child: const Text(
+                      "Сканировать",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  const Spacer(),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 30),
+                      backgroundColor: AppTheme.colors.blue,
+                      shape: StadiumBorder(),
+                    ),
+                    onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  UseScanResultListPage(value)));
-                    }
-                  });
-                },
-                child: const Text(
-                  "Сканировать",
-                  style: TextStyle(color: Colors.white),
-                ),
+                                  const PackagesInStockListPage()));
+                    },
+                    child: const Text(
+                      "Список",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ]),
               ),
-            const Spacer(),
-            TextButton(
-              style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-              backgroundColor: AppTheme.colors.blue,
-              shape: StadiumBorder(),
-              ),
-              onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                             const PackagesInStockListPage()));
-              },
-              child: const Text(
-                "Список",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-  ]),
-          ),
               const SizedBox(height: 15),
             ],
           ),
         ),
       );
 
+  Future<Certificate?> usingAction() async {
+    return Service.sendUseByLink(qrCode);
+  }
+
   Future<Certificate?> scanQRCode() async {
     late Future<Certificate?> future;
     try {
       final qrCode = await FlutterBarcodeScanner.scanBarcode(
-        '#ff6666',
+        '#ffffff',
         'Cancel',
         true,
         ScanMode.QR,

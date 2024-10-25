@@ -8,6 +8,7 @@ import 'package:supply_io/pages/scans/add/package_list_parameters.dart';
 
 import '../model/defect_model.dart';
 import '../model/supply/certificate_model.dart';
+import '../model/supply/package_cut_model.dart';
 import '../model/supply/package_list_model.dart';
 import '../model/supply/package_model.dart';
 import '../model/user/login_model.dart';
@@ -60,25 +61,25 @@ class Service {
   }
 
   static Future<Certificate?> createByPackage(String url, bool isRepAllowed) async {
-    final Uri apiUrl = Uri.parse(
-        "${Endpoint.baseUrl}${Endpoint.addCertificate}");
+    final Uri apiUrl =
+        Uri.parse("${Endpoint.baseUrl}${Endpoint.addCertificate}");
 
     final startIndex = url.indexOf("http");
     final resUrl = url.substring(startIndex);
     final msg = jsonEncode({"link": resUrl});
 
-    final response = await http.post(apiUrl, headers: await header(), body: msg);
+    final response =
+        await http.post(apiUrl, headers: await header(), body: msg);
     if (response.statusCode < 400) {
       final String responseString = response.body;
       return Certificate.fromJson(jsonDecode(responseString));
     } else {
       if (isRepAllowed) {
-       createByPackage(resUrl, false);
-   } else {
-    return null;
+        createByPackage(resUrl, false);
+      } else {
+        return null;
+      }
     }
-
-  }
   }
 
   static Future<bool> checkIfUserLogged() async {
@@ -205,7 +206,7 @@ class Service {
       case PackageListMode.inUse:
         return sendUseById(package.packageId);
       case PackageListMode.inProduction:
-        return null;
+        return savePackageFromWait(package.packageId);
     }
   }
 
@@ -241,6 +242,21 @@ class Service {
       List<PackageList>? listDecoded = [];
       listDecoded = (json.decode(response.body) as List).map((i) =>
           PackageList.fromJson(i)).toList();
+      return listDecoded;
+    } else {
+      return List.empty();
+    }
+  }
+
+  static Future<List<PackageCut>> getPackagesInCut() async {
+    final Uri apiUrl = Uri.parse("${Endpoint.baseUrl}${Endpoint.getInStock}?status=Раскрой");
+
+    final response = await http.get(apiUrl, headers: await header());
+
+    if (response.statusCode < 400) {
+      List<PackageCut>? listDecoded = [];
+      listDecoded = (json.decode(response.body) as List).map((i) =>
+          PackageCut.fromJson(i)).toList();
       return listDecoded;
     } else {
       return List.empty();
